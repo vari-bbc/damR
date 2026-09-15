@@ -16,7 +16,14 @@ Roxygen: list(markdown = TRUE)
 Depends:
   R (>= 4.4)
 Imports:
-  data.table
+  ComplexHeatmap,
+  dplyr,
+  magrittr,
+  plotly,
+  RColorBrewer,
+  stringr,
+  tmvtnorm,
+  viridis
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

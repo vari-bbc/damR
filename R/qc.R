@@ -8,6 +8,12 @@
 #' @param allGroups input data
 #' @returns plotly PCA plot
 #'
+#' @importFrom grDevices colorRampPalette
+#' @importFrom graphics layout
+#' @importFrom plotly add_trace plot_ly
+#' @importFrom stats lm prcomp qnorm quantile sd setNames
+#' @importFrom utils read.csv
+#'
 #' @export
 QCPCAPlots <- function(
   TheData,
@@ -65,7 +71,7 @@ QCPCAPlots <- function(
     qcBlankDf <- pc.df[qcBlankMask, , drop = FALSE]
 
     if (nrow(qcBlankDf) > 0) {
-      PreQCPCAPlot <- PreQCPCAPlot %>%
+      PreQCPCAPlot <- PreQCPCAPlot |>
         add_trace(
           x = qcBlankDf[[xAxis]],
           y = qcBlankDf[[yAxis]],
@@ -86,7 +92,7 @@ QCPCAPlots <- function(
       next
     }
 
-    PreQCPCAPlot <- PreQCPCAPlot %>%
+    PreQCPCAPlot <- PreQCPCAPlot |>
       add_trace(
         x = groupDf[[xAxis]],
         y = groupDf[[yAxis]],
@@ -99,8 +105,8 @@ QCPCAPlots <- function(
       )
   }
 
-  PreQCPCAPlot <- PreQCPCAPlot %>%
-    layout(
+  PreQCPCAPlot <- PreQCPCAPlot |>
+    plotly::layout(
       xaxis = list(
         title = xAxis,
         tickfont = list(size = 10),
@@ -363,6 +369,11 @@ RemoveMissingness <- function(TheData) {
 
   # Get colors for annots
   mycolors <- list()
+  pals <- list(
+    RColorBrewer::brewer.pal(n = 3, "Set1"),
+    RColorBrewer::brewer.pal(n = 5, "Set2")
+  )
+
   for (i in 1:ncol(anno)) {
     newCols <- colorRampPalette(pals[[i]])
     mycols <- newCols(length(unique(anno[, i])))
@@ -462,7 +473,7 @@ impute.QRILC <- function(dataSet.mvs, tune.sigma = 1) {
     QR.obj[[i]] = temp.QR
     mean.CDD = temp.QR$coefficients[1]
     sd.CDD = as.numeric(temp.QR$coefficients[2])
-    data.to.imp = rtmvnorm(
+    data.to.imp = tmvtnorm::rtmvnorm(
       n = nFeatures,
       mean = mean.CDD,
       sigma = sd.CDD * tune.sigma,

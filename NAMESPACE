@@ -5,3 +5,19 @@ export(CheckData)
 export(QCPCAPlots)
 export(ReadFile)
 importFrom(dplyr,relocate)
+importFrom(grDevices,colorRampPalette)
+importFrom(graphics,layout)
+importFrom(magrittr,`%>%`)
+importFrom(plotly,
+  add_trace,
+  plot_ly
+)
+importFrom(stats,
+  lm,
+  prcomp,
+  qnorm,
+  quantile,
+  sd,
+  setNames
+)
+importFrom(utils,read.csv)
