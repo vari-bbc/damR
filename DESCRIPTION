@@ -18,7 +18,6 @@ Depends:
 Imports:
   ComplexHeatmap,
   dplyr,
-  magrittr,
   ggiraph,
   ggplot2,
   limma,
@@ -28,6 +27,6 @@ Imports:
   stringr,
   tmvtnorm,
   viridis
-Suggests: 
+Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
