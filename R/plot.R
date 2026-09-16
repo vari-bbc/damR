@@ -40,12 +40,12 @@ MakeVolcano <- function(theData, theAlpha = 0.05) {
   volc <- ggplot(
     theData,
     aes(
-      x = mod_logFC,
-      y = -log10(adj.P.Val),
-      color = Direction,
-      data_id = Compound,
-      tooltip = Compound,
-      label = Compound
+      x = .data$mod_logFC,
+      y = -log10(.data$adj.P.Val),
+      color = .data$Direction,
+      data_id = .data$Compound,
+      tooltip = .data$Compound,
+      label = .data$Compound
     )
   ) +
     geom_point_interactive(size = 2) +
