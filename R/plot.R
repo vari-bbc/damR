@@ -4,6 +4,10 @@
 #' @param theAlpha Alpha level
 #' @returns Volcano ggplot
 #'
+#' @importFrom ggiraph geom_point_interactive girafe girafe_options opts_selection
+#' @importFrom ggplot2 aes facet_wrap geom_hline ggplot ggtitle labs scale_color_manual theme theme_minimal ylab
+#' @importFrom rlang .data
+#'
 #' @export
 MakeVolcano <- function(theData, theAlpha) {
   maxAbsLogFC <- max(abs(theData$logFC), na.rm = TRUE)
@@ -91,6 +95,8 @@ MakeVolcano <- function(theData, theAlpha) {
 #' @param ebayesFit The fit data, padjusted?
 #' @param theAlpha Alpha level
 #' @returns A list of plots and data
+#'
+#' @importFrom ggiraph girafe_css opts_selection opts_sizing
 #'
 #' @export
 MakeAllVolcanoes <- function(theContrasts, ebayesFit, theAlpha) {

@@ -19,9 +19,12 @@ Imports:
   ComplexHeatmap,
   dplyr,
   magrittr,
+  ggiraph,
+  ggplot2,
   limma,
   plotly,
   RColorBrewer,
+  rlang,
   stringr,
   tmvtnorm,
   viridis

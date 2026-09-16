@@ -12,6 +12,26 @@ export(ReadFile)
 export(RemoveMissingness)
 export(impute.QRILC)
 importFrom(dplyr,relocate)
+importFrom(ggiraph,
+  geom_point_interactive,
+  girafe,
+  girafe_css,
+  girafe_options,
+  opts_selection,
+  opts_sizing
+)
+importFrom(ggplot2,
+  aes,
+  facet_wrap,
+  geom_hline,
+  ggplot,
+  ggtitle,
+  labs,
+  scale_color_manual,
+  theme,
+  theme_minimal,
+  ylab
+)
 importFrom(grDevices,colorRampPalette)
 importFrom(graphics,layout)
 importFrom(limma,
@@ -25,6 +45,7 @@ importFrom(plotly,
   add_trace,
   plot_ly
 )
+importFrom(rlang,.data)
 importFrom(stats,
   lm,
   model.matrix,
