@@ -4,12 +4,21 @@
 \alias{FitTheData}
 \title{Fit model with limma}
 \usage{
-FitTheData(TheData, theContrasts)
+FitTheData(
+  TheData,
+  theContrasts,
+  contrastLevel = "Group",
+  repeated_measures = "no"
+)
 }
 \arguments{
 \item{TheData}{The cleaned? data}
 
 \item{theContrasts}{The contrasts for comparison}
+
+\item{contrastLevel}{The level for contrasts?}
+
+\item{repeated_measures}{Were there repeated measures?}
 }
 \value{
 ebayes fit from limma

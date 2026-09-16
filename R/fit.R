@@ -20,13 +20,20 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle) {
 #'
 #' @param TheData The cleaned? data
 #' @param theContrasts The contrasts for comparison
+#' @param contrastLevel The level for contrasts?
+#' @param repeated_measures Were there repeated measures?
 #' @returns ebayes fit from limma
 #'
 #' @importFrom limma contrasts.fit duplicateCorrelation eBayes lmFit topTable
 #' @importFrom stats model.matrix p.adjust
 #'
 #' @export
-FitTheData <- function(TheData, theContrasts) {
+FitTheData <- function(
+  TheData,
+  theContrasts,
+  contrastLevel = "Group",
+  repeated_measures = "no"
+) {
   metaboliteCols <- 7:ncol(TheData)
 
   colnames(TheData) <- make.names(colnames(TheData))
