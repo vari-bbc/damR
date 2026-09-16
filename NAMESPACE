@@ -2,12 +2,16 @@
 
 export(BlankFilter)
 export(CheckData)
+export(FitTheData)
+export(MakeTheContrasts)
+export(QCData)
 export(QCPCAPlots)
 export(ReadFile)
+export(RemoveMissingness)
+export(impute.QRILC)
 importFrom(dplyr,relocate)
 importFrom(grDevices,colorRampPalette)
 importFrom(graphics,layout)
-importFrom(magrittr,`%>%`)
 importFrom(plotly,
   add_trace,
   plot_ly
