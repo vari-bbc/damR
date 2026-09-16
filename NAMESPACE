@@ -14,16 +14,28 @@ export(impute.QRILC)
 importFrom(dplyr,relocate)
 importFrom(grDevices,colorRampPalette)
 importFrom(graphics,layout)
+importFrom(limma,
+  contrasts.fit,
+  duplicateCorrelation,
+  eBayes,
+  lmFit,
+  topTable
+)
 importFrom(plotly,
   add_trace,
   plot_ly
 )
 importFrom(stats,
   lm,
+  model.matrix,
+  p.adjust,
   prcomp,
   qnorm,
   quantile,
   sd,
   setNames
 )
-importFrom(utils,read.csv)
+importFrom(utils,
+  combn,
+  read.csv
+)

@@ -4,6 +4,8 @@
 #' @param comparisonsTitle Name for the contrasts
 #' @returns A named list with contrasts in the form A-B
 #'
+#' @importFrom utils combn
+#'
 #' @export
 MakeTheContrasts <- function(comparisonSelections, comparisonsTitle) {
   res <- combn(comparisonSelections, 2) |>
@@ -19,6 +21,9 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle) {
 #' @param TheData The cleaned? data
 #' @param theContrasts The contrasts for comparison
 #' @returns ebayes fit from limma
+#'
+#' @importFrom limma contrasts.fit duplicateCorrelation eBayes lmFit topTable
+#' @importFrom stats model.matrix p.adjust
 #'
 #' @export
 FitTheData <- function(TheData, theContrasts) {
