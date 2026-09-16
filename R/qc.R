@@ -273,9 +273,9 @@ BlankFilter <- function(TheData, blankFoldThreshold = 5, metadataCols = 6) {
 #' change a simple subtraction.
 #'
 #' @param TheData input data
+#' @param blankFilter Whether to run blank filtering
 #' @param blankFoldThreshold Fold change threshold below which data are
 #' considered blanks
-#' @param metadataCols Column index of metadata
 #'
 #' @export
 QCData <- function(TheData, blankFilter = FALSE, blankFoldThreshold = 5) {

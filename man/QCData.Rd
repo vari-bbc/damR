@@ -9,10 +9,10 @@ QCData(TheData, blankFilter = FALSE, blankFoldThreshold = 5)
 \arguments{
 \item{TheData}{input data}
 
+\item{blankFilter}{Whether to run blank filtering}
+
 \item{blankFoldThreshold}{Fold change threshold below which data are
 considered blanks}
-
-\item{metadataCols}{Column index of metadata}
 }
 \description{
 Blank filter
