@@ -17,7 +17,14 @@ ReadFile <- function(filePath) {
   theData$Subgroup2 <- NA
   theData$Batch <- NA
   theData = theData |>
-    relocate(SampleID, Group, Subgroup1, Subgroup2, Batch, .after = 'Sample')
+    relocate(
+      "SampleID",
+      "Group",
+      "Subgroup1",
+      "Subgroup2",
+      "Batch",
+      .after = 'Sample'
+    )
 
   # Fill out info
   i <- 1

@@ -99,7 +99,7 @@ pAdjustData <- function(ebayesFit, theContrasts) {
       data.frame(
         Compound = compounds,
         Contrast = unlist(theContrasts)[i],
-        subset(compoundTable, select = c(logFC, adj.P.Val))
+        subset(compoundTable, select = c("logFC", "adj.P.Val"))
       ),
       row.names = NULL
     )
