@@ -9,7 +9,7 @@
 #' @importFrom rlang .data
 #'
 #' @export
-MakeVolcano <- function(theData, theAlpha) {
+MakeVolcano <- function(theData, theAlpha = 0.05) {
   maxAbsLogFC <- max(abs(theData$logFC), na.rm = TRUE)
   if (!is.finite(maxAbsLogFC) || maxAbsLogFC == 0) {
     maxAbsLogFC <- 1

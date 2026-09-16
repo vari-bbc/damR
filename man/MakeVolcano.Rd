@@ -4,7 +4,7 @@
 \alias{MakeVolcano}
 \title{Volcano plot}
 \usage{
-MakeVolcano(theData, theAlpha)
+MakeVolcano(theData, theAlpha = 0.05)
 }
 \arguments{
 \item{theData}{The cleaned? fit? data}
