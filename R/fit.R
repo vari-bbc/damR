@@ -2,13 +2,14 @@
 #'
 #' @param comparisonSelections Vector of groups to compare
 #' @param comparisonsTitle Name for the contrasts
+#' @param prefix Optional prefix to add to each contrast level. Used for limma contrasts
 #' @returns A named list with contrasts in the form A-B
 #'
 #' @importFrom utils combn
 #'
 #' @export
-MakeTheContrasts <- function(comparisonSelections, comparisonsTitle) {
-  res <- combn(comparisonSelections, 2) |>
+MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = "") {
+  res <- combn(paste0(prefix, comparisonSelections), 2) |>
     apply(2, paste, collapse = " - ") |>
     list(... = _)
   names(res) <- comparisonsTitle
@@ -52,10 +53,7 @@ FitTheData <- function(
   print(ys[1:5, 1:8])
 
   # Get named vector with contrasts named by the title given
-  contrasts.design <- sapply(strsplit(unlist(theContrasts), " "), function(x) {
-    x[nchar(x) > 1] = paste0("contrastLevel", x[nchar(x) > 1])
-    return(paste(x, collapse = " "))
-  })
+  contrasts.design <- MakeTheContrasts(theContrasts, contrastTitle, prefix = "contrastLevel")
 
   # lmFit the metabolite data using the model above
   set.seed(111)
