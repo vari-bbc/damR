@@ -16,10 +16,9 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = ""
   res
 }
 
-
 #' Fit model with limma
 #'
-#' @param TheData The QC'd and imputed `data.frame`
+#' @param cleanData The QC'd and imputed `data.frame`
 #' @param theContrasts Vector of groups names to contrast
 #' @param contrastTitle A title for the contrasts groups used for plot titles
 #' @param contrastLevel The column from the data containing contrasts levels
@@ -31,27 +30,21 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = ""
 #'
 #' @export
 FitTheData <- function(
-  TheData,
+  cleanData,
   theContrasts,
   contrastTitle,
   contrastLevel = "Group",
   repeated_measures = "no"
 ) {
-  colnames(TheData) <- make.names(colnames(TheData))
+  colnames(cleanData) <- make.names(colnames(cleanData))
   meta_cols <- c("Sample", "SampleID", "Group", paste0("Subgroup", 1:2), "Batch")
-  metaboliteCols <- which(colnames(TheData) %notin% meta_cols)
+  metaboliteCols <- which(colnames(cleanData) %notin% meta_cols)
 
-  TheData$contrastLevel <- TheData[, contrastLevel]
+  cleanData$contrastLevel <- cleanData[, contrastLevel]
 
-  # Make model
-  # ERW
-  design <- model.matrix(~ 0 + contrastLevel, data = TheData)
-
-  # Remove non metabolite cols and flip dataframe
-  # ERW
-  ys <- data.frame(t(TheData[, metaboliteCols]))
-
-  print(ys[1:5, 1:8])
+  design <- model.matrix(~ 0 + contrastLevel, data = cleanData) # ERW Make model
+  num_data <- data.frame(t(cleanData[, metaboliteCols])) # ERW Remove non metabolite cols and flip dataframe
+  print(num_data[1:5, 1:8])
 
   # Get named vector with contrasts named by the title given
   contrasts.design <- MakeTheContrasts(theContrasts, contrastTitle, prefix = "contrastLevel")
@@ -60,31 +53,23 @@ FitTheData <- function(
   set.seed(111)
   if (repeated_measures == "yes") {
     # if repeated, then you need a duplicate correlation in your lmfit
-    block <- TheData$Replicate
-    duplCorl <- duplicateCorrelation(ys, design, block = block)
+    block <- cleanData$Replicate
+    duplCorl <- duplicateCorrelation(num_data, design, block = block)
 
     fit <- lmFit(
-      ys,
+      num_data,
       design,
       block = block,
       correlation = duplCorl$consensus.correlation
     )
   } else {
-    fit <- lmFit(ys, design)
+    fit <- lmFit(num_data, design)
   }
 
   # Make the contrasts to use with our fit using our contrasts and the model
   cont <- limma::makeContrasts(contrasts = contrasts.design, levels = design)
-
-  # Get estimated coefficients and standard errors
-  set.seed(111)
-  fit2 <- contrasts.fit(fit, cont)
-
-  # Get t-stats, f-stat, and log odds
-  set.seed(111)
-  ebayesFit <- eBayes(fit2, trend = TRUE, robust = TRUE)
-
-  return(ebayesFit)
+  fit2 <- contrasts.fit(fit, cont) # Get estimated coefficients and standard errors
+  eBayes(fit2, trend = TRUE, robust = TRUE) # Get t-stats, f-stat, and log odds
 }
 
 

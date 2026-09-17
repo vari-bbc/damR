@@ -5,7 +5,7 @@
 \title{Fit model with limma}
 \usage{
 FitTheData(
-  TheData,
+  cleanData,
   theContrasts,
   contrastTitle,
   contrastLevel = "Group",
@@ -13,7 +13,7 @@ FitTheData(
 )
 }
 \arguments{
-\item{TheData}{The QC'd and imputed \code{data.frame}}
+\item{cleanData}{The QC'd and imputed \code{data.frame}}
 
 \item{theContrasts}{Vector of groups names to contrast}
 
