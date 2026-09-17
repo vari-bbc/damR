@@ -34,7 +34,8 @@ FitTheData <- function(
   contrastLevel = "Group",
   repeated_measures = "no"
 ) {
-  metaboliteCols <- 7:ncol(TheData)
+  meta_cols <- c("Sample", "SampleID", "Group", paste0("Subgroup", 1:2), "Batch")
+  metaboliteCols <- which(colnames(TheData) %notin% meta_cols)
 
   colnames(TheData) <- make.names(colnames(TheData))
 
