@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(metabbclomics)
+library(metaboapp)
 
-test_check("metabbclomics")
+test_check("metaboapp")
