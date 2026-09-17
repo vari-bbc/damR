@@ -4,15 +4,16 @@
 \alias{CheckData}
 \title{Check that the data contains the required columns}
 \usage{
-CheckData(theData)
+CheckData(input_data)
 }
 \arguments{
-\item{theData}{Data read by ReadFile}
+\item{input_data}{\code{data.frame} of the input data from \code{read.csv}.}
 }
 \value{
-error message to be passed onto Shiny; FALSE if no errors
+input_data \code{data.frame} of the input data if no errors are found
 }
 \description{
-Check that the data contains the required columns
+Checks that the Sample column is present and none of its identifiers have
+more than 1 dash character
 }
 \keyword{internal}

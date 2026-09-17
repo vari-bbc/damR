@@ -13,6 +13,7 @@
 #' @export
 ReadFile <- function(filePath) {
   read.csv(filePath) |>
+    CheckData() |>
     tidyr::separate("Sample", into = c("SampleID", "Group", "Batch"), sep = "_", remove = FALSE) |>
     tidyr::separate("Group", into = c("Subgroup1", "Subgroup2"), sep = "-", remove = FALSE) |>
     dplyr::mutate("Group" = gsub("-", "_", .data$Group))
@@ -20,34 +21,20 @@ ReadFile <- function(filePath) {
 
 #' Check that the data contains the required columns
 #'
-#' @param theData Data read by ReadFile
-#' @returns error message to be passed onto Shiny; FALSE if no errors
+#' Checks that the Sample column is present and none of its identifiers have
+#' more than 1 dash character
+#'
+#' @param input_data `data.frame` of the input data from `read.csv`.
+#' @returns input_data `data.frame` of the input data if no errors are found
 #'
 #' @export
 #' @keywords internal
-CheckData <- function(theData) {
-  errorText <- "Data Errors:\n"
-  isErrors <- FALSE
-
-  # Check if the data has "Sample" column
-  if (!"Sample" %in% colnames(theData)) {
-    errorText <- paste0(errorText, "The data must contain a 'Sample' column.\n")
-    isErrors <- TRUE
-  }
-
-  # Check if the sample column has more than one dash in each entry
-  if (any(stringr::str_count(theData$Sample, "-") > 1)) {
-    errorText <- paste0(
-      errorText,
-      "Each entry in the 'Sample' column must have a max of one dash (max of two conditions).\n"
+CheckData <- function(input_data) {
+  stopifnot("The data must contain a 'Sample' column." = "Sample" %in% colnames(input_data))
+  stopifnot(
+    "Each 'Sample' column entry may contain only one dash (max of two conditions)" = all(
+      stringr::str_count(input_data$Sample, "-") == 1
     )
-    isErrors <- TRUE
-  }
-
-  #if any errors, return the error text, otherwise return the data
-  if (isErrors) {
-    return(errorText)
-  } else {
-    return(FALSE)
-  }
+  )
+  input_data
 }
