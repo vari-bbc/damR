@@ -25,6 +25,7 @@ Imports:
   RColorBrewer,
   rlang,
   stringr,
+  tidyr,
   tmvtnorm,
   viridis
 Suggests:
