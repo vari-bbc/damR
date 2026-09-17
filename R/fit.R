@@ -19,9 +19,10 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = ""
 
 #' Fit model with limma
 #'
-#' @param TheData The cleaned? data
-#' @param theContrasts The contrasts for comparison
-#' @param contrastLevel The level for contrasts?
+#' @param TheData The QC'd and imputed `data.frame`
+#' @param theContrasts Vector of groups names to contrast
+#' @param contrastTitle A title for the contrasts groups used for plot titles
+#' @param contrastLevel The column from the data containing contrasts levels
 #' @param repeated_measures Were there repeated measures?
 #' @returns ebayes fit from limma
 #'
@@ -32,6 +33,7 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = ""
 FitTheData <- function(
   TheData,
   theContrasts,
+  contrastTitle,
   contrastLevel = "Group",
   repeated_measures = "no"
 ) {

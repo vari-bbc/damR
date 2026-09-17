@@ -7,16 +7,19 @@
 FitTheData(
   TheData,
   theContrasts,
+  contrastTitle,
   contrastLevel = "Group",
   repeated_measures = "no"
 )
 }
 \arguments{
-\item{TheData}{The cleaned? data}
+\item{TheData}{The QC'd and imputed \code{data.frame}}
 
-\item{theContrasts}{The contrasts for comparison}
+\item{theContrasts}{Vector of groups names to contrast}
 
-\item{contrastLevel}{The level for contrasts?}
+\item{contrastTitle}{A title for the contrasts groups used for plot titles}
+
+\item{contrastLevel}{The column from the data containing contrasts levels}
 
 \item{repeated_measures}{Were there repeated measures?}
 }
