@@ -9,7 +9,7 @@
 #' @export
 MakeTheContrasts <- function(comparisonSelections, comparisonsTitle) {
   res <- combn(comparisonSelections, 2) |>
-    apply(2, paste, collapse = "-") |>
+    apply(2, paste, collapse = " - ") |>
     list(... = _)
   names(res) <- comparisonsTitle
   res
