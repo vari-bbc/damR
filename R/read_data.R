@@ -1,59 +1,22 @@
 #' Read and process input data file
 #'
-#' @param filePath Path to the input file
-#' @returns Processed data.frame
+#' @details
+#' Splits the Sample column by `"_"` into SampleID, Group and Batch columns.
+#' Then splits the Group column Subgroup1 and Subgroup2 on `"-"`. The `"-"` in
+#' the Group column is replaced with `"_"` to prevent issues with making
+#' contrasts that need a `"-"` to delineate between contrast groups.
 #'
-#' @importFrom dplyr relocate
+#' @param filePath Input file path @returns Processed data.frame
+#'
+#' @importFrom rlang .data
 #'
 #' @export
 ReadFile <- function(filePath) {
-  theData <- read.csv(filePath, check.names = FALSE)
-
-  ## Pull sample info ----
-  # Set up for seperating sample into info
-  theData$SampleID <- NA
-  theData$Group <- NA
-  theData$Subgroup1 <- NA
-  theData$Subgroup2 <- NA
-  theData$Batch <- NA
-  theData = theData |>
-    relocate(
-      "SampleID",
-      "Group",
-      "Subgroup1",
-      "Subgroup2",
-      "Batch",
-      .after = 'Sample'
-    )
-
-  # Fill out info
-  i <- 1
-  for (i in 1:length(theData$Sample)) {
-    # Seperate sample by splitting by "_"
-    theSample <- theData$Sample[i]
-    theSplit <- unlist(strsplit(theSample, "_"))
-
-    # First is sampleID, last is batch
-    theData[i, "SampleID"] <- theSplit[1]
-    theData[i, "Batch"] <- theSplit[length(theSplit)]
-
-    # Combine middle and split by "-" to get subgroup
-    thegroups <- theSplit[2:(length(theSplit) - 1)]
-    allGroups <- paste0(thegroups, collapse = "_")
-    groupSplit <- unlist(strsplit(allGroups, "-"))
-
-    # Group is allGroups with the dash as an underscore
-    allGroups <- gsub("-", "_", allGroups)
-    theData[i, "Group"] <- allGroups
-
-    # Subgroups are from the group split with a max of 2
-    theData[i, "Subgroup1"] <- groupSplit[1]
-    theData[i, "Subgroup2"] <- groupSplit[2]
-  }
-
-  return(theData)
+  read.csv(filePath) |>
+    tidyr::separate("Sample", into = c("SampleID", "Group", "Batch"), sep = "_", remove = FALSE) |>
+    tidyr::separate("Group", into = c("Subgroup1", "Subgroup2"), sep = "-", remove = FALSE) |>
+    dplyr::mutate("Group" = gsub("-", "_", .data$Group))
 }
-
 
 #' Check that the data contains the required columns
 #'

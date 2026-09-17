@@ -7,11 +7,14 @@
 ReadFile(filePath)
 }
 \arguments{
-\item{filePath}{Path to the input file}
-}
-\value{
-Processed data.frame
+\item{filePath}{Input file path @returns Processed data.frame}
 }
 \description{
 Read and process input data file
+}
+\details{
+Splits the Sample column by \code{"_"} into SampleID, Group and Batch columns.
+Then splits the Group column Subgroup1 and Subgroup2 on \code{"-"}. The \code{"-"} in
+the Group column is replaced with \code{"_"} to prevent issues with making
+contrasts that need a \code{"-"} to delineate between contrast groups.
 }
