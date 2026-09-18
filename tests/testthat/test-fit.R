@@ -17,3 +17,23 @@ test_that("MakeTheContrasts", {
     )
   )
 })
+
+test_that("FitTheData", {
+  exdata <- system.file(package = "metabbclomics") |>
+    file.path("extdata") |>
+    list.files("example_data.csv", full.names = TRUE) |>
+    ReadFile()
+  qc_data <- QCData(exdata)$TheData
+  complete_data <- RemoveMissingness(qc_data)[[1]]
+  complete_data[, 7:ncol(complete_data)] <- impute.QRILC(
+    complete_data[, 7:ncol(complete_data)]
+  )[[1]]
+  expect_no_error(
+    ebayes.fit <- FitTheData(
+      complete_data,
+      c("AMW20p_AMW20q", "AMW20p_AMW20s", "BDp_AMW20s"),
+      "title"
+    )
+  )
+  expect_s4_class(ebayes.fit, "MArrayLM")
+})
