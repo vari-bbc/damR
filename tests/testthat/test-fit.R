@@ -1,19 +1,24 @@
 test_that("MakeTheContrasts", {
   expect_equal(
     MakeTheContrasts(LETTERS[1:4], "contrast_title"),
-    list(contrast_title = c("A - B", "A - C", "A - D", "B - C", "B - D", "C - D"))
+    c(
+      contrast_title1 = "A - B",
+      contrast_title2 = "A - C",
+      contrast_title3 = "A - D",
+      contrast_title4 = "B - C",
+      contrast_title5 = "B - D",
+      contrast_title6 = "C - D"
+    )
   )
   expect_equal(
     MakeTheContrasts(LETTERS[1:4], "contrast_title", "Group"),
-    list(
-      contrast_title = c(
-        "GroupA - GroupB",
-        "GroupA - GroupC",
-        "GroupA - GroupD",
-        "GroupB - GroupC",
-        "GroupB - GroupD",
-        "GroupC - GroupD"
-      )
+    c(
+      contrast_title1 = "GroupA - GroupB",
+      contrast_title2 = "GroupA - GroupC",
+      contrast_title3 = "GroupA - GroupD",
+      contrast_title4 = "GroupB - GroupC",
+      contrast_title5 = "GroupB - GroupD",
+      contrast_title6 = "GroupC - GroupD"
     )
   )
 })
