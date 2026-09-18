@@ -9,12 +9,12 @@ MakeTheContrasts(comparisonSelections, comparisonsTitle, prefix = "")
 \arguments{
 \item{comparisonSelections}{Vector of groups to compare}
 
-\item{comparisonsTitle}{Name for the contrasts}
+\item{comparisonsTitle}{Name prefix for the contrasts entries, suffixed by their index}
 
 \item{prefix}{Optional prefix to add to each contrast level. Used for limma contrasts}
 }
 \value{
-A named list with contrasts in the form A-B
+A named vector with contrasts in the form A - B
 }
 \description{
 Produce contrasts from comparisons

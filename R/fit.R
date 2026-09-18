@@ -1,18 +1,17 @@
 #' Produce contrasts from comparisons
 #'
 #' @param comparisonSelections Vector of groups to compare
-#' @param comparisonsTitle Name for the contrasts
+#' @param comparisonsTitle Name prefix for the contrasts entries, suffixed by their index
 #' @param prefix Optional prefix to add to each contrast level. Used for limma contrasts
-#' @returns A named list with contrasts in the form A-B
+#' @returns A named vector with contrasts in the form A - B
 #'
 #' @importFrom utils combn
 #'
 #' @export
 MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = "") {
   res <- combn(paste0(prefix, comparisonSelections), 2) |>
-    apply(2, paste, collapse = " - ") |>
-    list(... = _)
-  names(res) <- comparisonsTitle
+    apply(2, paste, collapse = " - ")
+  names(res) <- paste0(comparisonsTitle, seq(length(res)))
   res
 }
 
