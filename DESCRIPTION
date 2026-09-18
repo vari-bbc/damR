@@ -25,6 +25,7 @@ Imports:
   RColorBrewer,
   rlang,
   stringr,
+  tibble,
   tidyr,
   tmvtnorm,
   viridis

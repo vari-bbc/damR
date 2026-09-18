@@ -75,34 +75,20 @@ FitTheData <- function(
 #' Mulitple testing correction
 #'
 #' @param ebayesFit The fit from FitTheData
-#' @param theContrasts The contrasts for comparison
-#' @returns P-adjusted fit
+#' @param comparisonSelections Vector of groups to compare
+#' @param comparisonsTitle Name prefix for the contrasts entries, suffixed by their index
+#' @returns `data.frame` of topTable hits with adjusted P-values and logFC
 #'
-pAdjustData <- function(ebayesFit, theContrasts) {
-  # Create succinct table to p-adjust
-  adjustedData <- NULL
-  for (i in 1:length(unlist(theContrasts))) {
-    compoundTable <- topTable(
-      ebayesFit,
-      adjust.method = "none",
-      p.value = 1,
-      number = Inf,
-      coef = i
-    )
-    compounds <- rownames(compoundTable)
-    adjustedData <- rbind(
-      adjustedData,
-      data.frame(
-        Compound = compounds,
-        Contrast = unlist(theContrasts)[i],
-        subset(compoundTable, select = c("logFC", "adj.P.Val"))
-      ),
-      row.names = NULL
-    )
-  }
+pAdjustData <- function(ebayesFit, comparisonSelections, comparisonsTitle) {
+  contrastLabels <- MakeTheContrasts(comparisonSelections, comparisonsTitle)
 
-  # Do the p-adjustment
-  adjustedData$adj.P.Val <- p.adjust(adjustedData$adj.P.Val, method = "BH")
-
-  return(adjustedData)
+  tt_list <- lapply(seq_along(contrastLabels), function(i) {
+    tt <- topTable(ebayesFit, adjust.method = "none", p.value = 1, number = Inf, coef = i)
+    tt$Contrast <- contrastLabels[i]
+    tibble::rownames_to_column(tt, "Compound")
+  })
+  do.call(rbind, tt_list) |>
+    dplyr::select(c("Compound", "Contrast", "logFC", "adj.P.Val")) |>
+    dplyr::mutate(adj.P.Val = p.adjust(.data$adj.P.Val, method = "BH")) |>
+    as.data.frame()
 }
