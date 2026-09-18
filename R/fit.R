@@ -79,6 +79,7 @@ FitTheData <- function(
 #' @param comparisonsTitle Name prefix for the contrasts entries, suffixed by their index
 #' @returns `data.frame` of topTable hits with adjusted P-values and logFC
 #'
+#' @export
 pAdjustData <- function(ebayesFit, comparisonSelections, comparisonsTitle) {
   contrastLabels <- MakeTheContrasts(comparisonSelections, comparisonsTitle)
 

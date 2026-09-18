@@ -11,6 +11,7 @@ export(QCPCAPlots)
 export(ReadFile)
 export(RemoveMissingness)
 export(impute.QRILC)
+export(pAdjustData)
 importFrom(ggiraph,
   geom_point_interactive,
   girafe,
