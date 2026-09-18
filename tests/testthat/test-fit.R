@@ -19,7 +19,7 @@ test_that("MakeTheContrasts", {
 })
 
 test_that("FitTheData", {
-  exdata <- system.file(package = "metabbclomics") |>
+  exdata <- system.file(package = "metaboapp") |>
     file.path("extdata") |>
     list.files("example_data.csv", full.names = TRUE) |>
     ReadFile()
