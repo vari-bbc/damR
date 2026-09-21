@@ -72,7 +72,7 @@ FitTheData <- function(
 }
 
 
-#' Mulitple testing correction
+#' Multiple testing correction within contrasts
 #'
 #' @param ebayesFit The fit from FitTheData
 #' @param comparisonSelections Vector of groups to compare
@@ -84,12 +84,11 @@ pAdjustData <- function(ebayesFit, comparisonSelections, comparisonsTitle) {
   contrastLabels <- MakeTheContrasts(comparisonSelections, comparisonsTitle)
 
   tt_list <- lapply(seq_along(contrastLabels), function(i) {
-    tt <- topTable(ebayesFit, adjust.method = "none", p.value = 1, number = Inf, coef = i)
+    tt <- topTable(ebayesFit, adjust.method = "BH", p.value = 1, number = Inf, coef = i)
     tt$Contrast <- contrastLabels[i]
     tibble::rownames_to_column(tt, "Compound")
   })
   do.call(rbind, tt_list) |>
     dplyr::select(c("Compound", "Contrast", "logFC", "adj.P.Val")) |>
-    dplyr::mutate(adj.P.Val = p.adjust(.data$adj.P.Val, method = "BH")) |>
     as.data.frame()
 }

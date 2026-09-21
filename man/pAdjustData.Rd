@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit.R
 \name{pAdjustData}
 \alias{pAdjustData}
-\title{Mulitple testing correction}
+\title{Multiple testing correction within contrasts}
 \usage{
 pAdjustData(ebayesFit, comparisonSelections, comparisonsTitle)
 }
@@ -17,5 +17,5 @@ pAdjustData(ebayesFit, comparisonSelections, comparisonsTitle)
 \code{data.frame} of topTable hits with adjusted P-values and logFC
 }
 \description{
-Mulitple testing correction
+Multiple testing correction within contrasts
 }
