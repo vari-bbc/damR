@@ -49,7 +49,6 @@ FitTheData <- function(
   contrasts.design <- MakeTheContrasts(theContrasts, contrastTitle, prefix = "contrastLevel")
 
   # lmFit the metabolite data using the model above
-  set.seed(111)
   if (repeated_measures == "yes") {
     # if repeated, then you need a duplicate correlation in your lmfit
     block <- cleanData$Replicate
