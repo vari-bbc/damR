@@ -6,7 +6,8 @@
 #' the Group column is replaced with `"_"` to prevent issues with making
 #' contrasts that need a `"-"` to delineate between contrast groups.
 #'
-#' @param filePath Input file path @returns Processed data.frame
+#' @param filePath Input file path
+#' @returns Processed data.frame
 #'
 #' @importFrom rlang .data
 #'

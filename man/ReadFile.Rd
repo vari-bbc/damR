@@ -7,7 +7,10 @@
 ReadFile(filePath)
 }
 \arguments{
-\item{filePath}{Input file path @returns Processed data.frame}
+\item{filePath}{Input file path}
+}
+\value{
+Processed data.frame
 }
 \description{
 Read and process input data file
