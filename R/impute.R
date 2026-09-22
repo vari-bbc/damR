@@ -2,10 +2,8 @@
 #'
 #' @param dataSet.mvs Missingness filtered numeric matrix from `RemoveMissingness()`
 #' @param tune.sigma coefficient that controls the sd of the MNAR distribution
-#                        - tune.sigma = 1 if the complete data distribution is supposed
-#                          to be gaussian
-#                        - 0 < tune.sigma < 1 if the complete data distribution is
-#                          supposed to be left-censored
+#    - tune.sigma = 1 if the complete data distribution is supposed to be gaussian
+#    - 0 < tune.sigma < 1 if the complete data distribution is supposed to be left-censored
 #'
 #' @returns Matrix with NA values replaced by imputed values
 #'
