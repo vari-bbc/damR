@@ -37,5 +37,12 @@ CheckData <- function(input_data) {
       stringr::str_count(input_data$Sample, "-") == 1
     )
   )
+  isNumeric <- input_data[, which(colnames(input_data) != "Sample")] |>
+    as.matrix() |>
+    is.numeric()
+  stopifnot("The data columns must all be numeric" = isNumeric)
+  input_data
+}
+
   input_data
 }
