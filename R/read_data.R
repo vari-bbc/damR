@@ -17,7 +17,8 @@ ReadFile <- function(filePath) {
     CheckData() |>
     tidyr::separate("Sample", into = c("SampleID", "Group", "Batch"), sep = "_", remove = FALSE) |>
     tidyr::separate("Group", into = c("Subgroup1", "Subgroup2"), sep = "-", remove = FALSE) |>
-    dplyr::mutate("Group" = gsub("-", "_", .data$Group))
+    dplyr::mutate("Group" = gsub("-", "_", .data$Group)) |>
+    LogTransform()
 }
 
 #' Check that the data contains the required columns
@@ -44,5 +45,16 @@ CheckData <- function(input_data) {
   input_data
 }
 
+#' log2 transform the data
+#'
+#' @param input_data Processed data.frame
+#' @returns Log transformed data.fame with all values <= 0 converted to NA
+#'
+#' @export
+#' @keywords internal
+LogTransform <- function(input_data) {
+  m <- as.matrix(input_data[, 7:ncol(input_data)])
+  m[!is.na(m) & m <= 0] <- NA
+  input_data[, 7:ncol(input_data)] <- log2(m)
   input_data
 }

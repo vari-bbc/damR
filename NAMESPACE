@@ -3,6 +3,7 @@
 export(BlankFilter)
 export(CheckData)
 export(FitTheData)
+export(LogTransform)
 export(MakeAllVolcanoes)
 export(MakeTheContrasts)
 export(MakeVolcano)
