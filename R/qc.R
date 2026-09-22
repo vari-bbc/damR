@@ -340,7 +340,6 @@ QCData <- function(TheData, blankFilter = FALSE, blankFoldThreshold = 5) {
 #'
 #' @export
 RemoveMissingness <- function(TheData) {
-  TheData <- TheData
   metaboliteCols <- 7:ncol(TheData)
 
   # Turn 0s back into NA
