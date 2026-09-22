@@ -11,6 +11,7 @@
 #'
 #' @export
 impute.QRILC <- function(filtered.mat, tune.sigma = 1) {
+  filtered.mat <- as.matrix(filtered.mat)
   nFeatures <- dim(filtered.mat)[1]
   nSamples <- dim(filtered.mat)[2]
   imputed.mat <- apply(filtered.mat, 2, .imputer, nFeatures, nSamples, tune.sigma)
