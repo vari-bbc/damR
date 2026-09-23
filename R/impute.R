@@ -1,6 +1,6 @@
 #' QRILC imputation
 #'
-#' @param dataSet.mvs Missingness filtered numeric matrix from `RemoveMissingness()`
+#' @param filtered.mat Missingness filtered numeric matrix of metabolites
 #' @param tune.sigma coefficient that controls the sd of the MNAR distribution
 #    - tune.sigma = 1 if the complete data distribution is supposed to be gaussian
 #    - 0 < tune.sigma < 1 if the complete data distribution is supposed to be left-censored

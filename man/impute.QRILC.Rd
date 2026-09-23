@@ -7,9 +7,9 @@
 impute.QRILC(filtered.mat, tune.sigma = 1)
 }
 \arguments{
-\item{tune.sigma}{coefficient that controls the sd of the MNAR distribution}
+\item{filtered.mat}{Missingness filtered numeric matrix of metabolites}
 
-\item{dataSet.mvs}{Missingness filtered numeric matrix from \code{RemoveMissingness()}}
+\item{tune.sigma}{coefficient that controls the sd of the MNAR distribution}
 }
 \value{
 Matrix with NA values replaced by imputed values
