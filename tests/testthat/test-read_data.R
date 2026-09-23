@@ -1,15 +1,11 @@
-ex_data <- system.file("extdata", package = "metaboapp") |>
-  list.files("example_data.csv", full.names = TRUE)
-
 test_that("ReadFile", {
-  input_data <- ReadFile(ex_data)
+  input_data <- ReadFile(exdata_path)
   expected_colnames <- c("Sample", "SampleID", "Group", "Subgroup1", "Subgroup2", "Batch")
   expect_equal(colnames(input_data)[1:6], expected_colnames)
 })
 
 test_that("CheckData", {
   # no sample column
-  input_data <- read.csv(ex_data)
   missing_sample <- input_data[, -1]
 
   # extra dash in one sample id

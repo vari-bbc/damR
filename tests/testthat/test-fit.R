@@ -24,10 +24,7 @@ test_that("MakeTheContrasts", {
 })
 
 test_that("FitTheData", {
-  exdata <- system.file(package = "metaboapp") |>
-    file.path("extdata") |>
-    list.files("example_data.csv", full.names = TRUE) |>
-    ReadFile()
+  exdata <- ReadFile(exdata_path)
   qc_data <- QCData(exdata)$TheData
   complete_data <- RemoveMissingness(qc_data, IdentifyMissing(qc_data, 0.75))
   complete_data[, 7:ncol(complete_data)] <- impute.QRILC(
