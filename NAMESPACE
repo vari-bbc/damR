@@ -4,12 +4,14 @@ export(.getAnnoColors)
 export(BlankFilter)
 export(CheckData)
 export(FitTheData)
+export(GetPCA)
 export(IdentifyMissing)
 export(LogTransform)
 export(MakeAllVolcanoes)
 export(MakeTheContrasts)
 export(MakeVolcano)
 export(PlotMissingness)
+export(PlotPCA)
 export(QCData)
 export(QCPCAPlots)
 export(ReadFile)
@@ -28,6 +30,7 @@ importFrom(ggplot2,
   aes,
   facet_wrap,
   geom_hline,
+  geom_point,
   ggplot,
   ggtitle,
   labs,
