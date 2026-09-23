@@ -29,7 +29,7 @@ test_that("FitTheData", {
     list.files("example_data.csv", full.names = TRUE) |>
     ReadFile()
   qc_data <- QCData(exdata)$TheData
-  complete_data <- RemoveMissingness(qc_data)[[1]]
+  complete_data <- RemoveMissingness(qc_data, IdentifyMissing(qc_data, 0.75))
   complete_data[, 7:ncol(complete_data)] <- impute.QRILC(
     complete_data[, 7:ncol(complete_data)]
   )[[1]]
