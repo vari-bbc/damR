@@ -11,14 +11,13 @@
 impute.QRILC <- function(filtered.mat, tune.sigma = 1) {
   filtered.mat <- as.matrix(filtered.mat)
   nFeatures <- dim(filtered.mat)[1]
-  nSamples <- dim(filtered.mat)[2]
-  imputed.mat <- apply(filtered.mat, 2, .imputer, nFeatures, nSamples, tune.sigma)
+  imputed.mat <- apply(filtered.mat, 2, .imputer, nFeatures, tune.sigma)
   na.locations <- which(is.na(filtered.mat), arr.ind = TRUE)
   filtered.mat[na.locations] <- imputed.mat[na.locations]
   filtered.mat
 }
 
-.imputer <- function(metabolite, nFeatures, nSamples, tune.sigma) {
+.imputer <- function(metabolite, nFeatures, tune.sigma) {
   pNAs <- mean(is.na(metabolite))
   if (pNAs == 0) {
     return(metabolite)
