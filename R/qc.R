@@ -209,25 +209,43 @@ QCPCAPlots <- function(
 #' @param metadataCols Column index of metadata
 #'
 #' @export
+
 BlankFilter <- function(TheData, blankFoldThreshold = 5, metadataCols = 6) {
   metaboliteCols <- (metadataCols + 1):ncol(TheData)
   threshold <- log2(blankFoldThreshold)
 
-  emptyTable <- data.frame(
-    Metabolite = character(),
-    Samples = character(),
-    stringsAsFactors = FALSE
-  )
+  emptyTable <- data.frame(Metabolite = character(), Samples = character(), stringsAsFactors = FALSE)
 
-  # Process blanks follow the same "PB" prefix convention QCData uses to drop controls
-  isBlank <- substr(TheData$Group, 1, 2) == "PB" |
-    substr(TheData$SampleID, 1, 2) == "PB"
+  # Process blanks are matched two ways so either naming convention is picked up:
+  # a leading "PB" (the prefix QCData uses to drop controls) or the word "blank"
+  # anywhere in the group or sample ID, which is how the exports actually name them
+  # ("TC_Blank-process_1" parses to SampleID "TC", Group "Blank_process", so the
+  # PB prefix alone never matched it). Case insensitive, and "PB" is anchored so it
+  # can't hit a group that merely contains those letters.
+  blankPattern <- "^PB|blank"
+  isBlank <- grepl(blankPattern, TheData$Group, ignore.case = TRUE) |
+    grepl(blankPattern, TheData$SampleID, ignore.case = TRUE)
   isBlank[is.na(isBlank)] <- FALSE
 
   if (!any(isBlank)) {
-    print("Blank filtering requested but no PB samples were found; skipping.")
-    return(list(TheData = TheData, blankTable = emptyTable, blankCount = 0))
+    print("Blank filtering requested but no process blank samples were found; skipping.")
+    return(list(
+      TheData = TheData,
+      blankTable = emptyTable,
+      blankCount = 0,
+      blanksFound = FALSE,
+      perBatch = FALSE,
+      fallbackBatches = character()
+    ))
   }
+
+  # QCData drops every TC/PB/QC row immediately after this function returns, so
+  # those rows must be left alone: filtering them would otherwise put removals for
+  # samples that never reach the analysis (the QC pools especially) into the table.
+  controlPrefixes <- c("TC", "PB", "QC")
+  isControl <- isBlank |
+    substr(TheData$Group, 1, 2) %in% controlPrefixes |
+    substr(TheData$SampleID, 1, 2) %in% controlPrefixes
 
   # Working copy for the comparison only. NAs count as 0 here, matching the
   # reference implementation; they stay NA in TheData itself.
@@ -235,23 +253,37 @@ BlankFilter <- function(TheData, blankFoldThreshold = 5, metadataCols = 6) {
   storage.mode(e) <- "numeric"
   e[is.na(e)] <- 0
 
-  # Compare each sample against the blanks run in its own batch
-  sampleBatches <- as.character(TheData$Batch)
+  # Compare each sample against the blanks run in its own batch.
+  # Leading zeros are stripped first: samples carry batch "01"/"02"/"03" while the
+  # controls carry "1"/"2"/"3", so matching them as plain strings meant no batch
+  # ever contained a blank and every batch quietly fell back to the pooled blanks.
+  sampleBatches <- trimws(as.character(TheData$Batch))
   sampleBatches[sampleBatches %in% c("NA", "")] <- NA
+  # Only normalise purely numeric batches, so text batch names are left as typed
+  numericBatch <- !is.na(sampleBatches) & grepl("^[0-9]+$", sampleBatches)
+  sampleBatches[numericBatch] <- as.character(as.numeric(sampleBatches[numericBatch]))
   batches <- sort(unique(sampleBatches[!is.na(sampleBatches)]))
 
-  if (length(batches) > 0 && any(isBlank & !is.na(sampleBatches))) {
+  # Batches that had no blank of their own, so the pooled blanks stood in. Only
+  # worth reporting for batches holding real samples; a batch of controls only
+  # gets dropped regardless.
+  fallbackBatches <- character()
+
+  # FALSE when there is no usable batch information at all and every sample is
+  # compared against the pooled blanks
+  perBatch <- length(batches) > 0 && any(isBlank & !is.na(sampleBatches))
+
+  if (perBatch) {
     for (batch in batches) {
       batchRows <- !is.na(sampleBatches) & sampleBatches == batch
       batchBlankRows <- batchRows & isBlank
 
       # Reference version errors here; in the app fall back to the pooled blanks
       if (sum(batchBlankRows) < 1) {
-        print(paste0(
-          "No PB sample found for batch ",
-          batch,
-          "; using all blanks instead."
-        ))
+        print(paste0("No process blank found for batch ", batch, "; using all blanks instead."))
+        if (any(batchRows & !isControl)) {
+          fallbackBatches <- c(fallbackBatches, batch)
+        }
         batchBlankRows <- isBlank
       }
 
@@ -266,7 +298,7 @@ BlankFilter <- function(TheData, blankFoldThreshold = 5, metadataCols = 6) {
   # Flag every sample value that did not clear its blank by the required fold change
   lowSignal <- e < threshold
   lowSignal[is.na(lowSignal)] <- FALSE
-  lowSignal[isBlank, ] <- FALSE
+  lowSignal[isControl, ] <- FALSE
 
   ## Apply to the real data ----
   beforeBlank <- as.matrix(TheData[, metaboliteCols, drop = FALSE])
@@ -291,9 +323,7 @@ BlankFilter <- function(TheData, blankFoldThreshold = 5, metadataCols = 6) {
     )
 
     # Base R rather than dplyr::summarise, since plyr is loaded after dplyr and masks it
-    collapsed <- tapply(removed$Sample, removed$Metabolite, function(x) {
-      paste(x, collapse = ", ")
-    })
+    collapsed <- tapply(removed$Sample, removed$Metabolite, function(x) paste(x, collapse = ", "))
     blankTable <- data.frame(
       Metabolite = names(collapsed),
       Samples = as.character(collapsed),
@@ -304,18 +334,15 @@ BlankFilter <- function(TheData, blankFoldThreshold = 5, metadataCols = 6) {
     blankTable <- emptyTable
   }
 
-  print(paste0(
-    "Blank filtering set ",
-    nrow(removedIdx),
-    " values across ",
-    nrow(blankTable),
-    " metabolites to NA."
-  ))
+  print(paste0("Blank filtering set ", nrow(removedIdx), " values across ", nrow(blankTable), " metabolites to NA."))
 
   return(list(
     TheData = TheData,
     blankTable = blankTable,
-    blankCount = nrow(removedIdx)
+    blankCount = nrow(removedIdx),
+    blanksFound = TRUE,
+    perBatch = perBatch,
+    fallbackBatches = fallbackBatches
   ))
 }
 
@@ -347,18 +374,22 @@ QCData <- function(TheData, blankFilter = FALSE, blankFoldThreshold = 5) {
 
   ## Blank filtration ----
   # Must run before the PB rows are dropped below, since it needs the blanks
-  blankTable <- data.frame(
-    Metabolite = character(),
-    Samples = character(),
-    stringsAsFactors = FALSE
-  )
+  blankTable <- data.frame(Metabolite = character(), Samples = character(), stringsAsFactors = FALSE)
   blankCount <- 0
+  # Tracks whether any blanks were actually found, so the app can tell "the filter
+  # ran and nothing failed the threshold" apart from "the filter never ran"
+  blanksFound <- FALSE
+  perBatch <- FALSE
+  fallbackBatches <- character()
 
   if (isTRUE(blankFilter)) {
     blankList <- BlankFilter(TheData, blankFoldThreshold = blankFoldThreshold)
     TheData <- blankList$TheData
     blankTable <- blankList$blankTable
     blankCount <- blankList$blankCount
+    blanksFound <- isTRUE(blankList$blanksFound)
+    perBatch <- isTRUE(blankList$perBatch)
+    fallbackBatches <- blankList$fallbackBatches
   }
 
   # Remove any groups and SampleIDs with TC, PB, or QC as first two letters
@@ -366,9 +397,7 @@ QCData <- function(TheData, blankFilter = FALSE, blankFoldThreshold = 5) {
   TheData <- TheData[!substr(TheData$SampleID, 1, 2) %in% c("TC", "PB", "QC"), ]
 
   # Trim metabolite numbers whitespace and force numeric
-  TheData[, metaboliteCols] <- sapply(TheData[, metaboliteCols], function(x) {
-    as.numeric(trimws(x))
-  })
+  TheData[, metaboliteCols] <- sapply(TheData[, metaboliteCols], function(x) as.numeric(trimws(x)))
 
   # Find Zero Variance function
   zeroVar <- function(x) {
@@ -389,6 +418,9 @@ QCData <- function(TheData, blankFilter = FALSE, blankFoldThreshold = 5) {
   return(list(
     TheData = TheData,
     blankTable = blankTable,
-    blankCount = blankCount
+    blankCount = blankCount,
+    blanksFound = blanksFound,
+    perBatch = perBatch,
+    fallbackBatches = fallbackBatches
   ))
 }
