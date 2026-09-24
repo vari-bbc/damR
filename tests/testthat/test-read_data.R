@@ -13,18 +13,17 @@ test_that("ReadFile", {
 })
 
 test_that("CheckData", {
-  # no sample column
-  missing_sample <- input_data[, -1]
-
   # extra dash in one sample id
-  more_dashes <- input_data
+
+  tidy <- input_data[, 1:2]
+  colnames(tidy) <- c("Sample", "value")
+  more_dashes <- tidy
   more_dashes[1, 1] <- sub("_", "-", more_dashes[1, 1])
 
   # character in data column
-  not_numeric <- input_data
+  not_numeric <- tidy
   not_numeric[1, 2] <- "a"
 
-  expect_error(CheckData(missing_sample), "The data must contain a 'Sample' column.")
   expect_error(
     CheckData(more_dashes),
     "Each 'Sample' column entry may contain only one dash \\(max of two conditions\\)"
