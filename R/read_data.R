@@ -5,21 +5,42 @@
 #' Then splits the Group column Subgroup1 and Subgroup2 on `"-"`. The `"-"` in
 #' the Group column is replaced with `"_"` to prevent issues with making
 #' contrasts that need a `"-"` to delineate between contrast groups. Any lines
-#' starting with '#' are ignored to avoid reading template formatting.
+#' starting with '#' are ignored to avoid reading template formatting. All
+#' values <= 0 are set to NA and other values log2 transformed.
 #'
 #' @param filePath Input file path
 #' @returns Processed data.frame
 #'
-#' @importFrom rlang .data
+#' @importFrom data.table fcase fread `%like%` melt setcolorder tstrsplit
 #'
 #' @export
 ReadFile <- function(filePath) {
-  read.csv(filePath, comment.char = "#") |>
-    CheckData() |>
-    tidyr::separate("Sample", into = c("SampleID", "Group", "Batch"), sep = "_", remove = FALSE) |>
-    tidyr::separate("Group", into = c("Subgroup1", "Subgroup2"), sep = "-", remove = FALSE) |>
-    dplyr::mutate("Group" = gsub("-", "_", .data$Group)) |>
-    LogTransform()
+  df.wide <- fread(filePath, comment.char = "#")
+  df.tidy <- melt(df.wide, id.vars = "Sample", variable.name = "Metabolite")[
+    value <= 0,
+    value := NA
+  ] # drop 0 and less so no log2(<=0)
+
+  CheckData(df.tidy)
+
+  # split up Sample column
+  df.tidy[, c("SampleID", "Group", "Batch") := tstrsplit(x, "_"), env = list(x = "Sample")] |>
+    _[, paste0("Subgroup", 1:2) := tstrsplit(x, "-"), env = list(x = "Group")] |>
+    _[, "Group" := gsub("-", "_", x), env = list(x = "Group")] |>
+    _[,
+      # get IP vs HILICA
+      "type" := fcase(
+        x %like% "_IP$"     , "IP"      ,
+        x %like% "_HILICA$" , "_HILICA" ,
+        default = NA
+      ),
+      env = list(x = "Metabolite")
+    ]
+  # return log2 values
+  df.tidy[, "value" := log2(x), env = list(x = "value")]
+  cols <- c("Sample", "SampleID", "Group", "Subgroup1", "Subgroup2", "Batch", "Metabolite", "type", "value")
+  setcolorder(df.tidy, cols)
+  df.tidy
 }
 
 #' Check that the data contains the required columns

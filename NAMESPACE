@@ -6,7 +6,6 @@ export(CheckData)
 export(FitTheData)
 export(GetPCA)
 export(IdentifyMissing)
-export(LogTransform)
 export(MakeAllVolcanoes)
 export(MakeTheContrasts)
 export(MakeVolcano)
@@ -18,6 +17,14 @@ export(ReadFile)
 export(RemoveMissingness)
 export(impute.QRILC)
 export(pAdjustData)
+importFrom(data.table,
+  `%like%`,
+  fcase,
+  fread,
+  melt,
+  setcolorder,
+  tstrsplit
+)
 importFrom(ggiraph,
   geom_point_interactive,
   girafe,

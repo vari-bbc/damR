@@ -20,5 +20,6 @@ Splits the Sample column by \code{"_"} into SampleID, Group and Batch columns.
 Then splits the Group column Subgroup1 and Subgroup2 on \code{"-"}. The \code{"-"} in
 the Group column is replaced with \code{"_"} to prevent issues with making
 contrasts that need a \code{"-"} to delineate between contrast groups. Any lines
-starting with '#' are ignored to avoid reading template formatting.
+starting with '#' are ignored to avoid reading template formatting. All
+values <= 0 are set to NA and other values log2 transformed.
 }
