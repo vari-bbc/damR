@@ -36,7 +36,7 @@ CheckData <- function(input_data) {
   stopifnot("The data must contain a 'Sample' column." = "Sample" %in% colnames(input_data))
   stopifnot(
     "Each 'Sample' column entry may contain only one dash (max of two conditions)" = all(
-      stringr::str_count(input_data$Sample, "-") == 1
+      stringi::stri_count_fixed(input_data$Sample, "-") == 1
     )
   )
   isNumeric <- input_data[, which(colnames(input_data) != "Sample")] |>

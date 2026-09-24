@@ -24,7 +24,7 @@ Imports:
   plotly,
   RColorBrewer,
   rlang,
-  stringr,
+  stringi,
   tibble,
   tidyr,
   tmvtnorm,
