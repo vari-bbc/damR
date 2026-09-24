@@ -33,29 +33,11 @@ ReadFile <- function(filePath) {
 #' @export
 #' @keywords internal
 CheckData <- function(input_data) {
-  stopifnot("The data must contain a 'Sample' column." = "Sample" %in% colnames(input_data))
   stopifnot(
     "Each 'Sample' column entry may contain only one dash (max of two conditions)" = all(
       stringi::stri_count_fixed(input_data$Sample, "-") == 1
     )
   )
-  isNumeric <- input_data[, which(colnames(input_data) != "Sample")] |>
-    as.matrix() |>
-    is.numeric()
-  stopifnot("The data columns must all be numeric" = isNumeric)
-  input_data
-}
-
-#' log2 transform the data
-#'
-#' @param input_data Processed data.frame
-#' @returns Log transformed data.fame with all values <= 0 converted to NA
-#'
-#' @export
-#' @keywords internal
-LogTransform <- function(input_data) {
-  m <- as.matrix(input_data[, 7:ncol(input_data)])
-  m[!is.na(m) & m <= 0] <- NA
-  input_data[, 7:ncol(input_data)] <- log2(m)
-  input_data
+  stopifnot("The data columns must all be numeric" = is.numeric(input_data$value))
+  invisible(NULL)
 }
