@@ -4,7 +4,8 @@
 #' Splits the Sample column by `"_"` into SampleID, Group and Batch columns.
 #' Then splits the Group column Subgroup1 and Subgroup2 on `"-"`. The `"-"` in
 #' the Group column is replaced with `"_"` to prevent issues with making
-#' contrasts that need a `"-"` to delineate between contrast groups.
+#' contrasts that need a `"-"` to delineate between contrast groups. Any lines
+#' starting with '#' are ignored to avoid reading template formatting.
 #'
 #' @param filePath Input file path
 #' @returns Processed data.frame
@@ -13,7 +14,7 @@
 #'
 #' @export
 ReadFile <- function(filePath) {
-  read.csv(filePath) |>
+  read.csv(filePath, comment.char = "#") |>
     CheckData() |>
     tidyr::separate("Sample", into = c("SampleID", "Group", "Batch"), sep = "_", remove = FALSE) |>
     tidyr::separate("Group", into = c("Subgroup1", "Subgroup2"), sep = "-", remove = FALSE) |>

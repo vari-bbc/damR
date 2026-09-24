@@ -19,5 +19,6 @@ Read and process input data file
 Splits the Sample column by \code{"_"} into SampleID, Group and Batch columns.
 Then splits the Group column Subgroup1 and Subgroup2 on \code{"-"}. The \code{"-"} in
 the Group column is replaced with \code{"_"} to prevent issues with making
-contrasts that need a \code{"-"} to delineate between contrast groups.
+contrasts that need a \code{"-"} to delineate between contrast groups. Any lines
+starting with '#' are ignored to avoid reading template formatting.
 }
