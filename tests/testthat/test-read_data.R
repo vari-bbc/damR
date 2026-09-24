@@ -1,7 +1,15 @@
 test_that("ReadFile", {
-  input_data <- ReadFile(exdata_path)
+  read_in_data <- ReadFile(exdata_path)
   expected_colnames <- c("Sample", "SampleID", "Group", "Subgroup1", "Subgroup2", "Batch")
-  expect_equal(colnames(input_data)[1:6], expected_colnames)
+  expect_equal(colnames(read_in_data)[1:6], expected_colnames)
+
+  # test that #-starting lines are ignored
+  comment_file <- file.path(extdata, "comment_data.csv")
+  comment_unfiltered <- read.csv(comment_file)
+  comment_filtered <- ReadFile(comment_file)
+  expect_equal(nrow(comment_unfiltered), 5) # test of the test file to ensure row count
+  expect_equal(nrow(comment_filtered), 4)
+  expect_all_false(grepl("^#", comment_filtered$Sample))
 })
 
 test_that("CheckData", {
