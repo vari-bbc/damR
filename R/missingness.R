@@ -5,28 +5,27 @@
 #' metabolite should be dropped
 #' @returns Vector of metabolite names below the threshold
 #'
+#' @importFrom collapse fgroup_by fmean fmutate fsubset fsummarise fungroup recode_num
+#'
 #' @export
 IdentifyMissing <- function(qcData, presence_threshold = 0.75) {
-  metaboliteCols <- 7:ncol(qcData)
-
-  metab.mat <- as.matrix(qcData[, metaboliteCols])
-  metab.mat[metab.mat == 0] <- NA # Turn 0s back into NA -?
-  pa.mat <- ifelse(is.na(metab.mat), 0, 1)
-
-  pPresent <- apply(pa.mat, 2, function(x) sum(x) / length(x))
-  names(pPresent[pPresent < presence_threshold])
+  value <- pPresent <- NULL
+  noZero <- recode_num(qcData, `0` = NA)
+  prop.present <- fgroup_by(noZero, "Metabolite") |>
+    fsummarise("pPresent" = 1 - fmean(is.na(value)))
+  fsubset(prop.present, pPresent < presence_threshold)[["Metabolite"]]
 }
 
 
 #' Remove missing data
 #'
 #' @param qcData input data
-#' @param dropCols Column names of metabolites to drop
-#' @returns A list of data with missing values removed, and missingness heatmap and table
+#' @param dropMetabolite Names of metabolites to drop
+#' @returns Data with specified metabolites removed
 #'
 #' @export
-RemoveMissingness <- function(qcData, dropCols) {
-  qcData[, !colnames(qcData) %in% dropCols]
+RemoveMissingness <- function(qcData, dropMetabolite) {
+  fsubset(qcData, Metabolite %notin% dropMetabolite)
 }
 
 

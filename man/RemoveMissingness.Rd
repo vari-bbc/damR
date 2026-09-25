@@ -4,15 +4,15 @@
 \alias{RemoveMissingness}
 \title{Remove missing data}
 \usage{
-RemoveMissingness(qcData, dropCols)
+RemoveMissingness(qcData, dropMetabolite)
 }
 \arguments{
 \item{qcData}{input data}
 
-\item{dropCols}{Column names of metabolites to drop}
+\item{dropMetabolite}{Names of metabolites to drop}
 }
 \value{
-A list of data with missing values removed, and missingness heatmap and table
+Data with specified metabolites removed
 }
 \description{
 Remove missing data

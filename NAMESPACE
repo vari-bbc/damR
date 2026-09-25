@@ -17,6 +17,19 @@ export(ReadFile)
 export(RemoveMissingness)
 export(impute.QRILC)
 export(pAdjustData)
+importFrom(collapse,
+  fgroup_by,
+  fmean,
+  fmutate,
+  fselect,
+  fsubset,
+  fsummarise,
+  fungroup,
+  get_vars,
+  num_vars,
+  pivot,
+  recode_num
+)
 importFrom(data.table,
   `%like%`,
   fcase,
