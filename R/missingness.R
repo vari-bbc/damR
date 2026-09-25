@@ -33,18 +33,24 @@ RemoveMissingness <- function(qcData, dropMetabolite) {
 #'
 #' @param qcData Input data that has been QC'd
 #' @param anno.pal RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors
-#'
 #' @returns ComplexHeatmap::pheatmap
+#'
+#' @importFrom collapse fmutate fselect get_vars num_vars pivot
+#'
 #' @export
 PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2")) {
-  pmat <- qcData[, 7:ncol(qcData)] |> as.matrix() |> t()
-  pmat[!is.na(pmat)] <- 1
-  pmat[is.na(pmat)] <- 0
-  colnames(pmat) <- qcData$Sample
+  value <- NULL
 
-  anno <- qcData[, c("Subgroup1", "Subgroup2")]
-  rownames(anno) <- qcData$Sample
+  cols <- c("Sample", paste0("Subgroup", 1:2), "Metabolite", "value")
+  data.bin.wide <- fselect(qcData, cols) |>
+    fmutate(value = ifelse(is.na(value), 0, 1)) |>
+    pivot(how = "wider", names = "Metabolite")
+  metab.cols <- num_vars(data.bin.wide, return = "names")
+  pmat <- fselect(data.bin.wide, c("Sample", metab.cols)) |>
+    as.matrix(rownames = "Sample") |>
+    t()
 
+  anno <- get_vars(data.bin.wide, "Subgroup", regex = TRUE)
   anno.colors <- .getAnnoColors(anno, anno.pal)
   .plotMissingHeatmap(pmat, anno, anno.colors)
 }
