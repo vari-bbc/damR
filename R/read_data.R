@@ -17,9 +17,9 @@
 ReadFile <- function(filePath) {
   df.wide <- fread(filePath, comment.char = "#")
   df.tidy <- melt(df.wide, id.vars = "Sample", variable.name = "Metabolite")[
-    value <= 0,
+    value == 0,
     value := NA
-  ] # drop 0 and less so no log2(<=0)
+  ] # drop 0 so no log2(0)
 
   CheckData(df.tidy)
 
@@ -60,5 +60,6 @@ CheckData <- function(input_data) {
     )
   )
   stopifnot("The data columns must all be numeric" = is.numeric(input_data$value))
+  stopifnot("The data columns must all be positive" = all(input_data$value >= 0, na.rm = TRUE))
   invisible(NULL)
 }
