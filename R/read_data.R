@@ -40,7 +40,7 @@ ReadFile <- function(filePath) {
   df.tidy[, "value" := log2(x), env = list(x = "value")]
   cols <- c("Sample", "SampleID", "Group", "Subgroup1", "Subgroup2", "Batch", "Metabolite", "type", "value")
   setcolorder(df.tidy, cols)
-  df.tidy
+  df.tidy[]
 }
 
 #' Check that the data contains the required columns
