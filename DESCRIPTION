@@ -17,6 +17,7 @@ Depends:
   R (>= 4.4)
 Imports:
   ComplexHeatmap,
+  collapse,
   dplyr,
   ggiraph,
   ggplot2,
@@ -26,7 +27,6 @@ Imports:
   rlang,
   stringi,
   tibble,
-  tidyr,
   tmvtnorm,
   viridis
 Suggests:
