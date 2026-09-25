@@ -23,7 +23,7 @@ ReadFile <- function(filePath) {
 
   CheckData(df.tidy)
 
-  # split up Sample column
+  # split up Sample column; `env` specifies columns to prevent R CMD check NOTES
   df.tidy[, c("SampleID", "Group", "Batch") := tstrsplit(x, "_"), env = list(x = "Sample")] |>
     _[, paste0("Subgroup", 1:2) := tstrsplit(x, "-"), env = list(x = "Group")] |>
     _[, "Group" := gsub("-", "_", x), env = list(x = "Group")] |>
