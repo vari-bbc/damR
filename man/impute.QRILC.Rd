@@ -4,12 +4,12 @@
 \alias{impute.QRILC}
 \title{QRILC imputation}
 \usage{
-impute.QRILC(filtered.mat, tune.sigma = 1)
+impute.QRILC(filteredData, tune.sigma = 1)
 }
 \arguments{
-\item{filtered.mat}{Missingness filtered numeric matrix of metabolites}
-
 \item{tune.sigma}{coefficient that controls the sd of the MNAR distribution}
+
+\item{filtered.mat}{Missingness filtered numeric matrix of metabolites}
 }
 \value{
 Matrix with NA values replaced by imputed values

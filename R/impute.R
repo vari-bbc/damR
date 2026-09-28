@@ -7,14 +7,18 @@
 #'
 #' @returns Matrix with NA values replaced by imputed values
 #'
+#' @importFrom collapse fgroup_by fmutate fnunique fungroup
+#'
 #' @export
-impute.QRILC <- function(filtered.mat, tune.sigma = 1) {
-  filtered.mat <- as.matrix(filtered.mat)
-  nFeatures <- dim(filtered.mat)[1]
-  imputed.mat <- apply(filtered.mat, 2, .imputer, nFeatures, tune.sigma)
-  na.locations <- which(is.na(filtered.mat), arr.ind = TRUE)
-  filtered.mat[na.locations] <- imputed.mat[na.locations]
-  filtered.mat
+impute.QRILC <- function(filteredData, tune.sigma = 1) {
+  value <- imputed <- Sample <- NULL
+  fgroup_by(filteredData, "Metabolite") |>
+    fmutate(
+      "imputed" = .imputer(value, nFeatures = fnunique(Sample), tune.sigma = tune.sigma),
+      "diff" = value - imputed,
+      "value" = ifelse(is.na(value), imputed, value)
+    ) |>
+    fungroup()
 }
 
 .imputer <- function(metabolite, nFeatures, tune.sigma) {
