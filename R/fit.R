@@ -24,6 +24,7 @@ MakeTheContrasts <- function(comparisonSelections, comparisonsTitle, prefix = ""
 #' @param repeated_measures Were there repeated measures?
 #' @returns ebayes fit from limma
 #'
+#' @importFrom collapse num_vars
 #' @importFrom limma contrasts.fit duplicateCorrelation eBayes lmFit topTable
 #' @importFrom stats model.matrix p.adjust
 #'
@@ -35,18 +36,16 @@ FitTheData <- function(
   contrastLevel = "Group",
   repeated_measures = "no"
 ) {
+  mat <- fselect(cleanData, c("Sample", "Group", "Metabolite", "value")) |>
+    pivot(ids = c("Sample", "Group"), names = "Metabolite", how = "wider")
   colnames(cleanData) <- make.names(colnames(cleanData))
-  meta_cols <- c("Sample", "SampleID", "Group", paste0("Subgroup", 1:2), "Batch")
-  metaboliteCols <- which(colnames(cleanData) %notin% meta_cols)
 
-  cleanData$contrastLevel <- cleanData[, contrastLevel]
-
-  design <- model.matrix(~ 0 + contrastLevel, data = cleanData) # ERW Make model
-  num_data <- data.frame(t(cleanData[, metaboliteCols])) # ERW Remove non metabolite cols and flip dataframe
+  design <- model.matrix(as.formula(paste("~ 0 +", contrastLevel)), data = mat) # ERW Make model
+  num_data <- t(num_vars(mat))
   print(num_data[1:5, 1:8])
 
   # Get named vector with contrasts named by the title given
-  contrasts.design <- MakeTheContrasts(theContrasts, contrastTitle, prefix = "contrastLevel")
+  contrasts.design <- MakeTheContrasts(theContrasts, contrastTitle, prefix = contrastLevel)
 
   # lmFit the metabolite data using the model above
   if (repeated_measures == "yes") {
