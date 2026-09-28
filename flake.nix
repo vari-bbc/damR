@@ -10,7 +10,6 @@
       Imports = with pkgs.rPackages; [
         ComplexHeatmap
         data_table
-        dplyr
         ggiraph
         ggplot2
         limma
@@ -18,8 +17,6 @@
         RColorBrewer
         rlang
         stringi
-        tibble
-        tidyr
         tmvtnorm
         viridis
       ];
