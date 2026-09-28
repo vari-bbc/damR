@@ -18,7 +18,6 @@ Depends:
 Imports:
   ComplexHeatmap,
   collapse,
-  dplyr,
   ggiraph,
   ggplot2,
   limma,
