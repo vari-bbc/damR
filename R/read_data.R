@@ -30,8 +30,8 @@ ReadFile <- function(filePath) {
     _[,
       # get IP vs HILICA
       "type" := fcase(
-        x %like% "_IP$"     , "IP"      ,
-        x %like% "_HILICA$" , "_HILICA" ,
+        x %like% "_IP$"     , "IP"     ,
+        x %like% "_HILICA$" , "HILICA" ,
         default = NA
       ),
       env = list(x = "Metabolite")
