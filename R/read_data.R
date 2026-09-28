@@ -15,7 +15,7 @@
 #'
 #' @export
 ReadFile <- function(filePath) {
-  df.wide <- fread(filePath, comment.char = "#")
+  df.wide <- fread(filePath, comment.char = "#", integer64 = "double")
   df.tidy <- melt(df.wide, id.vars = "Sample", variable.name = "Metabolite")[
     value == 0,
     value := NA
