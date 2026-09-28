@@ -77,6 +77,8 @@ FitTheData <- function(
 #' @param comparisonsTitle Name prefix for the contrasts entries, suffixed by their index
 #' @returns `data.frame` of topTable hits with adjusted P-values and logFC
 #'
+#' @importFrom collapse fselect
+#'
 #' @export
 pAdjustData <- function(ebayesFit, comparisonSelections, comparisonsTitle) {
   contrastLabels <- MakeTheContrasts(comparisonSelections, comparisonsTitle)
@@ -84,9 +86,10 @@ pAdjustData <- function(ebayesFit, comparisonSelections, comparisonsTitle) {
   tt_list <- lapply(seq_along(contrastLabels), function(i) {
     tt <- topTable(ebayesFit, adjust.method = "BH", p.value = 1, number = Inf, coef = i)
     tt$Contrast <- contrastLabels[i]
-    tibble::rownames_to_column(tt, "Compound")
+    tt$Compound <- rownames(tt)
+    rownames(tt) <- NULL
+    tt
   })
   do.call(rbind, tt_list) |>
-    dplyr::select(c("Compound", "Contrast", "logFC", "adj.P.Val")) |>
-    as.data.frame()
+    fselect(c("Compound", "Contrast", "logFC", "adj.P.Val"))
 }
