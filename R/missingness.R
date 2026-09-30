@@ -31,6 +31,10 @@ RemoveMissingness <- function(qcData, dropMetabolite) {
 
 #' Plot missingness heatmap
 #'
+#' Selects the necessary columns to make a wide form data frame. Makes the
+#' presence/absence matrix with the Sample column and numeric columns and an
+#' annotation data frame for annotation colors using the Subgroups.
+#'
 #' @param qcData Input data that has been QC'd
 #' @param anno.pal RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors
 #' @returns ComplexHeatmap::pheatmap
