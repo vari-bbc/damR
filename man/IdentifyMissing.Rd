@@ -2,7 +2,7 @@
 % Please edit documentation in R/missingness.R
 \name{IdentifyMissing}
 \alias{IdentifyMissing}
-\title{Get metabolites with missingness proportion below a set threshold}
+\title{Get metabolites where proportion present is less than a set threshold}
 \usage{
 IdentifyMissing(qcData, presence_threshold = 0.75)
 }
@@ -16,5 +16,5 @@ metabolite should be dropped}
 Vector of metabolite names below the threshold
 }
 \description{
-Get metabolites with missingness proportion below a set threshold
+Get metabolites where proportion present is less than a set threshold
 }

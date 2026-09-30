@@ -1,4 +1,4 @@
-#' Get metabolites with missingness proportion below a set threshold
+#' Get metabolites where proportion present is less than a set threshold
 #'
 #' @param qcData QC'd dataset
 #' @param presence_threshold A threshold for non-missing data below which a
