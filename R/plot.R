@@ -1,3 +1,27 @@
+
+#' Produce volcano plot data for a single contrast
+#'
+#' @inheritParams PlotVolcano
+#'
+#' @returns data.table ready for plotting with `VolcanoPlotter()`
+#'
+#' @importFrom collapse fsubset fmutate
+#' @importFrom data.table fcase
+#'
+#' @export
+VolcanoData <- function(vpd, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = 10) {
+  contrastStr <- MakeTheContrasts(contrastGroups, contrastTitle)
+  fsubset(vpd, Contrast == contrastStr) |>
+    fmutate(
+      logFC = pmax(pmin(logFC, cap), -cap), # cap between -cap and cap
+      Direction = fcase(
+        logFC > 0 & adj.P.Val < alphaLevel , "Up regulated"   ,
+        logFC < 0 & adj.P.Val < alphaLevel , "Down regulated" ,
+        default = "NS"
+      )
+    )
+}
+
 #' Volcano plot
 #'
 #' @param theData The cleaned? fit? data
