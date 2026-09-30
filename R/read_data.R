@@ -43,10 +43,10 @@ ReadFile <- function(filePath) {
   df.tidy[]
 }
 
-#' Check that the data contains the required columns
+#' Check that data meets requirements
 #'
-#' Checks that the Sample column is present and none of its identifiers have
-#' more than 1 dash character
+#' Checks that the values are numeric and positive, and that `Sample` column is
+#' present and none of its identifiers have more than 1 dash character
 #'
 #' @param input_data `data.frame` of the input data from `read.csv`.
 #' @returns input_data `data.frame` of the input data if no errors are found

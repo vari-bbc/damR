@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_data.R
 \name{CheckData}
 \alias{CheckData}
-\title{Check that the data contains the required columns}
+\title{Check that data meets requirements}
 \usage{
 CheckData(input_data)
 }
@@ -13,7 +13,7 @@ CheckData(input_data)
 input_data \code{data.frame} of the input data if no errors are found
 }
 \description{
-Checks that the Sample column is present and none of its identifiers have
-more than 1 dash character
+Checks that the values are numeric and positive, and that \code{Sample} column is
+present and none of its identifiers have more than 1 dash character
 }
 \keyword{internal}
