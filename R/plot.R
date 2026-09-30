@@ -5,6 +5,7 @@
 #' @param contrastTitle Optional title for the Volcano plot
 #' @param alphaLevel Significance cutoff level
 #' @param cap Absolute log fold-change cap to cap the `logFC` x axis so that `-cap < logFC < cap`.
+#' @param ... Geom aesthetics passed to `VolcanoPlotter()`.
 #' @returns Volcano ggplot
 #'
 #' @export
@@ -13,10 +14,11 @@ PlotVolcano <- function(
   contrastGroups,
   contrastTitle = NULL,
   alphaLevel = 0.05,
-  cap = 10
+  cap = 10,
+  ...
 ) {
   pd <- VolcanoData(resultTable, contrastGroups, contrastTitle, alphaLevel, cap)
-  VolcanoPlotter(pd, alphaLevel) +
+  VolcanoPlotter(pd, alphaLevel, ...) +
     labs(
       title = contrastTitle,
       caption = sprintf("all logFC capped at %1$.2f/-%1$.2f for plotting purposes", cap)
@@ -50,6 +52,11 @@ VolcanoData <- function(vpd, contrastGroups, contrastTitle, alphaLevel = 0.05, c
 #'
 #' @param pd Plot data produced by `VolcanoData()`
 #' @param alphaLevel Significance cutoff level
+#' @param pointColors Named vector of colors for `"Up regulated"`, `"Down
+#' regulated"`, and `"NS"` points
+#' @param pointSize Size of the `ggiraph::geom_point_interactive()`
+#' @param alphaLineColor,alphaLineType,alphaLineWidth Color, type and width of
+#' the line used to mark the significance cutoff. See `?ggplot2::geom_hline()`.
 #' @returns Volcano ggplot
 #'
 #' @importFrom ggiraph geom_point_interactive girafe girafe_options opts_selection
@@ -57,7 +64,19 @@ VolcanoData <- function(vpd, contrastGroups, contrastTitle, alphaLevel = 0.05, c
 #' @importFrom rlang .data
 #'
 #' @export
-VolcanoPlotter <- function(pd, alphaLevel) {
+VolcanoPlotter <- function(
+  pd,
+  alphaLevel,
+  pointColors = c(
+    "Up regulated" = "#276419",
+    "Down regulated" = "#8E0152",
+    "NS" = "grey"
+  ),
+  pointSize = 2,
+  alphaLineColor = "red",
+  alphaLineType = "dotted",
+  alphaLineWidth = 0.5
+) {
   ggplot(
     pd,
     aes(
@@ -69,24 +88,15 @@ VolcanoPlotter <- function(pd, alphaLevel) {
       label = .data$Compound
     )
   ) +
-    ggiraph::geom_point_interactive(size = 2) +
+    ggiraph::geom_point_interactive(size = pointSize) +
     geom_hline(
       yintercept = -log10(alphaLevel),
-      linetype = "dotted",
-      color = "red",
-      linewidth = 0.5
+      linetype = alphaLineType,
+      color = alphaLineColor,
+      linewidth = alphaLineWidth
     ) +
-    scale_color_manual(
-      values = c(
-        "Up regulated" = "#276419",
-        "Down regulated" = "#8E0152",
-        "NS" = "grey"
-      )
-    ) +
-    labs(
-      y = expression(-log[10] ~ "(FDR p-value)"),
-      subtitle = pd$Contrast[1]
-    ) +
+    scale_color_manual(values = pointColors) +
+    labs(y = expression(-log[10] ~ "(FDR p-value)"), subtitle = pd$Contrast[1]) +
     theme_minimal(7) +
     theme(legend.position = "top")
 }
@@ -105,8 +115,9 @@ PlotAllVolcanoes <- function(
   contrastGroups,
   contrastTitle,
   alphaLevel = 0.05,
-  cap = 10
+  cap = 10,
+  ...
 ) {
   compareGroups <- combn(contrastGroups, 2, simplify = FALSE)
-  lapply(compareGroups, \(x) PlotVolcano(resultTable, x, contrastTitle, alphaLevel, cap))
+  lapply(compareGroups, \(x) PlotVolcano(resultTable, x, contrastTitle, alphaLevel, cap, ...))
 }

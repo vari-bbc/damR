@@ -9,7 +9,8 @@ PlotVolcano(
   contrastGroups,
   contrastTitle = NULL,
   alphaLevel = 0.05,
-  cap = 10
+  cap = 10,
+  ...
 )
 }
 \arguments{

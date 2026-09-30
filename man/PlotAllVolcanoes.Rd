@@ -9,7 +9,8 @@ PlotAllVolcanoes(
   contrastGroups,
   contrastTitle,
   alphaLevel = 0.05,
-  cap = 10
+  cap = 10,
+  ...
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ PlotAllVolcanoes(
 \item{alphaLevel}{Significance cutoff level}
 
 \item{cap}{Absolute log fold-change cap to cap the \code{logFC} x axis so that \verb{-cap < logFC < cap}.}
+
+\item{...}{Geom aesthetics passed to \code{VolcanoPlotter()}.}
 }
 \value{
 A list of plots

@@ -4,12 +4,27 @@
 \alias{VolcanoPlotter}
 \title{Volcano plot}
 \usage{
-VolcanoPlotter(pd, alphaLevel)
+VolcanoPlotter(
+  pd,
+  alphaLevel,
+  pointColors = c(`Up regulated` = "#276419", `Down regulated` = "#8E0152", NS = "grey"),
+  pointSize = 2,
+  alphaLineColor = "red",
+  alphaLineType = "dotted",
+  alphaLineWidth = 0.5
+)
 }
 \arguments{
 \item{pd}{Plot data produced by \code{VolcanoData()}}
 
 \item{alphaLevel}{Significance cutoff level}
+
+\item{pointColors}{Named vector of colors for \code{"Up regulated"}, \code{"Down regulated"}, and \code{"NS"} points}
+
+\item{pointSize}{Size of the \code{ggiraph::geom_point_interactive()}}
+
+\item{alphaLineColor, alphaLineType, alphaLineWidth}{Color, type and width of
+the line used to mark the significance cutoff. See \code{?ggplot2::geom_hline()}.}
 }
 \value{
 Volcano ggplot
