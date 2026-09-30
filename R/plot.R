@@ -17,6 +17,7 @@ PlotVolcano <- function(
   cap = 10,
   ...
 ) {
+  stopifnot("`contrastGroups` accepts only two groups from the data" = length(contrastGroups) == 2)
   pd <- VolcanoData(resultTable, contrastGroups, contrastTitle, alphaLevel, cap)
   VolcanoPlotter(pd, alphaLevel, ...) +
     labs(

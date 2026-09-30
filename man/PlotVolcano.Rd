@@ -23,6 +23,8 @@ PlotVolcano(
 \item{alphaLevel}{Significance cutoff level}
 
 \item{cap}{Absolute log fold-change cap to cap the \code{logFC} x axis so that \verb{-cap < logFC < cap}.}
+
+\item{...}{Geom aesthetics passed to \code{VolcanoPlotter()}.}
 }
 \value{
 Volcano ggplot
