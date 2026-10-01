@@ -8,6 +8,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
 
       Imports = with pkgs.rPackages; [
+        collapse
         ComplexHeatmap
         data_table
         ggiraph
