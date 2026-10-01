@@ -15,5 +15,7 @@ PlotMissingness(qcData, anno.pal = c("Set1", "Set2"))
 ComplexHeatmap::pheatmap
 }
 \description{
-Plot missingness heatmap
+Selects the necessary columns to make a wide form data frame. Makes the
+presence/absence matrix with the Sample column and numeric columns and an
+annotation data frame for annotation colors using the Subgroups.
 }
