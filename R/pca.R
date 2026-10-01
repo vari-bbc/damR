@@ -39,12 +39,18 @@ GetPCA <- function(fullData) {
 #' @returns A named list where `pca` is the PCA data column bound to `fullData`
 #' and `varex` which contains the percent variance explained for each PC.
 #'
-#' @importFrom ggiraph geom_point_interactive
-#' @importFrom ggplot2 ggplot aes labs
+#' @importFrom ggplot2 ggplot aes geom_point labs
 #' @importFrom rlang .data
 #'
 #' @export
-PlotPCA <- function(pca, x = "PC1", y = "PC2", colorBy = "Group", pointSize = 3, pointAlpha = 0.8) {
+PlotPCA <- function(
+  pca,
+  x = "PC1",
+  y = "PC2",
+  colorBy = "Group",
+  pointSize = 3,
+  pointAlpha = 0.8
+) {
   stopifnot(
     "PCA must contain PCA data and variance explained - use GetPCA()" = {
       names(pca) == c("pca", "varex")
@@ -61,12 +67,10 @@ PlotPCA <- function(pca, x = "PC1", y = "PC2", colorBy = "Group", pointSize = 3,
     aes(
       x = .data[[xaxis]],
       y = .data[[yaxis]],
-      fill = .data[[colorBy]],
-      tooltip = .data[[colorBy]],
-      data_id = .data[[colorBy]]
+      fill = .data[[colorBy]]
     )
   ) +
-    geom_point_interactive(
+    geom_point(
       shape = 21,
       size = pointSize,
       alpha = pointAlpha,
