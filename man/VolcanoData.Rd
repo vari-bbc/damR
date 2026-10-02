@@ -4,9 +4,17 @@
 \alias{VolcanoData}
 \title{Produce volcano plot data for a single contrast}
 \usage{
-VolcanoData(vpd, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = 10)
+VolcanoData(
+  resultTable,
+  contrastGroups,
+  contrastTitle,
+  alphaLevel = 0.05,
+  cap = 10
+)
 }
 \arguments{
+\item{resultTable}{The \code{topTable} results from \code{pAdjustData()}}
+
 \item{contrastGroups}{Two contrast group names}
 
 \item{contrastTitle}{Optional title for the Volcano plot}

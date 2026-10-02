@@ -36,10 +36,10 @@ PlotVolcano <- function(
 #' @importFrom data.table fcase
 #'
 #' @export
-VolcanoData <- function(vpd, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = 10) {
+VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = 10) {
   Contrast <- logFC <- adj.P.Val <- NULL
   contrastStr <- MakeTheContrasts(contrastGroups, contrastTitle)
-  fsubset(vpd, Contrast == contrastStr) |>
+  fsubset(resultTable, Contrast == contrastStr) |>
     fmutate(
       logFC = pmax(pmin(logFC, cap), -cap), # cap between -cap and cap
       Direction = fcase(
