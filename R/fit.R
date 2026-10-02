@@ -5,6 +5,7 @@
 #' @param prefix Optional prefix to add to each contrast level. Used for limma contrasts
 #' @returns A named vector with contrasts in the form A - B
 #'
+#' @importFrom stats as.formula
 #' @importFrom utils combn
 #'
 #' @export

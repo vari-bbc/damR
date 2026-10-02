@@ -35,7 +35,8 @@ importFrom(collapse,
   replace_na
 )
 importFrom(data.table,
-  `%like%`,
+  "%like%",
+  ":=",
   as.data.table,
   fcase,
   fread,
@@ -78,6 +79,7 @@ importFrom(plotly,
 )
 importFrom(rlang,.data)
 importFrom(stats,
+  as.formula,
   lm,
   model.matrix,
   p.adjust,

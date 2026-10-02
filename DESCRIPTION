@@ -19,6 +19,7 @@ Imports:
   ComplexHeatmap,
   collapse,
   ggiraph,
+  data.table,
   ggplot2,
   limma,
   plotly,

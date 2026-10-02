@@ -11,7 +11,7 @@
 #' @param filePath Input file path
 #' @returns Processed data.frame
 #'
-#' @importFrom data.table fcase fread `%like%` melt setcolorder tstrsplit
+#' @importFrom data.table fcase fread %like% melt setcolorder tstrsplit :=
 #'
 #' @export
 ReadFile <- function(filePath) {
