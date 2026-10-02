@@ -18,7 +18,6 @@ Depends:
 Imports:
   ComplexHeatmap,
   collapse,
-  ggiraph,
   data.table,
   ggplot2,
   limma,
@@ -29,5 +28,7 @@ Imports:
   tmvtnorm,
   viridis
 Suggests:
-    testthat (>= 3.0.0)
+  ggiraph,
+  patchwork,
+  testthat (>= 3.0.0)
 Config/testthat/edition: 3

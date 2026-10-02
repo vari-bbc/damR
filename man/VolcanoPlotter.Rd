@@ -11,7 +11,8 @@ VolcanoPlotter(
   pointSize = 2,
   alphaLineColor = "red",
   alphaLineType = "dotted",
-  alphaLineWidth = 0.5
+  alphaLineWidth = 0.5,
+  interactive = FALSE
 )
 }
 \arguments{
@@ -21,10 +22,12 @@ VolcanoPlotter(
 
 \item{pointColors}{Named vector of colors for \code{"Up regulated"}, \code{"Down regulated"}, and \code{"NS"} points}
 
-\item{pointSize}{Size of the \code{ggiraph::geom_point_interactive()}}
+\item{pointSize}{Size of the \code{ggplot2::geom_point()}}
 
 \item{alphaLineColor, alphaLineType, alphaLineWidth}{Color, type and width of
 the line used to mark the significance cutoff. See \code{?ggplot2::geom_hline()}.}
+
+\item{interactive}{Whether to plot as interactive with \code{ggiraph::geom_point_interactive()}}
 }
 \value{
 Volcano ggplot

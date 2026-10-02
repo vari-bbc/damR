@@ -56,13 +56,13 @@ VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel =
 #' @param alphaLevel Significance cutoff level
 #' @param pointColors Named vector of colors for `"Up regulated"`, `"Down
 #' regulated"`, and `"NS"` points
-#' @param pointSize Size of the `ggiraph::geom_point_interactive()`
+#' @param pointSize Size of the `ggplot2::geom_point()`
 #' @param alphaLineColor,alphaLineType,alphaLineWidth Color, type and width of
 #' the line used to mark the significance cutoff. See `?ggplot2::geom_hline()`.
+#' @param interactive Whether to plot as interactive with `ggiraph::geom_point_interactive()`
 #' @returns Volcano ggplot
 #'
-#' @importFrom ggiraph geom_point_interactive girafe girafe_options opts_selection
-#' @importFrom ggplot2 aes facet_wrap geom_hline ggplot ggtitle labs scale_color_manual theme theme_minimal ylab
+#' @importFrom ggplot2 ggplot aes facet_wrap geom_hline geom_point ggtitle labs scale_color_manual theme theme_minimal ylab
 #' @importFrom rlang .data
 #'
 #' @export
@@ -77,8 +77,16 @@ VolcanoPlotter <- function(
   pointSize = 2,
   alphaLineColor = "red",
   alphaLineType = "dotted",
-  alphaLineWidth = 0.5
+  alphaLineWidth = 0.5,
+  interactive = FALSE
 ) {
+  point_aes <- if (interactive) {
+    rlang::check_installed("ggiraph", reason = "ggiraph is required for interactive plots")
+    ggiraph::geom_point_interactive
+  } else {
+    geom_point
+  }
+
   ggplot(
     pd,
     aes(
@@ -90,7 +98,7 @@ VolcanoPlotter <- function(
       label = .data$Compound
     )
   ) +
-    ggiraph::geom_point_interactive(size = pointSize) +
+    point_aes(size = pointSize) +
     geom_hline(
       yintercept = -log10(alphaLevel),
       linetype = alphaLineType,
@@ -109,8 +117,6 @@ VolcanoPlotter <- function(
 #'
 #' @returns A list of plots
 #'
-#' @importFrom ggiraph girafe_css opts_selection opts_sizing
-#'
 #' @export
 PlotAllVolcanoes <- function(
   resultTable,
@@ -121,5 +127,7 @@ PlotAllVolcanoes <- function(
   ...
 ) {
   compareGroups <- combn(contrastGroups, 2, simplify = FALSE)
-  lapply(compareGroups, \(x) PlotVolcano(resultTable, x, contrastTitle, alphaLevel, cap, ...))
+  plot_names <- vapply(compareGroups, \(x) paste(x, collapse = " - "), FUN.VALUE = "character")
+  plots <- lapply(compareGroups, \(x) PlotVolcano(resultTable, x, contrastTitle, alphaLevel, cap, ...))
+  setNames(plots, plot_names)
 }

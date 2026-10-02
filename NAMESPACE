@@ -44,18 +44,11 @@ importFrom(data.table,
   setcolorder,
   tstrsplit
 )
-importFrom(ggiraph,
-  geom_point_interactive,
-  girafe,
-  girafe_css,
-  girafe_options,
-  opts_selection,
-  opts_sizing
-)
 importFrom(ggplot2,
   aes,
   facet_wrap,
   geom_hline,
+  geom_point,
   ggplot,
   ggtitle,
   labs,

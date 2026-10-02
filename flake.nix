@@ -11,7 +11,6 @@
         collapse
         ComplexHeatmap
         data_table
-        ggiraph
         ggplot2
         limma
         plotly
@@ -24,6 +23,8 @@
 
       Suggests = with pkgs.rPackages; [
         testthat
+        patchwork
+        ggiraph
       ];
 
       rDevDeps = with pkgs.rPackages; [
