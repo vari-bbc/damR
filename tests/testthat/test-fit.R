@@ -25,11 +25,10 @@ test_that("MakeTheContrasts", {
 
 test_that("FitTheData", {
   exdata <- ReadFile(exdata_path)
-  qc_data <- QCData(exdata)$TheData
+  qc_data <- exdata
+  # qc_data <- QCData(exdata)$TheData
   complete_data <- RemoveMissingness(qc_data, IdentifyMissing(qc_data, 0.75))
-  complete_data[, 7:ncol(complete_data)] <- impute.QRILC(
-    complete_data[, 7:ncol(complete_data)]
-  )[[1]]
+  imputed_data <- impute.QRILC(complete_data)
   expect_no_error(
     ebayes.fit <- FitTheData(
       complete_data,
