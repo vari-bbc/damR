@@ -4,3 +4,5 @@
 ^_.*
 air.toml
 .Rprofile
+.direnv
+flake.*
