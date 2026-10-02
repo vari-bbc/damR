@@ -37,6 +37,7 @@ PlotVolcano <- function(
 #'
 #' @export
 VolcanoData <- function(vpd, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = 10) {
+  Contrast <- logFC <- adj.P.Val <- NULL
   contrastStr <- MakeTheContrasts(contrastGroups, contrastTitle)
   fsubset(vpd, Contrast == contrastStr) |>
     fmutate(

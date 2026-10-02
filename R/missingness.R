@@ -25,6 +25,7 @@ IdentifyMissing <- function(qcData, presence_threshold = 0.75) {
 #'
 #' @export
 RemoveMissingness <- function(qcData, dropMetabolite) {
+  Metabolite <- NULL
   fsubset(qcData, Metabolite %notin% dropMetabolite)
 }
 
