@@ -17,10 +17,15 @@ export(ReadFile)
 export(RemoveMissingness)
 export(VolcanoData)
 export(VolcanoPlotter)
+export(dropBlankFiltered)
 export(dropMetabolites)
+export(getBatchDropTable)
+export(getDropTable)
 export(impute.QRILC)
 export(pAdjustData)
 importFrom(collapse,
+  "%=%",
+  .c,
   fgroup_by,
   fmean,
   fmutate,
@@ -28,17 +33,24 @@ importFrom(collapse,
   fselect,
   fsubset,
   fsummarise,
+  fsummarize,
   fungroup,
+  funique,
   get_vars,
+  join,
   num_vars,
   pivot,
   recode_num,
   replace_na
 )
 importFrom(data.table,
+  "%ilike%",
   "%like%",
   ":=",
+  .SD,
   as.data.table,
+  copy,
+  data.table,
   fcase,
   fread,
   melt,
