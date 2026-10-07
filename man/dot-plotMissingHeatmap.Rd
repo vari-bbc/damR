@@ -23,3 +23,4 @@ ComplexHeatmap
 \description{
 Helper to plot missingness heatmap
 }
+\keyword{internal}

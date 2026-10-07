@@ -32,3 +32,4 @@ plotly PCA plot
 \description{
 Produce PCA plots for QC
 }
+\keyword{internal}

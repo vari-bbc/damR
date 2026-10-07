@@ -12,3 +12,4 @@ getZeroVar(inputData)
 \description{
 Identify metabolites with zero variance, including any that are all NA
 }
+\keyword{internal}

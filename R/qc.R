@@ -44,6 +44,7 @@ QCData <- function(
 #' @importFrom stats sd
 #'
 #' @export
+#' @keywords internal
 getZeroVar <- function(inputData) {
   value <- zv <- NULL
   fgroup_by(inputData, "Metabolite") |>
@@ -69,6 +70,7 @@ getZeroVar <- function(inputData) {
 #' @importFrom utils read.csv
 #'
 #' @export
+#' @keywords internal
 QCPCAPlots <- function(
   TheData,
   xAxis,

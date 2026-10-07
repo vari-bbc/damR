@@ -35,3 +35,4 @@ Volcano ggplot
 \description{
 Volcano plot
 }
+\keyword{internal}

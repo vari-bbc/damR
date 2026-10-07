@@ -95,7 +95,11 @@ PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2"), showRownames =
 #' color vectors where the color vector names correspond to the elements of
 #' anno. See `.getAnnoColors()`
 #' @param showRownames Whether to show metabolite names as rownames in the heatmap
+#'
 #' @returns ComplexHeatmap
+#'
+#' @export
+#' @keywords internal
 .plotMissingHeatmap <- function(bin.mat, anno.df, anno.colors, showRownames) {
   ComplexHeatmap::pheatmap(
     bin.mat,
