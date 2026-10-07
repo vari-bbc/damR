@@ -26,8 +26,8 @@
 #'
 #' @export
 BlankFilter <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
-  # get list with values to drop and the blanks
   dropTable <- blanks <- NULL
+  # get list with values to drop and the blanks
   .c(dropTable, blanks) %=% getDropTable(inputData, blankFoldThreshold, blankPattern)
   if (is.null(dropTable)) {
     return(inputData)
