@@ -21,6 +21,7 @@ export(dropBlankFiltered)
 export(dropMetabolites)
 export(getBatchDropTable)
 export(getDropTable)
+export(getZeroVar)
 export(impute.QRILC)
 export(pAdjustData)
 importFrom(collapse,

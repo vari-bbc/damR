@@ -2,29 +2,35 @@
 % Please edit documentation in R/qc.R
 \name{QCData}
 \alias{QCData}
-\title{Blank filter}
+\title{Run QC on input data}
 \usage{
-QCData(TheData, blankFilter = FALSE, blankFoldThreshold = 5)
+QCData(
+  inputData,
+  blankFilter = TRUE,
+  blankFoldThreshold = 5,
+  blankPattern = "^PB|blank",
+  controlPattern = "^PB|^TC|^QC"
+)
 }
 \arguments{
-\item{TheData}{input data}
+\item{inputData}{Input metabolite data}
 
 \item{blankFilter}{Whether to run blank filtering}
 
-\item{blankFoldThreshold}{Fold change threshold below which data are
-considered blanks}
+\item{blankFoldThreshold}{The blank fold change threshold. The difference
+between every metabolite and its batch's blank must be at least this value
+or higher to remain in the dataset.}
+
+\item{blankPattern}{String pattern to denote blank samples}
+
+\item{controlPattern}{String pattern to denote control samples like QC}
 }
 \description{
-Blank filter
+Removes:
+\itemize{
+\item data points below a fold change threshold compared to blank samples. See \code{BlankFilter()}.
+\item metabolites with zero variance
+\item Blank samples (after blank filtering)
+\item Control samples
 }
-\details{
-Adapted from the proteomics blank_filter_by_batch() in "Updated Blank
-Filter.R". Same logic, transposed layout: here samples are rows and
-metabolites are columns. For each metabolite, a sample value must exceed the
-loudest process blank in its own batch by at least blankFoldThreshold fold;
-values that don't are set to NA. The blanks are only used to decide what to
-drop -- surviving values keep their original intensities, they are not
-blank-subtracted. Expects TheData metabolite columns to already be log2
-transformed (as they are by the time QCData runs), which makes the fold
-change a simple subtraction.
 }
