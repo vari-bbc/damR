@@ -4,7 +4,7 @@
 \alias{.plotMissingHeatmap}
 \title{Helper to plot missingness heatmap}
 \usage{
-.plotMissingHeatmap(bin.mat, anno.df, anno.colors)
+.plotMissingHeatmap(bin.mat, anno.df, anno.colors, showRownames)
 }
 \arguments{
 \item{bin.mat}{Binary matrix where 0 is missing and 1 is present}
@@ -14,6 +14,11 @@
 \item{anno.colors}{List named with \code{anno.df} column names containing named
 color vectors where the color vector names correspond to the elements of
 anno. See \code{.getAnnoColors()}}
+
+\item{showRownames}{Whether to show metabolite names as rownames in the heatmap}
+}
+\value{
+ComplexHeatmap
 }
 \description{
 Helper to plot missingness heatmap

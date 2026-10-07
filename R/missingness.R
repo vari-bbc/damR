@@ -37,12 +37,13 @@ IdentifyMissing <- function(qcData, presence_threshold = 0.75) {
 #'
 #' @param qcData Input data that has been QC'd
 #' @param anno.pal RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors
+#' @param showRownames Whether to show metabolite names as rownames in the heatmap
 #' @returns ComplexHeatmap::pheatmap
 #'
 #' @importFrom collapse fmutate fselect get_vars num_vars pivot
 #'
 #' @export
-PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2")) {
+PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2"), showRownames = TRUE) {
   value <- NULL
 
   cols <- c("Sample", paste0("Subgroup", 1:2), "Metabolite", "value")
@@ -56,7 +57,7 @@ PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2")) {
 
   anno <- get_vars(data.bin.wide, "Subgroup", regex = TRUE)
   anno.colors <- .getAnnoColors(anno, anno.pal)
-  .plotMissingHeatmap(pmat, anno, anno.colors)
+  .plotMissingHeatmap(pmat, anno, anno.colors, showRownames)
 }
 
 #' Helper to set up annotation colors for Sample groups in heatmap
@@ -93,7 +94,9 @@ PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2")) {
 #' @param anno.colors List named with `anno.df` column names containing named
 #' color vectors where the color vector names correspond to the elements of
 #' anno. See `.getAnnoColors()`
-.plotMissingHeatmap <- function(bin.mat, anno.df, anno.colors) {
+#' @param showRownames Whether to show metabolite names as rownames in the heatmap
+#' @returns ComplexHeatmap
+.plotMissingHeatmap <- function(bin.mat, anno.df, anno.colors, showRownames) {
   ComplexHeatmap::pheatmap(
     bin.mat,
     color = c("grey70", "green3"),
@@ -110,7 +113,7 @@ PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2")) {
       at = c(0, 1),
       color_bar = "discrete"
     ),
-    show_rownames = FALSE,
+    show_rownames = showRownames,
     annotation_colors = anno.colors
   )
 }

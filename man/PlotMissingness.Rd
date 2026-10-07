@@ -4,12 +4,14 @@
 \alias{PlotMissingness}
 \title{Plot missingness heatmap}
 \usage{
-PlotMissingness(qcData, anno.pal = c("Set1", "Set2"))
+PlotMissingness(qcData, anno.pal = c("Set1", "Set2"), showRownames = TRUE)
 }
 \arguments{
 \item{qcData}{Input data that has been QC'd}
 
 \item{anno.pal}{RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors}
+
+\item{showRownames}{Whether to show metabolite names as rownames in the heatmap}
 }
 \value{
 ComplexHeatmap::pheatmap
