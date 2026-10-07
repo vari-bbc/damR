@@ -7,14 +7,14 @@
 #' @returns Data with specified metabolites removed
 #'
 #' @export
-RemoveMissingness <- function(qcData, presence_threshold = 0.75) {
+RemoveMissing <- function(qcData, presence_threshold = 0.75) {
   toDrop <- IdentifyMissing(qcData, presence_threshold)
   dropMetabolites(toDrop, qcData)
 }
 
 #' Get metabolites where proportion present is less than a set threshold
 #'
-#' @inheritParams RemoveMissingness
+#' @inheritParams RemoveMissing
 #'
 #' @returns Vector of metabolite names below the threshold
 #'
