@@ -39,6 +39,7 @@ GetPCA <- function(fullData) {
 #' @returns A named list where `pca` is the PCA data column bound to `fullData`
 #' and `varex` which contains the percent variance explained for each PC.
 #'
+#' @importFrom collapse fmutate
 #' @importFrom ggplot2 ggplot aes geom_point labs
 #' @importFrom rlang .data
 #'
@@ -60,24 +61,27 @@ PlotPCA <- function(
   pd <- pca$pca
   xaxis <- x
   yaxis <- y
-  pd$pool_blank <- grepl("pool|blank", pd$Group, ignore.case = TRUE)
+  is_pool_blank <- grepl("pool|blank", pd$Group, ignore.case = TRUE)
+  pd <- fmutate(pd, "pool_blank" = ifelse(is_pool_blank, "Yes", "No"))
 
   ggplot(
-    pca$pca,
+    pd,
     aes(
       x = .data[[xaxis]],
       y = .data[[yaxis]],
-      fill = .data[[colorBy]]
+      color = .data[[colorBy]],
+      shape = .data$pool_blank
     )
   ) +
     geom_point(
-      shape = 21,
       size = pointSize,
-      alpha = pointAlpha,
-      stroke = ifelse(pd$pool_blank == TRUE, 1, 0)
+      alpha = pointAlpha
     ) +
+    scale_shape_manual(values = c(Yes = 17, No = 16)) +
     labs(
       x = sprintf("PCA (%.2f%%)", pca$varex[x]),
-      y = sprintf("PCA (%.2f%%)", pca$varex[y])
-    )
+      y = sprintf("PCA (%.2f%%)", pca$varex[y]),
+      shape = "Is pool blank?"
+    ) +
+    guides(shape = ifelse(all(!is_pool_blank), "none", "legend"))
 }
