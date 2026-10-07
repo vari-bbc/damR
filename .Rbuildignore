@@ -6,3 +6,4 @@ air.toml
 .Rprofile
 .direnv
 flake.*
+docs
