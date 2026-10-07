@@ -66,6 +66,7 @@ VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel =
 #' @importFrom rlang .data
 #'
 #' @export
+#' @keywords internal
 VolcanoPlotter <- function(
   pd,
   alphaLevel,
