@@ -1,0 +1,50 @@
+url: https://vari-bbc.github.io/metaboapp
+template:
+  bootstrap: 5
+  light-switch: true
+  math-rendering: mathjax
+  bslib:
+    code_font: [ "monospace" ]
+
+navbar:
+  structure:
+    right: [search, github, lightswitch]
+
+sidebar:
+  structure: [links, license, community, citation, authors, dev]
+
+reference:
+  - title: Data import
+    contents:
+      - ReadFile
+  - title: QC
+    contents:
+      - QCData
+  - subtitle: PCA
+    contents:
+      - GetPCA
+      - PlotPCA
+  - subtitle: Blank Filter
+    contents:
+      - BlankFilter
+      - GetBlankDropTable
+      - dropBlankFiltered
+  - subtitle: Missingness
+    contents:
+      - RemoveMissing
+      - IdentifyMissing
+      - PlotMissingness
+      - impute.QRILC
+  - title: Modelling
+    contents:
+      - DiffMetabolites
+  - subtitle: Helpers
+    contents:
+      - MakeTheContrasts
+      - FitTheData
+      - pAdjustData
+  - title: Plotting
+    contents:
+      - VolcanoData
+      - PlotVolcano
+      - PlotAllVolcanoes
