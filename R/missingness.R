@@ -1,8 +1,21 @@
-#' Get metabolites where proportion present is less than a set threshold
+#' Remove missing data
 #'
 #' @param qcData QC'd dataset
 #' @param presence_threshold A threshold for non-missing data below which a
 #' metabolite should be dropped
+#'
+#' @returns Data with specified metabolites removed
+#'
+#' @export
+RemoveMissingness <- function(qcData, presence_threshold = 0.75) {
+  toDrop <- IdentifyMissing(qcData, presence_threshold)
+  dropMetabolites(toDrop, qcData)
+}
+
+#' Get metabolites where proportion present is less than a set threshold
+#'
+#' @inheritParams RemoveMissingness
+#'
 #' @returns Vector of metabolite names below the threshold
 #'
 #' @importFrom collapse fgroup_by fmean fmutate fsubset fsummarise fungroup recode_num
@@ -15,20 +28,6 @@ IdentifyMissing <- function(qcData, presence_threshold = 0.75) {
     fsummarise("pPresent" = 1 - fmean(is.na(value)))
   fsubset(prop.present, pPresent < presence_threshold)[["Metabolite"]]
 }
-
-
-#' Remove missing data
-#'
-#' @param qcData input data
-#' @param dropMetabolite Names of metabolites to drop
-#' @returns Data with specified metabolites removed
-#'
-#' @export
-RemoveMissingness <- function(qcData, dropMetabolite) {
-  Metabolite <- NULL
-  fsubset(qcData, Metabolite %notin% dropMetabolite)
-}
-
 
 #' Plot missingness heatmap
 #'

@@ -4,12 +4,13 @@
 \alias{RemoveMissingness}
 \title{Remove missing data}
 \usage{
-RemoveMissingness(qcData, dropMetabolite)
+RemoveMissingness(qcData, presence_threshold = 0.75)
 }
 \arguments{
-\item{qcData}{input data}
+\item{qcData}{QC'd dataset}
 
-\item{dropMetabolite}{Names of metabolites to drop}
+\item{presence_threshold}{A threshold for non-missing data below which a
+metabolite should be dropped}
 }
 \value{
 Data with specified metabolites removed
