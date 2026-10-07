@@ -17,10 +17,8 @@
 ReadFile <- function(filePath) {
   x <- value <- NULL
   df.wide <- fread(filePath, comment.char = "#", integer64 = "double")
-  df.tidy <- melt(df.wide, id.vars = "Sample", variable.name = "Metabolite")[
-    value == 0,
-    value := NA
-  ] # drop 0 so no log2(0)
+  df.tidy <- suppressWarnings(melt(df.wide, id.vars = "Sample", variable.name = "Metabolite"))
+  df.tidy[value == 0, value := NA] # drop 0 so no log2(0)
 
   CheckData(df.tidy)
 
