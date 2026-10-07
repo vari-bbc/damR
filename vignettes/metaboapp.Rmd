@@ -1,0 +1,97 @@
+---
+title: "metaboapp"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{metaboapp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Usage
+
+```{r setup}
+library(metaboapp)
+exdata_path <- list.files(
+  system.file(package = "metaboapp", "extdata"),
+  "example_data.csv",
+  full.names = TRUE
+)
+```
+
+
+## Load and clean data
+
+`ReadFile()` expects a wide-format dataset where the rows are samples and
+columns are metabolites.
+
+```{r}
+read.csv(exdata_path)[1:10, 1:5]
+```
+
+Using the `Sample` column and the "_" and "-" delimiters, it infers groups,
+subgroups, separation methods (IP/HILIC/T3Acidic), and batches. It also pivots
+the data from wide to long or tidy form for the rest of the analysis.
+
+```{r}
+(mdata <- ReadFile(exdata_path))
+```
+
+## QC
+
+`metaboapp` comes with a few QC functions. `BlankFilter()` runs blank filtering
+to remove data points from samples that fail to meet a specified fold-change
+threshold. To identify the data that get blank filtered without running the
+filtering, use `GetBlankDropTable()`. `QCData` is a top-level function that
+calls `BlankFilter()` and removes metabolites with low variance. Use
+`PlotMissingness` to get a presence/absence heatmap of your data.
+
+```{r}
+qc_data <- QCData(mdata)
+mheatmap <- PlotMissingness(qc_data)
+rm_data <- RemoveMissing(qc_data)
+```
+
+To examine your data before and after QC, you can use PCA:
+
+```{r fig.ncol = 3}
+library(patchwork)
+library(ggplot2)
+PlotPCA(GetPCA(mdata)) + ggtitle("Raw")
+PlotPCA(GetPCA(qc_data))+ ggtitle("QC")
+PlotPCA(GetPCA(rm_data))+ ggtitle("Missingness removed")
+```
+
+## Imputation
+
+```{r}
+imputed_data <- impute.QRILC(rm_data)
+```
+
+## Model fitting
+
+```{r}
+groups <- unique(imputed_data$Group)
+
+results <- DiffMetabolites(imputed_data)
+
+PlotVolcano(results, groups[c(1, 5)], contrastTitle = "Example")
+PlotAllVolcanoes(results, groups[c(1:3)], contrastTitle = "Example") |>
+  wrap_plots()
+```
+
+## Pipeline
+
+```r
+fc_data <- ReadFile(exdata_path) |>
+  QCData() |>
+  RemoveMissing() |>
+  impute.QRILC() |>
+  DiffMetabolites(groups = groups[1:2])
+```

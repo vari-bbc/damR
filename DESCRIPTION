@@ -28,7 +28,10 @@ Imports:
   tmvtnorm,
   viridis
 Suggests:
-  ggiraph,
-  patchwork,
-  testthat (>= 3.0.0)
+    ggiraph,
+    knitr,
+    patchwork,
+    rmarkdown,
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
+VignetteBuilder: knitr
