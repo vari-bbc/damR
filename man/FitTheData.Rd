@@ -6,8 +6,8 @@
 \usage{
 FitTheData(
   cleanData,
-  theContrasts,
-  contrastTitle,
+  theContrasts = NULL,
+  contrastTitle = NULL,
   contrastLevel = "Group",
   repeated_measures = "no"
 )
@@ -15,9 +15,11 @@ FitTheData(
 \arguments{
 \item{cleanData}{The QC'd and imputed \code{data.frame}}
 
-\item{theContrasts}{Vector of groups names to contrast}
+\item{theContrasts}{Vector of groups names to contrast. Defaults to the
+unique elements of the \code{Group} column.}
 
-\item{contrastTitle}{A title for the contrasts groups used for plot titles}
+\item{contrastTitle}{A title for the contrasts groups used for plot titles.
+Defaults to \code{""}.}
 
 \item{contrastLevel}{The column from the data containing contrasts levels}
 

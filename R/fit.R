@@ -26,24 +26,29 @@ MakeTheContrasts <- function(labels, title = "", prefix = "") {
 #' Fit model with limma
 #'
 #' @param cleanData The QC'd and imputed `data.frame`
-#' @param theContrasts Vector of groups names to contrast
-#' @param contrastTitle A title for the contrasts groups used for plot titles
+#' @param theContrasts Vector of groups names to contrast. Defaults to the
+#' unique elements of the `Group` column.
+#' @param contrastTitle A title for the contrasts groups used for plot titles.
+#' Defaults to `""`.
 #' @param contrastLevel The column from the data containing contrasts levels
 #' @param repeated_measures Were there repeated measures?
 #' @returns ebayes fit from limma
 #'
-#' @importFrom collapse num_vars
+#' @importFrom collapse funique num_vars
 #' @importFrom limma contrasts.fit duplicateCorrelation eBayes lmFit topTable
 #' @importFrom stats model.matrix p.adjust
 #'
 #' @export
 FitTheData <- function(
   cleanData,
-  theContrasts,
-  contrastTitle,
+  theContrasts = NULL,
+  contrastTitle = NULL,
   contrastLevel = "Group",
   repeated_measures = "no"
 ) {
+  theContrasts <- theContrasts %||% funique(cleanData[[contrastLevel]])
+  contrastTitle <- contrastTitle %||% ""
+
   mat <- fselect(cleanData, c("Sample", "Group", "Metabolite", "value")) |>
     pivot(ids = c("Sample", "Group"), names = "Metabolite", how = "wider")
   colnames(cleanData) <- make.names(colnames(cleanData))
