@@ -86,15 +86,16 @@ FitTheData <- function(
 #' Multiple testing correction within contrasts
 #'
 #' @param ebayesFit The fit from FitTheData
-#' @param comparisonSelections Vector of groups to compare
-#' @param comparisonsTitle Name prefix for the contrasts entries, suffixed by their index
+#' @param theContrasts Vector of groups to compare
+#' @param contrastTitle Name prefix for the contrasts entries, suffixed by their index
+#'
 #' @returns `data.frame` of topTable hits with adjusted P-values and logFC
 #'
 #' @importFrom collapse fselect
 #'
 #' @export
-pAdjustData <- function(ebayesFit, comparisonSelections, comparisonsTitle) {
-  contrastLabels <- MakeTheContrasts(comparisonSelections, comparisonsTitle)
+pAdjustData <- function(ebayesFit, theContrasts = NULL, contrastTitle = NULL) {
+  contrastLabels <- MakeTheContrasts(theContrasts, contrastTitle)
 
   tt_list <- lapply(seq_along(contrastLabels), function(i) {
     tt <- topTable(ebayesFit, adjust.method = "BH", p.value = 1, number = Inf, coef = i)

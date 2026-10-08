@@ -4,14 +4,14 @@
 \alias{pAdjustData}
 \title{Multiple testing correction within contrasts}
 \usage{
-pAdjustData(ebayesFit, comparisonSelections, comparisonsTitle)
+pAdjustData(ebayesFit, theContrasts = NULL, contrastTitle = NULL)
 }
 \arguments{
 \item{ebayesFit}{The fit from FitTheData}
 
-\item{comparisonSelections}{Vector of groups to compare}
+\item{theContrasts}{Vector of groups to compare}
 
-\item{comparisonsTitle}{Name prefix for the contrasts entries, suffixed by their index}
+\item{contrastTitle}{Name prefix for the contrasts entries, suffixed by their index}
 }
 \value{
 \code{data.frame} of topTable hits with adjusted P-values and logFC
