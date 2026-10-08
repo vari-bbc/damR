@@ -1,7 +1,7 @@
 #' Blank filter data by batch
 #'
 #' This function will set filtered values to NA. To get a table of the blank
-#' values that get dropped use `getDropTable()` instead, and then
+#' values that get dropped use `GetBlankDropTable()` instead, and then
 #' `dropBlankFiltered` to do the filtering.
 #'
 #' @details
@@ -28,7 +28,7 @@
 BlankFilter <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
   dropTable <- blanks <- NULL
   # get list with values to drop and the blanks
-  .c(dropTable, blanks) %=% getDropTable(inputData, blankFoldThreshold, blankPattern)
+  .c(dropTable, blanks) %=% GetBlankDropTable(inputData, blankFoldThreshold, blankPattern)
   if (is.null(dropTable)) {
     return(inputData)
   }
@@ -36,13 +36,13 @@ BlankFilter <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|bl
 }
 
 #' Drop data that fails to meet the blank fold change threshold as found by
-#' `getDropTable()`
+#' `GetBlankDropTable()`
 #'
 #' Performs a join on the table of value to be dropped and sets the value
 #' column of the match to NA, returning only non-blank data
 #'
 #' @param inputData Input metabolite data from `ReadFile()`
-#' @param dropTable `data.table` of data points that don't meet the blank fold threshold from `getDropTable()`
+#' @param dropTable `data.table` of data points that don't meet the blank fold threshold from `GetBlankDropTable()`
 #' @param blanks Vector of Sample names of blank samples
 #'
 #' @returns filtered `inputData` where values in `dropTable` are set to NA and
@@ -72,7 +72,7 @@ dropBlankFiltered <- function(inputData, dropTable, blanks) {
 #' @importFrom data.table %like% %ilike%
 #'
 #' @export
-getDropTable <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
+GetBlankDropTable <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
   Sample <- NULL
   blanks <- funique(fsubset(inputData, Sample %ilike% "blank")[["Sample"]])
   if (length(blanks) == 0) {
@@ -88,7 +88,7 @@ getDropTable <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|b
 
 #' Identify data that falls under the threshold for one batch
 #'
-#' Helper for BlankFilter and getDropTable
+#' Helper for BlankFilter and GetBlankDropTable
 #'
 #' @inherit BlankFilter details
 #'

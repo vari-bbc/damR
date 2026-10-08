@@ -20,7 +20,7 @@ without the blanks used for filtering
 }
 \description{
 This function will set filtered values to NA. To get a table of the blank
-values that get dropped use \code{getDropTable()} instead, and then
+values that get dropped use \code{GetBlankDropTable()} instead, and then
 \code{dropBlankFiltered} to do the filtering.
 }
 \details{

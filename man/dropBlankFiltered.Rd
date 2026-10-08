@@ -3,14 +3,14 @@
 \name{dropBlankFiltered}
 \alias{dropBlankFiltered}
 \title{Drop data that fails to meet the blank fold change threshold as found by
-\code{getDropTable()}}
+\code{GetBlankDropTable()}}
 \usage{
 dropBlankFiltered(inputData, dropTable, blanks)
 }
 \arguments{
 \item{inputData}{Input metabolite data from \code{ReadFile()}}
 
-\item{dropTable}{\code{data.table} of data points that don't meet the blank fold threshold from \code{getDropTable()}}
+\item{dropTable}{\code{data.table} of data points that don't meet the blank fold threshold from \code{GetBlankDropTable()}}
 
 \item{blanks}{Vector of Sample names of blank samples}
 }

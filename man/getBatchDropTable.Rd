@@ -19,7 +19,7 @@ data.table with Sample, Metabolite and value where the value does
 not meet the blank filtering threshold
 }
 \description{
-Helper for BlankFilter and getDropTable
+Helper for BlankFilter and GetBlankDropTable
 }
 \details{
 Adapted from the proteomics blank_filter_by_batch() in "Updated Blank
