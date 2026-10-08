@@ -4,12 +4,12 @@
 \alias{MakeTheContrasts}
 \title{Produce contrasts from comparisons}
 \usage{
-MakeTheContrasts(comparisonSelections, comparisonsTitle = "", prefix = "")
+MakeTheContrasts(labels, title = "", prefix = "")
 }
 \arguments{
-\item{comparisonSelections}{Vector of groups to compare}
+\item{labels}{Vector of groups to compare}
 
-\item{comparisonsTitle}{Vector base name for the contrasts entries. Will be suffixed by index}
+\item{title}{Vector base name for the contrasts entries. Will be suffixed by index}
 
 \item{prefix}{Optional prefix to add to each contrast level. Used for limma contrasts}
 }
