@@ -2,20 +2,26 @@
 % Please edit documentation in R/fit.R
 \name{pAdjustData}
 \alias{pAdjustData}
-\title{Multiple testing correction within contrasts}
+\title{Multiple testing correction within contrasts. \code{DiffMetabolites()} should be
+preferred to using this function directly.}
 \usage{
-pAdjustData(ebayesFit, theContrasts = NULL, contrastTitle = NULL)
+pAdjustData(ebayesFit, theContrasts, contrastLevel = "Group")
 }
 \arguments{
 \item{ebayesFit}{The fit from FitTheData}
 
-\item{theContrasts}{Vector of groups to compare}
+\item{theContrasts}{Vector of contrasts specified in the format "GroupA -
+GroupB". The "Group" string, specified by \code{contrastLevel} is stripped.}
 
-\item{contrastTitle}{Name prefix for the contrasts entries, suffixed by their index}
+\item{contrastLevel}{The column from the data containing contrasts levels.
+\code{model.matrix} adds this column name as a prefix to each group so this is
+passed in with the prefix to \code{FitTheData()} but can now be stripped contrast
+names in the result.}
 }
 \value{
 \code{data.frame} of topTable hits with adjusted P-values and logFC
 }
 \description{
-Multiple testing correction within contrasts
+Multiple testing correction within contrasts. \code{DiffMetabolites()} should be
+preferred to using this function directly.
 }

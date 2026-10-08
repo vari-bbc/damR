@@ -2,12 +2,12 @@
 % Please edit documentation in R/fit.R
 \name{FitTheData}
 \alias{FitTheData}
-\title{Fit model with limma}
+\title{Fit model with limma across all. \code{DiffMetabolites()} should be preferred to
+using this function directly.}
 \usage{
 FitTheData(
   cleanData,
-  theContrasts = NULL,
-  contrastTitle = NULL,
+  theContrasts,
   contrastLevel = "Group",
   repeated_measures = "no"
 )
@@ -15,13 +15,12 @@ FitTheData(
 \arguments{
 \item{cleanData}{The QC'd and imputed \code{data.frame}}
 
-\item{theContrasts}{Vector of groups names to contrast. Defaults to the
-unique elements of the \code{Group} column.}
+\item{theContrasts}{Vector of contrasts specified in the format "GroupA -
+GroupB". Produced by \code{MakeTheContrasts()} with the \code{prefix} argument set to
+"Group" by default as thats the column usually used for contrasts.}
 
-\item{contrastTitle}{A title for the contrasts groups used for plot titles.
-Defaults to \code{""}.}
-
-\item{contrastLevel}{The column from the data containing contrasts levels}
+\item{contrastLevel}{The column from the data containing \code{groups} levels,
+usually \code{"Group"}.}
 
 \item{repeated_measures}{Were there repeated measures?}
 }
@@ -29,5 +28,6 @@ Defaults to \code{""}.}
 ebayes fit from limma
 }
 \description{
-Fit model with limma
+Fit model with limma across all. \code{DiffMetabolites()} should be preferred to
+using this function directly.
 }

@@ -4,6 +4,7 @@ export(.getAnnoColors)
 export(.plotMissingHeatmap)
 export(BlankFilter)
 export(CheckData)
+export(DiffMetabolites)
 export(FitTheData)
 export(GetBlankDropTable)
 export(GetPCA)
@@ -79,6 +80,7 @@ importFrom(limma,
   duplicateCorrelation,
   eBayes,
   lmFit,
+  makeContrasts,
   topTable
 )
 importFrom(plotly,
