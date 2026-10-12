@@ -2,9 +2,9 @@
 
 export(.getAnnoColors)
 export(.plotMissingHeatmap)
-export(BlankFilter)
 export(CheckData)
 export(DiffMetabolites)
+export(FilterBlanks)
 export(FitTheData)
 export(GetBlankDropTable)
 export(GetPCA)

@@ -6,7 +6,7 @@
 \usage{
 QCData(
   inputData,
-  blankFilter = TRUE,
+  filterBlanks = TRUE,
   blankFoldThreshold = 5,
   blankPattern = "^PB|blank",
   controlPattern = "^PB|^TC|^QC"
@@ -15,7 +15,7 @@ QCData(
 \arguments{
 \item{inputData}{Input metabolite data}
 
-\item{blankFilter}{Whether to run blank filtering}
+\item{filterBlanks}{Whether to run blank filtering}
 
 \item{blankFoldThreshold}{The blank fold change threshold. The difference
 between every metabolite and its batch's blank must be at least this value
@@ -28,7 +28,7 @@ or higher to remain in the dataset.}
 \description{
 Removes:
 \itemize{
-\item data points below a fold change threshold compared to blank samples. See \code{BlankFilter()}.
+\item data points below a fold change threshold compared to blank samples. See \code{FilterBlanks()}.
 \item metabolites with zero variance
 \item Blank samples (after blank filtering)
 \item Control samples

@@ -1,13 +1,13 @@
 #' Run QC on input data
 #'
 #' Removes:
-#'   - data points below a fold change threshold compared to blank samples. See `BlankFilter()`.
+#'   - data points below a fold change threshold compared to blank samples. See `FilterBlanks()`.
 #'   - metabolites with zero variance
 #'   - Blank samples (after blank filtering)
 #'   - Control samples
 #'
 #' @param inputData Input metabolite data
-#' @param blankFilter Whether to run blank filtering
+#' @param filterBlanks Whether to run blank filtering
 #' @param blankFoldThreshold The blank fold change threshold. The difference
 #' between every metabolite and its batch's blank must be at least this value
 #' or higher to remain in the dataset.
@@ -20,13 +20,13 @@
 #' @export
 QCData <- function(
   inputData,
-  blankFilter = TRUE,
+  filterBlanks = TRUE,
   blankFoldThreshold = 5,
   blankPattern = "^PB|blank",
   controlPattern = "^PB|^TC|^QC"
 ) {
-  if (blankFilter) {
-    inputData <- BlankFilter(inputData, blankFoldThreshold, blankPattern)
+  if (filterBlanks) {
+    inputData <- FilterBlanks(inputData, blankFoldThreshold, blankPattern)
   }
 
   zeroVarMetabolites <- getZeroVar(inputData)

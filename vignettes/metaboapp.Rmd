@@ -45,11 +45,11 @@ the data from wide to long or tidy form for the rest of the analysis.
 
 ## QC
 
-`metaboapp` comes with a few QC functions. `BlankFilter()` runs blank filtering
+`metaboapp` comes with a few QC functions. `FilterBlanks()` runs blank filtering
 to remove data points from samples that fail to meet a specified fold-change
 threshold. To identify the data that get blank filtered without running the
 filtering, use `GetBlankDropTable()`. `QCData` is a top-level function that
-calls `BlankFilter()` and removes metabolites with low variance. Use
+calls `FilterBlanks()` and removes metabolites with low variance. Use
 `PlotMissingness` to get a presence/absence heatmap of your data.
 
 ```{r}

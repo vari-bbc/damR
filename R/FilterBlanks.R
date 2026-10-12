@@ -25,7 +25,7 @@
 #' @importFrom collapse %=% .c
 #'
 #' @export
-BlankFilter <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
+FilterBlanks <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
   dropTable <- blanks <- NULL
   # get list with values to drop and the blanks
   .c(dropTable, blanks) %=% GetBlankDropTable(inputData, blankFoldThreshold, blankPattern)
@@ -59,9 +59,9 @@ dropBlankFiltered <- function(inputData, dropTable, blanks) {
 
 #' Identify data that falls under the provided threshold by batch across batches
 #'
-#' @inherit BlankFilter details
+#' @inherit FilterBlanks details
 #'
-#' @inheritParams BlankFilter
+#' @inheritParams FilterBlanks
 #'
 #' @returns named list where `dropTable` is a data.table with Sample,
 #' Metabolite, value, and Batch and `blanks` are the Sample names corresponding
@@ -88,9 +88,9 @@ GetBlankDropTable <- function(inputData, blankFoldThreshold = 5, blankPattern = 
 
 #' Identify data that falls under the threshold for one batch
 #'
-#' Helper for BlankFilter and GetBlankDropTable
+#' Helper for FilterBlanks and GetBlankDropTable
 #'
-#' @inherit BlankFilter details
+#' @inherit FilterBlanks details
 #'
 #' @param batchData A single batch of input data. This must contain a blank
 #' @param logFoldThreshold log2 of fold change threshold below which data are
