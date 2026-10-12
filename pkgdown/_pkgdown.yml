@@ -24,9 +24,9 @@ reference:
     contents:
       - GetPCA
       - PlotPCA
-  - subtitle: Blank Filter
+  - subtitle: Blank filtering
     contents:
-      - BlankFilter
+      - FilterBlanks
       - GetBlankDropTable
       - dropBlankFiltered
   - subtitle: Missingness
