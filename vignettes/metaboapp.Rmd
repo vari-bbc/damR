@@ -35,26 +35,47 @@ columns are metabolites.
 read.csv(exdata_path)[1:10, 1:5]
 ```
 
-Using the `Sample` column and the "_" and "-" delimiters, it infers groups,
-subgroups, separation methods (IP/HILIC/T3Acidic), and batches. It also pivots
-the data from wide to long or tidy form for the rest of the analysis.
+The `Sample` column should be in the form
+`SampleID_Subgroup1ID-Subgroup2ID_BatchNo` to infer Sample, Group, Subgroup, and
+Batch identifiers based on the "_" and "-" delimiters. The Metabolite column
+must be in the form `MetaboliteName_ExtractionMethod` for filtering based on
+extraction method (IP/HILIC/T3Acidic).
 
 ```{r}
 (mdata <- ReadFile(exdata_path))
 ```
 
+`ReadFile()` pivots the data from wide to long or tidy form for the rest of the
+analysis.
+
 ## QC
 
-`metaboapp` comes with a few QC functions. `FilterBlanks()` runs blank filtering
-to remove data points from samples that fail to meet a specified fold-change
-threshold. To identify the data that get blank filtered without running the
-filtering, use `GetBlankDropTable()`. `QCData` is a top-level function that
-calls `FilterBlanks()` and removes metabolites with low variance. Use
+Each metabolite in the dataset may be sampled with multiple extraction methods.
+For each metabolite, `FilterExtraction()` selects the method with the fewest NAs
+or the lowest variation. `FilterBlanks()` runs blank filtering to remove
+metabolites from non-blank samples that fail to meet a specified fold-change
+threshold compared to the same metabolites from blank samples. To identify the
+data that get blank filtered without running the filtering, use
+`GetBlankDropTable()` which `FilterBlanks()` uses to identify the metabolites to
+remove as well as the blank samples.
+
+`QCData` is a top-level function that calls both `FilterExtraction()` and
+`FilterBlanks()`, and removes metabolites with low variance. 
+
+```{r}
+to_drop <- GetBlankDropTable(mdata)
+head(to_drop$dropTable)
+to_drop$blanks
+
+qc_data <- QCData(mdata)
+```
+
+`RemoveMissing()` drops metabolites with more NAs than a specified proportion.
+To just get those that would be removed, use `IdentifyMetabolites()`. Use
 `PlotMissingness` to get a presence/absence heatmap of your data.
 
 ```{r}
-qc_data <- QCData(mdata)
-mheatmap <- PlotMissingness(qc_data)
+head(IdentifyMissing(qc_data))
 rm_data <- RemoveMissing(qc_data)
 ```
 
