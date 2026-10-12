@@ -5,6 +5,7 @@ export(.plotMissingHeatmap)
 export(CheckData)
 export(DiffMetabolites)
 export(FilterBlanks)
+export(FilterExtraction)
 export(FitTheData)
 export(GetBlankDropTable)
 export(GetPCA)
@@ -22,6 +23,7 @@ export(VolcanoData)
 export(VolcanoPlotter)
 export(dropBlankFiltered)
 export(dropMetabolites)
+export(filterPresenceCV)
 export(getBatchDropTable)
 export(getZeroVar)
 export(impute.QRILC)
@@ -58,6 +60,7 @@ importFrom(data.table,
   fread,
   melt,
   setcolorder,
+  setorder,
   tstrsplit
 )
 importFrom(ggplot2,

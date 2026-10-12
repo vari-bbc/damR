@@ -7,7 +7,9 @@
 QCData(
   inputData,
   filterBlanks = TRUE,
+  filterExtraction = TRUE,
   blankFoldThreshold = 5,
+  naTolerance = 0.05,
   blankPattern = "^PB|blank",
   controlPattern = "^PB|^TC|^QC"
 )
@@ -15,20 +17,35 @@ QCData(
 \arguments{
 \item{inputData}{Input metabolite data}
 
-\item{filterBlanks}{Whether to run blank filtering}
+\item{filterBlanks}{Whether to run blank filtering. See \code{FilterBlanks()}.}
+
+\item{filterExtraction}{Whether to filter for the best extraction method.
+See \code{FilterExtraction()}.}
 
 \item{blankFoldThreshold}{The blank fold change threshold. The difference
 between every metabolite and its batch's blank must be at least this value
 or higher to remain in the dataset.}
+
+\item{naTolerance}{The absolute acceptable non-NA proportion difference for a
+given metabolite across separation methods like IP, HILICA and T3Acidic.
+Metabolites with proportion differences under this value will be picked
+based on their coefficient of variance. See \code{FilterExtraction()}.}
 
 \item{blankPattern}{String pattern to denote blank samples}
 
 \item{controlPattern}{String pattern to denote control samples like QC}
 }
 \description{
-Removes:
+Run QC on input data
+}
+\details{
+For each metabolite's separation method, it selects the one with the
+lowest proportion NAs, or if similar proportions, the lowest coefficient
+of variance. See \code{FilterExtraction()}.
+Then removes
 \itemize{
-\item data points below a fold change threshold compared to blank samples. See \code{FilterBlanks()}.
+\item data points below a fold change threshold compared to blank samples. See
+\code{BlankFilter()}.
 \item metabolites with zero variance
 \item Blank samples (after blank filtering)
 \item Control samples

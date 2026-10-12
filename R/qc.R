@@ -1,13 +1,24 @@
 #' Run QC on input data
 #'
-#' Removes:
-#'   - data points below a fold change threshold compared to blank samples. See `FilterBlanks()`.
+#' @details
+#' For each metabolite's separation method, it selects the one with the
+#' lowest proportion NAs, or if similar proportions, the lowest coefficient
+#' of variance. See `FilterExtraction()`.
+#' Then removes
+#'   - data points below a fold change threshold compared to blank samples. See
+#'   `BlankFilter()`.
 #'   - metabolites with zero variance
 #'   - Blank samples (after blank filtering)
 #'   - Control samples
 #'
 #' @param inputData Input metabolite data
-#' @param filterBlanks Whether to run blank filtering
+#' @param filterExtraction Whether to filter for the best extraction method.
+#' See `FilterExtraction()`.
+#' @param filterBlanks Whether to run blank filtering. See `FilterBlanks()`.
+#' @param naTolerance The absolute acceptable non-NA proportion difference for a
+#' given metabolite across separation methods like IP, HILICA and T3Acidic.
+#' Metabolites with proportion differences under this value will be picked
+#' based on their coefficient of variance. See `FilterExtraction()`.
 #' @param blankFoldThreshold The blank fold change threshold. The difference
 #' between every metabolite and its batch's blank must be at least this value
 #' or higher to remain in the dataset.
@@ -21,10 +32,16 @@
 QCData <- function(
   inputData,
   filterBlanks = TRUE,
+  filterExtraction = TRUE,
   blankFoldThreshold = 5,
+  naTolerance = 0.05,
   blankPattern = "^PB|blank",
   controlPattern = "^PB|^TC|^QC"
 ) {
+  if (filterExtraction) {
+    inputData <- FilterExtraction(inputData, naTolerance)
+  }
+
   if (filterBlanks) {
     inputData <- FilterBlanks(inputData, blankFoldThreshold, blankPattern)
   }
