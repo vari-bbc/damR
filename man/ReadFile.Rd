@@ -16,10 +16,17 @@ Processed data.frame
 Read and process input data file
 }
 \details{
-Splits the Sample column by \code{"_"} into SampleID, Group and Batch columns.
-Then splits the Group column Subgroup1 and Subgroup2 on \code{"-"}. The \code{"-"} in
-the Group column is replaced with \code{"_"} to prevent issues with making
-contrasts that need a \code{"-"} to delineate between contrast groups. Any lines
-starting with '#' are ignored to avoid reading template formatting. All
-values <= 0 are set to NA and other values log2 transformed.
+Any lines starting with '#' are ignored to avoid reading template
+formatting. Pivots the data from wide form into a tidy/long format. Splits
+the Sample column by \code{"_"} into SampleID, Group and Batch columns. Then
+splits the Group column Subgroup1 and Subgroup2 on \code{"-"}. The \code{"-"} in the
+Group column is replaced with \code{"_"} to prevent issues with making contrasts
+that need a \code{"-"} to delineate between contrast groups. The Metabolite
+column is split on \code{"_"} to identify the extraction method. All values <= 0
+are set to NA and other values log2 transformed. The following requirements
+must be met for this function to work correctly:
+\itemize{
+\item Sample column data in the form "SampleID_Subgroup1-Subgroup2_Batch"
+\item Metabolite column data in the form "MetaboliteName_ExtractionMethod"
+}
 }
