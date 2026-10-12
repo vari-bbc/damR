@@ -24,6 +24,9 @@ reference:
     contents:
       - GetPCA
       - PlotPCA
+  - subtitle: Extraction method filtering
+    contents:
+      - FilterExtraction
   - subtitle: Blank filtering
     contents:
       - FilterBlanks
