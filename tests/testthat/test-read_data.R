@@ -8,7 +8,7 @@ test_that("ReadFile", {
     "Subgroup2",
     "Batch",
     "Metabolite",
-    "type",
+    "Type",
     "value"
   )
   expect_equal(colnames(read_in_data), expected_colnames)

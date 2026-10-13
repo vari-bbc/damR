@@ -17,6 +17,6 @@ test_that("IdentifyMissing", {
   expect_equal(IdentifyMissing(dummy.df, 0.80), c("HighMissing", "LowMissing"))
   missing_cols <- IdentifyMissing(dummy.df, 0.75)
   expect_equal(missing_cols, c("HighMissing"))
-  removed <- RemoveMissingness(dummy.df, 0.75)
+  removed <- RemoveMissing(dummy.df, 0.75)
   expect_equal(removed[, unique("LowMissing")], "LowMissing")
 })

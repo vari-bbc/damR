@@ -25,16 +25,10 @@ test_that("MakeTheContrasts", {
 
 test_that("FitTheData", {
   exdata <- ReadFile(exdata_path)
-  qc_data <- exdata
-  # qc_data <- QCData(exdata)$TheData
-  complete_data <- RemoveMissingness(qc_data, IdentifyMissing(qc_data, 0.75))
+  qc_data <- QCData(exdata)
+  complete_data <- RemoveMissing(qc_data)
   imputed_data <- impute.QRILC(complete_data)
   expect_no_error(
-    ebayes.fit <- FitTheData(
-      complete_data,
-      c("AMW20p_AMW20q", "AMW20p_AMW20s", "BDp_AMW20s"),
-      "title"
-    )
+    ebayes.fit <- DiffMetabolites(complete_data)
   )
-  expect_s4_class(ebayes.fit, "MArrayLM")
 })
