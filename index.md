@@ -1,5 +1,7 @@
 # damR
 
+[![R-CMD-check.yaml](https://github.com/vari-bbc/damR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vari-bbc/damR/actions/workflows/R-CMD-check.yaml)
+
 Metabolomics analysis with limma
 
 ## Installation
