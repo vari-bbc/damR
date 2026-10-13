@@ -40,7 +40,7 @@ GetPCA <- function(fullData) {
 #' and `varex` which contains the percent variance explained for each PC.
 #'
 #' @importFrom collapse fmutate
-#' @importFrom ggplot2 ggplot aes geom_point labs
+#' @importFrom ggplot2 ggplot aes geom_point labs guides
 #' @importFrom rlang .data
 #'
 #' @export
@@ -58,14 +58,19 @@ PlotPCA <- function(
     }
   )
 
+  Group <- pool_blank <- NULL
   pd <- pca$pca
   xaxis <- x
   yaxis <- y
   is_pool_blank <- grepl("pool|blank", pd$Group, ignore.case = TRUE)
-  pd <- fmutate(pd, "pool_blank" = ifelse(is_pool_blank, "Yes", "No"))
+  pd <- fmutate(pd, "pool_blank" = ifelse(is_pool_blank, Group, "Experimental sample"))
+  if (any(is_pool_blank)) {
+    pool_blank_names <- pca$pca[is_pool_blank, funique(Group)]
+    pd <- fmutate(pd, pool_blank = factor(pool_blank, levels = c("Experimental sample", pool_blank_names)))
+  }
 
   ggplot(
-    pd,
+    pd[!is_pool_blank],
     aes(
       x = .data[[xaxis]],
       y = .data[[yaxis]],
@@ -77,11 +82,17 @@ PlotPCA <- function(
       size = pointSize,
       alpha = pointAlpha
     ) +
-    scale_shape_manual(values = c(Yes = 17, No = 16)) +
+    geom_point(
+      data = pd[is_pool_blank],
+      inherit.aes = FALSE,
+      aes(x = .data[[xaxis]], y = .data[[yaxis]], shape = pool_blank),
+      size = pointSize,
+      alpha = pointAlpha
+    ) +
     labs(
       x = sprintf("PCA (%.2f%%)", pca$varex[x]),
       y = sprintf("PCA (%.2f%%)", pca$varex[y]),
-      shape = "Is pool blank?"
+      shape = "Sample type"
     ) +
     guides(shape = ifelse(all(!is_pool_blank), "none", "legend"))
 }
