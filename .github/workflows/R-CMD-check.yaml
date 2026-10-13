@@ -3,6 +3,11 @@
 on:
   push:
     branches: [main, master]
+    paths-ignore:
+     - '**.toml'
+     - '**.nix'
+     - 'flake.lock'
+     - '.gitignore'
   pull_request:
 
 name: R-CMD-check.yaml
