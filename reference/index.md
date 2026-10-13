@@ -1,0 +1,85 @@
+# Package index
+
+## Data import
+
+- [`ReadFile()`](https://vari-bbc.github.io/metaboapp/reference/ReadFile.md)
+  : Read and process input data file
+
+## QC
+
+- [`QCData()`](https://vari-bbc.github.io/metaboapp/reference/QCData.md)
+  : Run QC on input data
+
+### PCA
+
+- [`GetPCA()`](https://vari-bbc.github.io/metaboapp/reference/GetPCA.md)
+  : Compute PCA and variance explained
+- [`PlotPCA()`](https://vari-bbc.github.io/metaboapp/reference/PlotPCA.md)
+  : Plot PCA
+
+### Extraction method filtering
+
+- [`FilterExtraction()`](https://vari-bbc.github.io/metaboapp/reference/FilterExtraction.md)
+  : Select the best extraction method for each metabolite
+
+### Blank filtering
+
+- [`FilterBlanks()`](https://vari-bbc.github.io/metaboapp/reference/FilterBlanks.md)
+  : Blank filter data by batch
+
+- [`GetBlankDropTable()`](https://vari-bbc.github.io/metaboapp/reference/GetBlankDropTable.md)
+  : Identify data that falls under the provided threshold by batch
+  across batches
+
+- [`dropBlankFiltered()`](https://vari-bbc.github.io/metaboapp/reference/dropBlankFiltered.md)
+  :
+
+  Drop data that fails to meet the blank fold change threshold as found
+  by
+  [`GetBlankDropTable()`](https://vari-bbc.github.io/metaboapp/reference/GetBlankDropTable.md)
+
+### Missingness
+
+- [`RemoveMissing()`](https://vari-bbc.github.io/metaboapp/reference/RemoveMissing.md)
+  : Remove missing data
+- [`IdentifyMissing()`](https://vari-bbc.github.io/metaboapp/reference/IdentifyMissing.md)
+  : Get metabolites where proportion present is less than a set
+  threshold
+- [`PlotMissingness()`](https://vari-bbc.github.io/metaboapp/reference/PlotMissingness.md)
+  : Plot missingness heatmap
+- [`impute.QRILC()`](https://vari-bbc.github.io/metaboapp/reference/impute.QRILC.md)
+  : QRILC imputation
+
+## Modelling
+
+- [`DiffMetabolites()`](https://vari-bbc.github.io/metaboapp/reference/DiffMetabolites.md)
+  : Get differential metabolites with log fold-changes and adjusted
+  pvalues based on input comparison groups
+
+### Helpers
+
+- [`MakeTheContrasts()`](https://vari-bbc.github.io/metaboapp/reference/MakeTheContrasts.md)
+  : Produce contrasts from comparisons
+
+- [`FitTheData()`](https://vari-bbc.github.io/metaboapp/reference/FitTheData.md)
+  :
+
+  Fit model with limma across all.
+  [`DiffMetabolites()`](https://vari-bbc.github.io/metaboapp/reference/DiffMetabolites.md)
+  should be preferred to using this function directly.
+
+- [`pAdjustData()`](https://vari-bbc.github.io/metaboapp/reference/pAdjustData.md)
+  :
+
+  Multiple testing correction within contrasts.
+  [`DiffMetabolites()`](https://vari-bbc.github.io/metaboapp/reference/DiffMetabolites.md)
+  should be preferred to using this function directly.
+
+## Plotting
+
+- [`VolcanoData()`](https://vari-bbc.github.io/metaboapp/reference/VolcanoData.md)
+  : Produce volcano plot data for a single contrast
+- [`PlotVolcano()`](https://vari-bbc.github.io/metaboapp/reference/PlotVolcano.md)
+  : Plot volcano for a single contrast
+- [`PlotAllVolcanoes()`](https://vari-bbc.github.io/metaboapp/reference/PlotAllVolcanoes.md)
+  : Plot volcanoes for all input contrasts
