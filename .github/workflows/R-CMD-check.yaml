@@ -10,7 +10,7 @@ on:
      - '.gitignore'
   pull_request:
 
-name: R-CMD-check.yaml
+name: R-CMD-check
 
 permissions: read-all
 
