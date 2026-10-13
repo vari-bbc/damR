@@ -114,5 +114,5 @@ fc_data <- ReadFile(exdata_path) |>
   QCData() |>
   RemoveMissing() |>
   impute.QRILC() |>
-  DiffMetabolites(groups = groups[1:2])
+  DiffMetabolites()
 ```
