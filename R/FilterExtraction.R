@@ -34,7 +34,7 @@ FilterExtraction <- function(inputData, naTolerance) {
     .SD[filterPresenceCV(pPresent, cv, naTolerance), "Type"],
     by = "Metabolite"
   ]
-  join(inputData, selection, on = c("Metabolite", "Type"), how = "inner")
+  join(inputData, selection, on = c("Metabolite", "Type"), how = "inner", verbose = 0)
 }
 
 #' Identify the highest non-NA proportion with lowest coefficient of variance
