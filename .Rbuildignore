@@ -8,3 +8,4 @@ air.toml
 flake.*
 docs
 pkgdown
+^\.github$
