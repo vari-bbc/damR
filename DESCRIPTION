@@ -1,5 +1,5 @@
-Package: metaboapp
-Title: Metabolomics analysis workflow for VAI BBC
+Package: damR
+Title: Differential abundance of metabolomics analysis workflow
 Version: 0.0.0.9000
 Authors@R: 
     c(
@@ -8,7 +8,10 @@ Authors@R:
       person("Zach", "Madaj", , "zach.madaj@vai.org", role = c("aut")),
       person("Emily", "Wolfrum", , "emily.wolfrum@vai.org", role = c("aut"))
     )
-Description: What the package does (one paragraph).
+Description: An analysis pipeline to get differential abundance of metabolites
+             from metabolomics data with limma. Provides functions for QC with PCA, blank
+             filtering and selecting the best available extraction method for each
+             metabolite. Model fitting is done with limma and results may be plotted as volcano plots.
 License: GPL (>= 3)
 Config/roxygen2/version: 8.1.0
 Encoding: UTF-8

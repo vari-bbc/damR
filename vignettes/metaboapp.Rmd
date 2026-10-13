@@ -1,8 +1,8 @@
 ---
-title: "metaboapp"
+title: "damR"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{metaboapp}
+  %\VignetteIndexEntry{damR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 ## Usage
 
 ```{r setup}
-library(metaboapp)
+library(damR)
 exdata_path <- list.files(
-  system.file(package = "metaboapp", "extdata"),
+  system.file(package = "damR", "extdata"),
   "example_data.csv",
   full.names = TRUE
 )

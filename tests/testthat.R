@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(metaboapp)
+library(damR)
 
-test_check("metaboapp")
+test_check("damR")

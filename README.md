@@ -1,13 +1,13 @@
-# metaboapp
+# damR
 
 Metabolomics analysis with limma
 
 ## Installation
 
-You can install the development version of metaboapp from
-[GitHub](https://github.com/vari-bbc/bbc-metabolomics) with:
+You can install the development version of damR from
+[GitHub](https://github.com/vari-bbc/damR) with:
 
 ``` r
-devtools::install_github("vari-bbc/bbc-metabolomics") # or
-pak::pak("vari-bbc/bbc-metabolomics")
+devtools::install_github("vari-bbc/damR") # or
+pak::pak("vari-bbc/damR")
 ```

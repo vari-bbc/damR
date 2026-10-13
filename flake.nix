@@ -1,5 +1,5 @@
 {
-  description = "Flake to get metaboapp development environment";
+  description = "Flake to get damR development environment";
   inputs.nixpkgs.url = "github:rstats-on-nix/nixpkgs/r-bioc-devel";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
@@ -50,8 +50,8 @@
         openssl
       ];
 
-      metaboapp = pkgs.rPackages.buildRPackage {
-        pname = "metaboapp";
+      damR = pkgs.rPackages.buildRPackage {
+        pname = "damR";
         version = "0.0.9000";
         src = self;
         nativeBuildInputs = rNativeBuildInputs;
@@ -60,9 +60,9 @@
 
       # Create R development environment with iscream and other useful libraries
     in {
-      packages.default = metaboapp;
+      packages.default = damR;
       devShells.default = pkgs.mkShell {
-          inputsFrom = pkgs.lib.singleton metaboapp;
+          inputsFrom = pkgs.lib.singleton damR;
           packages = pkgs.lib.singleton devDeps ++ rDevDeps;
           shellHook = ''
             mkdir -p "$HOME/.R"
