@@ -83,7 +83,6 @@ FitTheData <- function(
 
   design <- model.matrix(as.formula(paste("~ 0 +", contrastLevel)), data = mat) # ERW Make model
   num_data <- t(num_vars(mat))
-  print(num_data[1:5, 1:8])
 
   # lmFit the metabolite data using the model above
   if (repeated_measures == "yes") {
