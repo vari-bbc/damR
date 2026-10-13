@@ -22,7 +22,7 @@ VolcanoPlotter(
 - pd:
 
   Plot data produced by
-  [`VolcanoData()`](https://vari-bbc.github.io/metaboapp/reference/VolcanoData.md)
+  [`VolcanoData()`](https://vari-bbc.github.io/damR/reference/VolcanoData.md)
 
 - alphaLevel:
 

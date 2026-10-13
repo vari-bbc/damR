@@ -25,12 +25,12 @@ QCData(
 - filterBlanks:
 
   Whether to run blank filtering. See
-  [`FilterBlanks()`](https://vari-bbc.github.io/metaboapp/reference/FilterBlanks.md).
+  [`FilterBlanks()`](https://vari-bbc.github.io/damR/reference/FilterBlanks.md).
 
 - filterExtraction:
 
   Whether to filter for the best extraction method. See
-  [`FilterExtraction()`](https://vari-bbc.github.io/metaboapp/reference/FilterExtraction.md).
+  [`FilterExtraction()`](https://vari-bbc.github.io/damR/reference/FilterExtraction.md).
 
 - blankFoldThreshold:
 
@@ -44,7 +44,7 @@ QCData(
   metabolite across separation methods like IP, HILICA and T3Acidic.
   Metabolites with proportion differences under this value will be
   picked based on their coefficient of variance. See
-  [`FilterExtraction()`](https://vari-bbc.github.io/metaboapp/reference/FilterExtraction.md).
+  [`FilterExtraction()`](https://vari-bbc.github.io/damR/reference/FilterExtraction.md).
 
 - blankPattern:
 
@@ -59,7 +59,7 @@ QCData(
 For each metabolite's separation method, it selects the one with the
 lowest proportion NAs, or if similar proportions, the lowest coefficient
 of variance. See
-[`FilterExtraction()`](https://vari-bbc.github.io/metaboapp/reference/FilterExtraction.md).
+[`FilterExtraction()`](https://vari-bbc.github.io/damR/reference/FilterExtraction.md).
 Then removes
 
 - data points below a fold change threshold compared to blank samples.

@@ -21,7 +21,7 @@ PlotPCA(
 - pca:
 
   The PCA and variance explained data from
-  [`GetPCA()`](https://vari-bbc.github.io/metaboapp/reference/GetPCA.md)
+  [`GetPCA()`](https://vari-bbc.github.io/damR/reference/GetPCA.md)
 
 - x, y:
 

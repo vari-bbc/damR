@@ -2,7 +2,7 @@
 
 This function will set filtered values to NA. To get a table of the
 blank values that get dropped use
-[`GetBlankDropTable()`](https://vari-bbc.github.io/metaboapp/reference/GetBlankDropTable.md)
+[`GetBlankDropTable()`](https://vari-bbc.github.io/damR/reference/GetBlankDropTable.md)
 instead, and then `dropBlankFiltered` to do the filtering.
 
 ## Usage
@@ -16,7 +16,7 @@ FilterBlanks(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank")
 - inputData:
 
   Input metabolite data from
-  [`ReadFile()`](https://vari-bbc.github.io/metaboapp/reference/ReadFile.md)
+  [`ReadFile()`](https://vari-bbc.github.io/damR/reference/ReadFile.md)
 
 - blankFoldThreshold:
 

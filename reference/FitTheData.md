@@ -1,7 +1,7 @@
 # Fit model with limma across all. `DiffMetabolites()` should be preferred to using this function directly.
 
 Fit model with limma across all.
-[`DiffMetabolites()`](https://vari-bbc.github.io/metaboapp/reference/DiffMetabolites.md)
+[`DiffMetabolites()`](https://vari-bbc.github.io/damR/reference/DiffMetabolites.md)
 should be preferred to using this function directly.
 
 ## Usage
@@ -25,7 +25,7 @@ FitTheData(
 
   Vector of contrasts specified in the format "GroupA - GroupB".
   Produced by
-  [`MakeTheContrasts()`](https://vari-bbc.github.io/metaboapp/reference/MakeTheContrasts.md)
+  [`MakeTheContrasts()`](https://vari-bbc.github.io/damR/reference/MakeTheContrasts.md)
   with the `prefix` argument set to "Group" by default as thats the
   column usually used for contrasts.
 

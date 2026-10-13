@@ -14,13 +14,13 @@ dropBlankFiltered(inputData, dropTable, blanks)
 - inputData:
 
   Input metabolite data from
-  [`ReadFile()`](https://vari-bbc.github.io/metaboapp/reference/ReadFile.md)
+  [`ReadFile()`](https://vari-bbc.github.io/damR/reference/ReadFile.md)
 
 - dropTable:
 
   `data.table` of data points that don't meet the blank fold threshold
   from
-  [`GetBlankDropTable()`](https://vari-bbc.github.io/metaboapp/reference/GetBlankDropTable.md)
+  [`GetBlankDropTable()`](https://vari-bbc.github.io/damR/reference/GetBlankDropTable.md)
 
 - blanks:
 

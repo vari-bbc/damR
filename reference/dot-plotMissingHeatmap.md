@@ -22,7 +22,7 @@ Helper to plot missingness heatmap
 
   List named with `anno.df` column names containing named color vectors
   where the color vector names correspond to the elements of anno. See
-  [`.getAnnoColors()`](https://vari-bbc.github.io/metaboapp/reference/dot-getAnnoColors.md)
+  [`.getAnnoColors()`](https://vari-bbc.github.io/damR/reference/dot-getAnnoColors.md)
 
 - showRownames:
 

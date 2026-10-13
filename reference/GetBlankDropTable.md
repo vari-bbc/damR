@@ -14,7 +14,7 @@ GetBlankDropTable(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank")
 - inputData:
 
   Input metabolite data from
-  [`ReadFile()`](https://vari-bbc.github.io/metaboapp/reference/ReadFile.md)
+  [`ReadFile()`](https://vari-bbc.github.io/damR/reference/ReadFile.md)
 
 - blankFoldThreshold:
 

@@ -20,7 +20,7 @@ PlotVolcano(
 - resultTable:
 
   The `topTable` results from
-  [`pAdjustData()`](https://vari-bbc.github.io/metaboapp/reference/pAdjustData.md)
+  [`pAdjustData()`](https://vari-bbc.github.io/damR/reference/pAdjustData.md)
 
 - contrastGroups:
 
@@ -42,7 +42,7 @@ PlotVolcano(
 - ...:
 
   Geom aesthetics passed to
-  [`VolcanoPlotter()`](https://vari-bbc.github.io/metaboapp/reference/VolcanoPlotter.md).
+  [`VolcanoPlotter()`](https://vari-bbc.github.io/damR/reference/VolcanoPlotter.md).
 
 ## Value
 
