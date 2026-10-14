@@ -9,6 +9,7 @@ VolcanoPlotter(
   alphaLevel,
   pointColors = c(`Up regulated` = "#276419", `Down regulated` = "#8E0152", NS = "grey"),
   pointSize = 2,
+  pointAlpha = 0.7,
   alphaLineColor = "red",
   alphaLineType = "dotted",
   alphaLineWidth = 0.5,
@@ -23,6 +24,8 @@ VolcanoPlotter(
 \item{pointColors}{Named vector of colors for \code{"Up regulated"}, \code{"Down regulated"}, and \code{"NS"} points}
 
 \item{pointSize}{Size of the \code{ggplot2::geom_point()}}
+
+\item{pointAlpha}{The transparency of the \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}}
 
 \item{alphaLineColor, alphaLineType, alphaLineWidth}{Color, type and width of
 the line used to mark the significance cutoff. See \code{?ggplot2::geom_hline()}.}

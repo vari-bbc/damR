@@ -57,6 +57,7 @@ VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel =
 #' @param pointColors Named vector of colors for `"Up regulated"`, `"Down
 #' regulated"`, and `"NS"` points
 #' @param pointSize Size of the `ggplot2::geom_point()`
+#' @param pointAlpha The transparency of the [`ggplot2::geom_point()`]
 #' @param alphaLineColor,alphaLineType,alphaLineWidth Color, type and width of
 #' the line used to mark the significance cutoff. See `?ggplot2::geom_hline()`.
 #' @param interactive Whether to plot as interactive with `ggiraph::geom_point_interactive()`
@@ -76,6 +77,7 @@ VolcanoPlotter <- function(
     "NS" = "grey"
   ),
   pointSize = 2,
+  pointAlpha = 0.7,
   alphaLineColor = "red",
   alphaLineType = "dotted",
   alphaLineWidth = 0.5,
@@ -94,7 +96,7 @@ VolcanoPlotter <- function(
       label = .data$Compound
     )
   ) +
-    point_aes(size = pointSize) +
+    point_aes(size = pointSize, alpha = pointAlpha) +
     geom_hline(
       yintercept = -log10(alphaLevel),
       linetype = alphaLineType,
