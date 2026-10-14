@@ -71,10 +71,12 @@ qc_data <- QCData(mdata)
 ```
 
 `RemoveMissing()` drops metabolites with more NAs than a specified proportion.
-To just get those that would be removed, use `IdentifyMetabolites()`. Use
-`PlotMissingness` to get a presence/absence heatmap of your data.
+To identify those that would be removed without removing them, call
+`IdentifyMissing()`. Run `PlotMissingness()` to get a presence/absence heatmap
+of your data.
 
 ```{r}
+PlotMissingness(qc_data)
 head(IdentifyMissing(qc_data))
 rm_data <- RemoveMissing(qc_data)
 ```
