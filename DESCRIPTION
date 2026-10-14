@@ -27,8 +27,7 @@ Imports:
   RColorBrewer,
   rlang,
   stringi,
-  tmvtnorm,
-  viridis
+  tmvtnorm
 Suggests:
     ggiraph,
     knitr,
