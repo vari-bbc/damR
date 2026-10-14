@@ -13,12 +13,10 @@
         data_table
         ggplot2
         limma
-        plotly
         RColorBrewer
         rlang
         stringi
         tmvtnorm
-        viridis
       ];
 
       Suggests = with pkgs.rPackages; [
