@@ -36,6 +36,8 @@ GetPCA <- function(fullData) {
 #' @param colorBy The column by which to color the points (using `aes(fill = ...)`)
 #' @param pointSize The size of the [`ggplot2::geom_point()`]
 #' @param pointAlpha The transparency of the [`ggplot2::geom_point()`]
+#' @param interactive Whether to plot as interactive with `ggiraph::geom_point_interactive()`
+#'
 #' @returns A named list where `pca` is the PCA data column bound to `fullData`
 #' and `varex` which contains the percent variance explained for each PC.
 #'
@@ -50,7 +52,8 @@ PlotPCA <- function(
   y = "PC2",
   colorBy = "Group",
   pointSize = 3,
-  pointAlpha = 0.8
+  pointAlpha = 0.8,
+  interactive = FALSE
 ) {
   stopifnot(
     "PCA must contain PCA data and variance explained - use GetPCA()" = {
@@ -58,6 +61,7 @@ PlotPCA <- function(
     }
   )
 
+  point_aes <- getGeomPoint(interactive)
   Group <- pool_blank <- NULL
   pd <- pca$pca
   xaxis <- x
@@ -75,17 +79,21 @@ PlotPCA <- function(
       x = .data[[xaxis]],
       y = .data[[yaxis]],
       color = .data[[colorBy]],
-      shape = .data$pool_blank
+      shape = .data$pool_blank,
+      data_id = .data$Group,
+      tooltip = .data$Group,
+      label = .data$Group
     )
   ) +
-    geom_point(
+    point_aes(
       size = pointSize,
-      alpha = pointAlpha
+      alpha = pointAlpha,
     ) +
-    geom_point(
+    point_aes(
       data = pd[is_pool_blank],
-      inherit.aes = FALSE,
-      aes(x = .data[[xaxis]], y = .data[[yaxis]], shape = pool_blank),
+      aes(
+        color = NULL
+      ),
       size = pointSize,
       alpha = pointAlpha
     ) +

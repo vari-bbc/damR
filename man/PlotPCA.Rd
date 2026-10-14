@@ -10,7 +10,8 @@ PlotPCA(
   y = "PC2",
   colorBy = "Group",
   pointSize = 3,
-  pointAlpha = 0.8
+  pointAlpha = 0.8,
+  interactive = FALSE
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ PlotPCA(
 \item{pointSize}{The size of the \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}}
 
 \item{pointAlpha}{The transparency of the \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}}
+
+\item{interactive}{Whether to plot as interactive with \code{ggiraph::geom_point_interactive()}}
 }
 \value{
 A named list where \code{pca} is the PCA data column bound to \code{fullData}
