@@ -115,6 +115,8 @@ VolcanoPlotter <- function(
 #'
 #' @returns A list of plots
 #'
+#' @importFrom stats setNames
+#'
 #' @export
 PlotAllVolcanoes <- function(
   resultTable,

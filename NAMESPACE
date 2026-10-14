@@ -87,9 +87,13 @@ importFrom(limma,
 importFrom(rlang,.data)
 importFrom(stats,
   as.formula,
+  lm,
   model.matrix,
   p.adjust,
   prcomp,
-  sd
+  qnorm,
+  quantile,
+  sd,
+  setNames
 )
 importFrom(utils,combn)

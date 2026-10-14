@@ -8,6 +8,7 @@
 #' @returns Matrix with NA values replaced by imputed values
 #'
 #' @importFrom collapse fgroup_by fmutate fnunique fungroup
+#' @importFrom stats lm qnorm quantile
 #'
 #' @export
 impute.QRILC <- function(filteredData, tune.sigma = 1) {
