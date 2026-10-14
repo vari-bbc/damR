@@ -81,12 +81,7 @@ VolcanoPlotter <- function(
   alphaLineWidth = 0.5,
   interactive = FALSE
 ) {
-  point_aes <- if (interactive) {
-    rlang::check_installed("ggiraph", reason = "ggiraph is required for interactive plots")
-    ggiraph::geom_point_interactive
-  } else {
-    geom_point
-  }
+  point_aes <- getGeomPoint(interactive)
 
   ggplot(
     pd,
