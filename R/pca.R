@@ -98,8 +98,8 @@ PlotPCA <- function(
       alpha = pointAlpha
     ) +
     labs(
-      x = sprintf("PCA (%.2f%%)", pca$varex[x]),
-      y = sprintf("PCA (%.2f%%)", pca$varex[y]),
+      x = sprintf("%s (%.2f%%)", x, pca$varex[x]),
+      y = sprintf("%s (%.2f%%)", y, pca$varex[y]),
       shape = "Sample type"
     ) +
     guides(shape = ifelse(all(!is_pool_blank), "none", "legend"))
