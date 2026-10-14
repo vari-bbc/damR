@@ -139,30 +139,27 @@ head(IdentifyMissing(qc_data))
 rm_data <- RemoveMissing(qc_data)
 ```
 
-To examine your data before and after QC, you can use PCA:
+To examine your data before and after QC, you can use PCA. By default it
+returns a `ggplot` object but if `ggiraph` is available, setting
+`interactive = TRUE` and using
+[`ggiraph::girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html)
+to render the plot will produce an interactive plot.
 
 ``` r
 
-library(patchwork)
 library(ggplot2)
-PlotPCA(GetPCA(mdata)) + ggtitle("Raw")
+library(patchwork)
+ggiraph_available <- requireNamespace("ggiraph", quietly = TRUE)
+
+pca.raw <- PlotPCA(GetPCA(mdata), interactive = ggiraph_available) + ggtitle("Raw")
+pca.qc <- PlotPCA(GetPCA(qc_data), interactive = ggiraph_available) + ggtitle("QC")
+pca.rm <- PlotPCA(GetPCA(rm_data), interactive = ggiraph_available) +
+  ggtitle("Missingness removed")
+
+pcas <- list(pca.raw, pca.qc, pca.rm) |> wrap_plots(nrow = 3, guides = "collect")
+
+if (ggiraph_available) ggiraph::girafe(pcas) else pcas
 ```
-
-![](damR_files/figure-html/unnamed-chunk-6-1.png)
-
-``` r
-
-PlotPCA(GetPCA(qc_data))+ ggtitle("QC")
-```
-
-![](damR_files/figure-html/unnamed-chunk-6-2.png)
-
-``` r
-
-PlotPCA(GetPCA(rm_data))+ ggtitle("Missingness removed")
-```
-
-![](damR_files/figure-html/unnamed-chunk-6-3.png)
 
 ## Imputation
 
@@ -184,13 +181,20 @@ PlotVolcano(results, groups[c(1, 5)], contrastTitle = "Example")
 
 ![](damR_files/figure-html/unnamed-chunk-8-1.png)
 
+As with the PCA plots, setting `interactive = TRUE` produces interactive
+volcano plots:
+
 ``` r
 
-PlotAllVolcanoes(results, groups[c(1:3)], contrastTitle = "Example") |>
-  wrap_plots()
-```
+all_volcanoes <- PlotAllVolcanoes(
+  results,
+  groups[c(1:3)],
+  contrastTitle = "Example",
+  interactive = ggiraph_available) |>
+  wrap_plots(guides = "collect") & theme(legend.position = "top")
 
-![](damR_files/figure-html/unnamed-chunk-8-2.png)
+if (ggiraph_available) ggiraph::girafe(all_volcanoes) else all_volcanoes
+```
 
 ## Pipeline
 

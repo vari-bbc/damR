@@ -10,6 +10,7 @@ VolcanoPlotter(
   alphaLevel,
   pointColors = c(`Up regulated` = "#276419", `Down regulated` = "#8E0152", NS = "grey"),
   pointSize = 2,
+  pointAlpha = 0.7,
   alphaLineColor = "red",
   alphaLineType = "dotted",
   alphaLineWidth = 0.5,
@@ -36,6 +37,11 @@ VolcanoPlotter(
 - pointSize:
 
   Size of the
+  [`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+
+- pointAlpha:
+
+  The transparency of the
   [`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
 
 - alphaLineColor, alphaLineType, alphaLineWidth:

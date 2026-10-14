@@ -12,7 +12,8 @@ PlotPCA(
   y = "PC2",
   colorBy = "Group",
   pointSize = 3,
-  pointAlpha = 0.8
+  pointAlpha = 0.8,
+  interactive = FALSE
 )
 ```
 
@@ -41,6 +42,11 @@ PlotPCA(
 
   The transparency of the
   [`ggplot2::geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)
+
+- interactive:
+
+  Whether to plot as interactive with
+  [`ggiraph::geom_point_interactive()`](https://davidgohel.github.io/ggiraph/reference/geom_point_interactive.html)
 
 ## Value
 

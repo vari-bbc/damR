@@ -19,7 +19,6 @@
 <url><loc>https://vari-bbc.github.io/damR/reference/PlotPCA.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/PlotVolcano.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/QCData.html</loc></url>
-<url><loc>https://vari-bbc.github.io/damR/reference/QCPCAPlots.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/ReadFile.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/RemoveMissing.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/VolcanoData.html</loc></url>
@@ -30,6 +29,7 @@
 <url><loc>https://vari-bbc.github.io/damR/reference/dropMetabolites.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/filterPresenceCV.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/getBatchDropTable.html</loc></url>
+<url><loc>https://vari-bbc.github.io/damR/reference/getGeomPoint.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/getZeroVar.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/impute.QRILC.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/index.html</loc></url>
