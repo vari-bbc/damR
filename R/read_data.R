@@ -12,6 +12,8 @@
 #' must be met for this function to work correctly:
 #' - Sample column data in the form "SampleID_Subgroup1-Subgroup2_Batch"
 #' - Metabolite column data in the form "MetaboliteName_ExtractionMethod"
+#' All numeric batch numbers have padding zeroes stripped and the Batch column
+#' is converted to a factor.
 #'
 #' @param filePath Input file path
 #' @returns Processed data.frame
@@ -33,10 +35,19 @@ ReadFile <- function(filePath) {
     _[, "Group" := gsub("-", "_", x), env = list(x = "Group")] |>
     _[, c("Metabolite", "Type") := tstrsplit(x, "_"), env = list(x = "Metabolite")]
 
+  # strip all Batch padding zeros from numbers and convert to factor
+  numeric_batch <- suppressWarnings(as.numeric(df.tidy$Batch))
+  numeric_idx <- !is.na(numeric_batch)
+  df.tidy[numeric_idx, "Batch" := numeric_batch[numeric_idx]] |>
+    _[, "Batch" := as.factor(x), env = list(x = "Batch")]
+
   # return log2 values
   df.tidy[, "value" := log2(x), env = list(x = "value")]
   cols <- c("Sample", "SampleID", "Group", "Subgroup1", "Subgroup2", "Batch", "Metabolite", "Type", "value")
   setcolorder(df.tidy, cols)
+
+  batch_labels <- paste(levels(df.tidy$Batch), collapse = ", ")
+  message("Found batches: ", batch_labels)
   df.tidy[]
 }
 
