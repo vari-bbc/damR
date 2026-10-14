@@ -127,9 +127,20 @@ qc_data <- QCData(mdata)
 ```
 
 [`RemoveMissing()`](https://vari-bbc.github.io/damR/reference/RemoveMissing.md)
-drops metabolites with more NAs than a specified proportion. To just get
-those that would be removed, use `IdentifyMetabolites()`. Use
-`PlotMissingness` to get a presence/absence heatmap of your data.
+drops metabolites with more NAs than a specified proportion. To identify
+those that would be removed without removing them, call
+[`IdentifyMissing()`](https://vari-bbc.github.io/damR/reference/IdentifyMissing.md).
+Run
+[`PlotMissingness()`](https://vari-bbc.github.io/damR/reference/PlotMissingness.md)
+to get a presence/absence heatmap of your data.
+
+``` r
+
+PlotMissingness(qc_data)
+#> Warning in RColorBrewer::brewer.pal(counts, anno.pal[x]): minimal value for n is 3, returning requested palette with 3 different levels
+```
+
+![](damR_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
 
