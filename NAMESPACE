@@ -16,7 +16,6 @@ export(PlotMissingness)
 export(PlotPCA)
 export(PlotVolcano)
 export(QCData)
-export(QCPCAPlots)
 export(ReadFile)
 export(RemoveMissing)
 export(VolcanoData)
@@ -77,8 +76,6 @@ importFrom(ggplot2,
   theme_minimal,
   ylab
 )
-importFrom(grDevices,colorRampPalette)
-importFrom(graphics,layout)
 importFrom(limma,
   contrasts.fit,
   duplicateCorrelation,
@@ -87,23 +84,12 @@ importFrom(limma,
   makeContrasts,
   topTable
 )
-importFrom(plotly,
-  add_trace,
-  plot_ly
-)
 importFrom(rlang,.data)
 importFrom(stats,
   as.formula,
-  lm,
   model.matrix,
   p.adjust,
   prcomp,
-  qnorm,
-  quantile,
-  sd,
-  setNames
+  sd
 )
-importFrom(utils,
-  combn,
-  read.csv
-)
+importFrom(utils,combn)

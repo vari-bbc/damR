@@ -24,7 +24,6 @@ Imports:
   data.table,
   ggplot2,
   limma,
-  plotly,
   RColorBrewer,
   rlang,
   stringi,
