@@ -82,12 +82,22 @@ rm_data <- RemoveMissing(qc_data)
 To examine your data before and after QC, you can use PCA:
 
 ```{r fig.ncol = 3}
-library(patchwork)
 library(ggplot2)
+library(patchwork)
 PlotPCA(GetPCA(mdata)) + ggtitle("Raw")
-PlotPCA(GetPCA(qc_data))+ ggtitle("QC")
-PlotPCA(GetPCA(rm_data))+ ggtitle("Missingness removed")
 ```
+
+Setting `interactive = TRUE` and using `ggiraph::girafe()` to render the plot
+will produce an interactive plot.
+
+```{r fig.height = 7}
+pca.qc <- PlotPCA(GetPCA(qc_data), interactive = TRUE) + ggtitle("QC")
+pca.rm <- PlotPCA(GetPCA(rm_data), interactive = TRUE) + ggtitle("Missingness removed")
+pcas <- list(pca.qc, pca.rm) |> wrap_plots(nrow = 2, guides = "collect")
+if (requireNamespace("ggiraph")) ggiraph::girafe(pcas) else pcas
+```
+
+
 
 ## Imputation
 
@@ -103,8 +113,21 @@ groups <- unique(imputed_data$Group)
 results <- DiffMetabolites(imputed_data)
 
 PlotVolcano(results, groups[c(1, 5)], contrastTitle = "Example")
-PlotAllVolcanoes(results, groups[c(1:3)], contrastTitle = "Example") |>
-  wrap_plots()
+```
+
+As with the PCA plots, setting `interactive = TRUE` produces interactive volcano
+plots:
+
+
+```{r fig.width = 6}
+all_volcanoes <- PlotAllVolcanoes(
+  results,
+  groups[c(1:3)],
+  contrastTitle = "Example",
+  interactive = TRUE) |>
+  wrap_plots(guides = "collect") & theme(legend.position = "top")
+
+if (requireNamespace("ggiraph")) ggiraph::girafe(all_volcanoes) else all_volcanoes
 ```
 
 ## Pipeline
