@@ -44,13 +44,14 @@ method (IP/HILIC/T3Acidic).
 ``` r
 
 (mdata <- ReadFile(exdata_path))
+#> Found batches: 1, 2, 3, 4, 5, 6
 #>              Sample SampleID   Group Subgroup1 Subgroup2  Batch    Metabolite
-#>              <char>   <char>  <char>    <char>    <char> <char>        <char>
-#>     1:  S01a_A-B_01     S01a     A_B         A         B     01     Histidine
-#>     2:  S01b_A-C_01     S01b     A_C         A         C     01     Histidine
-#>     3:  S01c_A-D_01     S01c     A_D         A         D     01     Histidine
-#>     4:  S01d_A-E_01     S01d     A_E         A         E     01     Histidine
-#>     5:  S02a_A-B_02     S02a     A_B         A         B     02     Histidine
+#>              <char>   <char>  <char>    <char>    <char> <fctr>        <char>
+#>     1:  S01a_A-B_01     S01a     A_B         A         B      1     Histidine
+#>     2:  S01b_A-C_01     S01b     A_C         A         C      1     Histidine
+#>     3:  S01c_A-D_01     S01c     A_D         A         D      1     Histidine
+#>     4:  S01d_A-E_01     S01d     A_E         A         E      1     Histidine
+#>     5:  S02a_A-B_02     S02a     A_B         A         B      2     Histidine
 #>    ---                                                                       
 #> 16096: TC_QC-pool_2       TC QC_pool        QC      pool      2 D-Sphingosine
 #> 16097: TC_QC-pool_3       TC QC_pool        QC      pool      3 D-Sphingosine
@@ -102,22 +103,22 @@ and removes metabolites with low variance.
 
 to_drop <- GetBlankDropTable(mdata)
 head(to_drop$dropTable)
-#>     Batch       Sample SampleID   Group Subgroup1 Subgroup2    Metabolite
-#>    <char>       <char>   <char>  <char>    <char>    <char>        <char>
-#> 1:      1 TC_QC-pool_1       TC QC_pool        QC      pool  Hypoxanthine
-#> 2:      1 TC_QC-pool_1       TC QC_pool        QC      pool      Xanthine
-#> 3:      1 TC_QC-pool_1       TC QC_pool        QC      pool  Deoxyuridine
-#> 4:      1 TC_QC-pool_1       TC QC_pool        QC      pool       Adenine
-#> 5:      1 TC_QC-pool_1       TC QC_pool        QC      pool Phenylalanine
-#> 6:      1 TC_QC-pool_1       TC QC_pool        QC      pool     Thymidine
-#>      Type     value max_blank       diff
-#>    <char>     <num>     <num>      <num>
-#> 1:     IP  1.584963  1.000000  0.5849625
-#> 2:     IP  1.000000  2.321928 -1.3219281
-#> 3:     IP 11.315150  9.733015  1.5821342
-#> 4:     IP 21.131802 18.927622  2.2041806
-#> 5:     IP 18.291094 18.074695  0.2163987
-#> 6:     IP  2.000000  1.000000  1.0000000
+#>     Batch       Sample SampleID   Group Subgroup1 Subgroup2   Metabolite   Type
+#>    <fctr>       <char>   <char>  <char>    <char>    <char>       <char> <char>
+#> 1:      1  S01d_A-E_01     S01d     A_E         A         E      Glycine     IP
+#> 2:      1  S01d_A-E_01     S01d     A_E         A         E   Citrulline     IP
+#> 3:      1  S01d_A-E_01     S01d     A_E         A         E       Valine     IP
+#> 4:      1  S10a_G-B_01     S10a     G_B         G         B       Uracil     IP
+#> 5:      1 TC_QC-pool_1       TC QC_pool        QC      pool Hypoxanthine     IP
+#> 6:      1 TC_QC-pool_1       TC QC_pool        QC      pool     Xanthine     IP
+#>        value max_blank       diff
+#>        <num>     <num>      <num>
+#> 1: 20.656614 18.790587  1.8660271
+#> 2: 16.949827 14.776382  2.1734451
+#> 3: 19.927279 17.785746  2.1415326
+#> 4: 20.058855 18.149444  1.9094100
+#> 5:  1.584963  1.000000  0.5849625
+#> 6:  1.000000  2.321928 -1.3219281
 to_drop$blanks
 #> [1] "TC_Blank-process_1" "TC_Blank-process_2" "TC_Blank-process_3"
 #> [4] "TC_Blank-process_4" "TC_Blank-process_5"
@@ -133,9 +134,9 @@ those that would be removed, use `IdentifyMetabolites()`. Use
 ``` r
 
 head(IdentifyMissing(qc_data))
-#> [1] "2'-Deoxycytidine"           "2-Hydroxybutyrate"         
-#> [3] "2-Methylcitrate"            "3-Hydroxyisobutyrate"      
-#> [5] "3-Methyl-2-oxovaleric acid" "4-Hydroxybutyrate"
+#> [1] "1H-Imidazole-1-acetic acid" "2'-Deoxycytidine"          
+#> [3] "2-Hydroxybutyrate"          "2-Methylcitrate"           
+#> [5] "3-Hydroxyisobutyrate"       "3-Methyl-2-oxovaleric acid"
 rm_data <- RemoveMissing(qc_data)
 ```
 

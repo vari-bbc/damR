@@ -34,3 +34,5 @@ work correctly:
 - Sample column data in the form "SampleID_Subgroup1-Subgroup2_Batch"
 
 - Metabolite column data in the form "MetaboliteName_ExtractionMethod"
+  All numeric batch numbers have padding zeroes stripped and the Batch
+  column is converted to a factor.

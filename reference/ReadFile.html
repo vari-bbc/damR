@@ -76,7 +76,9 @@ that need a <code>"-"</code> to delineate between contrast groups. The Metabolit
 column is split on <code>"_"</code> to identify the extraction method. All values &lt;= 0
 are set to NA and other values log2 transformed. The following requirements
 must be met for this function to work correctly:</p><ul><li><p>Sample column data in the form "SampleID_Subgroup1-Subgroup2_Batch"</p></li>
-<li><p>Metabolite column data in the form "MetaboliteName_ExtractionMethod"</p></li>
+<li><p>Metabolite column data in the form "MetaboliteName_ExtractionMethod"
+All numeric batch numbers have padding zeroes stripped and the Batch column
+is converted to a factor.</p></li>
 </ul></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
