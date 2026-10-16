@@ -123,20 +123,34 @@ groups <- unique(imputed_data$Group)
 
 results <- DiffMetabolites(imputed_data)
 
-PlotVolcano(results, groups[c(1, 5)], contrastTitle = "Example")
+PlotVolcano(results, groups[c(1, 5)], contrastTitle = "Example", cap = 5)
 ```
 
 As with the PCA plots, setting `interactive = TRUE` produces interactive volcano
-plots:
+plots.  With `PlotAllVolcanoes()` you can plot multiple groups, returned as a
+lit of plots. Here we collect the captions that show up when the fold-changes
+are capped and the common main title into a single title and caption.
 
 
 ```{r fig.width = 6}
-all_volcanoes <- PlotAllVolcanoes(
+all_volcanoes.list <- PlotAllVolcanoes(
   results,
   groups[c(1:3)],
+  cap = 10,
   contrastTitle = "Example",
-  interactive = ggiraph_available) |>
-  wrap_plots(guides = "collect") & theme(legend.position = "top")
+  interactive = ggiraph_available
+)
+
+# extract the caption to 'collect' it
+caption <- all_volcanoes.list[[1]]@labels$caption
+title <- all_volcanoes.list[[1]]@labels$title
+
+# drop the titles and captions
+all_volcanoes <- lapply(all_volcanoes.list, \(p) p + labs(title = NULL, caption = NULL)) |>
+  wrap_plots(guides = "collect") &
+  theme_minimal(7) &
+  theme(legend.position = "top") &
+  plot_annotation(title = title, caption = caption)
 
 if (ggiraph_available) ggiraph::girafe(all_volcanoes) else all_volcanoes
 ```
