@@ -111,6 +111,13 @@ imputed_data <- impute.QRILC(rm_data)
 
 ## Model fitting
 
+`DiffMetabolites()` uses `limma` to compute differential abundance of
+metabolites on specified groups. If unspecified, all unique Group identifiers
+are compared. By default, it produce contrasts in both directions for to make
+comparisons easy to view and plot: with groups A, B, and C the contrasts are A -
+B, A - C, and B - C as well as B - A, C - A, and C - B. Set `reverseContrasts =
+FALSE` if you want just one direction.
+
 ```{r}
 groups <- unique(imputed_data$Group)
 
