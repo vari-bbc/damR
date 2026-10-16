@@ -6,7 +6,10 @@
 #' @param alphaLevel Significance cutoff level
 #' @param cap Absolute log fold-change cap to cap the `logFC` x axis so that `-cap < logFC < cap`.
 #' @param ... Geom aesthetics passed to `VolcanoPlotter()`.
+#'
 #' @returns Volcano ggplot
+#'
+#' @importFrom ggplot2 labs theme element_text rel
 #'
 #' @export
 PlotVolcano <- function(
