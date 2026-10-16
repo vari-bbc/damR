@@ -7,7 +7,7 @@
 PlotAllVolcanoes(
   resultTable,
   contrastGroups,
-  contrastTitle,
+  contrastTitle = NULL,
   alphaLevel = 0.05,
   cap = NULL,
   ...
