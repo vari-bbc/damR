@@ -14,7 +14,7 @@ PlotVolcano <- function(
   contrastGroups,
   contrastTitle = NULL,
   alphaLevel = 0.05,
-  cap = 10,
+  cap = NULL,
   ...
 ) {
   stopifnot("`contrastGroups` accepts only two groups from the data" = length(contrastGroups) == 2)
@@ -22,8 +22,9 @@ PlotVolcano <- function(
   VolcanoPlotter(pd, alphaLevel, ...) +
     labs(
       title = contrastTitle,
-      caption = sprintf("all logFC capped at %1$.2f/-%1$.2f for plotting purposes", cap)
-    )
+      caption = ifelse(is.null(cap), "", sprintf("all logFC capped at %1$.2f/-%1$.2f for plotting purposes", cap))
+    ) +
+    theme(plot.caption = element_text(size = rel(0.5)))
 }
 
 #' Produce volcano plot data for a single contrast
@@ -36,18 +37,21 @@ PlotVolcano <- function(
 #' @importFrom data.table fcase
 #'
 #' @export
-VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = 10) {
+VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel = 0.05, cap = NULL) {
   Contrast <- logFC <- adj.P.Val <- NULL
   contrastStr <- MakeTheContrasts(contrastGroups, contrastTitle)
-  fsubset(resultTable, Contrast == contrastStr) |>
+  vd <- fsubset(resultTable, Contrast == contrastStr) |>
     fmutate(
-      logFC = pmax(pmin(logFC, cap), -cap), # cap between -cap and cap
       Direction = fcase(
         logFC > 0 & adj.P.Val < alphaLevel , "Up regulated"   ,
         logFC < 0 & adj.P.Val < alphaLevel , "Down regulated" ,
         default = "NS"
       )
     )
+  if (is.null(cap)) {
+    return(vd)
+  }
+  vd <- fmutate(vd, logFC = pmax(pmin(logFC, cap), -cap))
 }
 
 #' Volcano plot
@@ -122,7 +126,7 @@ PlotAllVolcanoes <- function(
   contrastGroups,
   contrastTitle,
   alphaLevel = 0.05,
-  cap = 10,
+  cap = NULL,
   ...
 ) {
   compareGroups <- combn(contrastGroups, 2, simplify = FALSE)
