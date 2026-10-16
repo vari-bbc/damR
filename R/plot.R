@@ -105,7 +105,6 @@ VolcanoPlotter <- function(
     ) +
     scale_color_manual(values = pointColors) +
     labs(y = expression(-log[10] ~ "(FDR p-value)"), subtitle = pd$Contrast[1]) +
-    theme_minimal(7) +
     theme(legend.position = "top")
 }
 
