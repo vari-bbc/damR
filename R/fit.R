@@ -35,6 +35,10 @@ MakeTheContrasts <- function(labels, title = "", prefix = "") {
 #' @param contrastLevel The column from the data containing `groups` levels,
 #' usually `"Group"`.
 #' @param repeated_measures Were there repeated measures?
+#' @param reverseContrasts Make contrasts in both directions. This makes it
+#' easy to examine both A - B and B - A. If set to false, the contrast order
+#' depends on the order of the input groups and the combinations produced by
+#' `MakeTheContrasts()` which may not be available in the output when reversed.
 #'
 #' @returns LogFC and adjusted P-values of `limma::topTable()` for each contrast
 #'
@@ -43,10 +47,14 @@ DiffMetabolites <- function(
   cleanData,
   groups = NULL,
   contrastLevel = "Group",
-  repeated_measures = "no"
+  repeated_measures = "no",
+  reverseContrasts = TRUE
 ) {
   groups <- groups %||% funique(cleanData[[contrastLevel]])
   theContrasts <- MakeTheContrasts(groups, prefix = contrastLevel)
+  if (reverseContrasts) {
+    theContrasts <- c(theContrasts, MakeTheContrasts(rev(groups), prefix = contrastLevel))
+  }
   ebayesFit <- FitTheData(
     cleanData,
     theContrasts,

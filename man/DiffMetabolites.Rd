@@ -9,7 +9,8 @@ DiffMetabolites(
   cleanData,
   groups = NULL,
   contrastLevel = "Group",
-  repeated_measures = "no"
+  repeated_measures = "no",
+  reverseContrasts = TRUE
 )
 }
 \arguments{
@@ -23,6 +24,11 @@ using \code{contrastLevel}.}
 usually \code{"Group"}.}
 
 \item{repeated_measures}{Were there repeated measures?}
+
+\item{reverseContrasts}{Make contrasts in both directions. This makes it
+easy to examine both A - B and B - A. If set to false, the contrast order
+depends on the order of the input groups and the combinations produced by
+\code{MakeTheContrasts()} which may not be available in the output when reversed.}
 }
 \value{
 LogFC and adjusted P-values of \code{limma::topTable()} for each contrast
