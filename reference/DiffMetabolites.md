@@ -9,7 +9,8 @@ DiffMetabolites(
   cleanData,
   groups = NULL,
   contrastLevel = "Group",
-  repeated_measures = "no"
+  repeated_measures = "no",
+  reverseContrasts = TRUE
 )
 ```
 
@@ -33,6 +34,14 @@ DiffMetabolites(
 - repeated_measures:
 
   Were there repeated measures?
+
+- reverseContrasts:
+
+  Make contrasts in both directions. This makes it easy to examine both
+  A - B and B - A. If set to false, the contrast order depends on the
+  order of the input groups and the combinations produced by
+  [`MakeTheContrasts()`](https://vari-bbc.github.io/damR/reference/MakeTheContrasts.md)
+  which may not be available in the output when reversed.
 
 ## Value
 
