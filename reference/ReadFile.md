@@ -5,7 +5,7 @@ Read and process input data file
 ## Usage
 
 ``` r
-ReadFile(filePath)
+ReadFile(filePath, cleanNames = TRUE)
 ```
 
 ## Arguments
@@ -13,6 +13,11 @@ ReadFile(filePath)
 - filePath:
 
   Input file path
+
+- cleanNames:
+
+  Clean up Metabolite names, replacing single or multiple spaces and
+  special characters with a single `'.'`.
 
 ## Value
 
@@ -36,3 +41,5 @@ work correctly:
 - Metabolite column data in the form "MetaboliteName_ExtractionMethod"
   All numeric batch numbers have padding zeroes stripped and the Batch
   column is converted to a factor.
+
+- Metabolite names cleaned up to remove special characters.

@@ -50,7 +50,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ReadFile</span><span class="op">(</span><span class="va">filePath</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ReadFile</span><span class="op">(</span><span class="va">filePath</span>, cleanNames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -59,6 +59,11 @@
 
 <dl><dt id="arg-filepath">filePath<a class="anchor" aria-label="anchor" href="#arg-filepath"></a></dt>
 <dd><p>Input file path</p></dd>
+
+
+<dt id="arg-cleannames">cleanNames<a class="anchor" aria-label="anchor" href="#arg-cleannames"></a></dt>
+<dd><p>Clean up Metabolite names, replacing single or multiple spaces and special
+characters with a single <code>'.'</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -79,6 +84,7 @@ must be met for this function to work correctly:</p><ul><li><p>Sample column dat
 <li><p>Metabolite column data in the form "MetaboliteName_ExtractionMethod"
 All numeric batch numbers have padding zeroes stripped and the Batch column
 is converted to a factor.</p></li>
+<li><p>Metabolite names cleaned up to remove special characters.</p></li>
 </ul></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

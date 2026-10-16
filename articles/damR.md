@@ -53,11 +53,11 @@ method (IP/HILIC/T3Acidic).
 #>     4:  S01d_A-E_01     S01d     A_E         A         E      1     Histidine
 #>     5:  S02a_A-B_02     S02a     A_B         A         B      2     Histidine
 #>    ---                                                                       
-#> 16096: TC_QC-pool_2       TC QC_pool        QC      pool      2 D-Sphingosine
-#> 16097: TC_QC-pool_3       TC QC_pool        QC      pool      3 D-Sphingosine
-#> 16098: TC_QC-pool_4       TC QC_pool        QC      pool      4 D-Sphingosine
-#> 16099: TC_QC-pool_5       TC QC_pool        QC      pool      5 D-Sphingosine
-#> 16100: TC_QC-pool_6       TC QC_pool        QC      pool      6 D-Sphingosine
+#> 16096: TC_QC-pool_2       TC QC_pool        QC      pool      2 D.Sphingosine
+#> 16097: TC_QC-pool_3       TC QC_pool        QC      pool      3 D.Sphingosine
+#> 16098: TC_QC-pool_4       TC QC_pool        QC      pool      4 D.Sphingosine
+#> 16099: TC_QC-pool_5       TC QC_pool        QC      pool      5 D.Sphingosine
+#> 16100: TC_QC-pool_6       TC QC_pool        QC      pool      6 D.Sphingosine
 #>            Type    value
 #>          <char>    <num>
 #>     1:       IP 25.44187
@@ -145,9 +145,8 @@ PlotMissingness(qc_data)
 ``` r
 
 head(IdentifyMissing(qc_data))
-#> [1] "1H-Imidazole-1-acetic acid" "2'-Deoxycytidine"          
-#> [3] "2-Hydroxybutyrate"          "2-Methylcitrate"           
-#> [5] "3-Hydroxyisobutyrate"       "3-Methyl-2-oxovaleric acid"
+#> [1] "AcCa.14.0." "AcCa.14.1." "AcCa.15.2." "AcCa.16.0." "AcCa.16.2."
+#> [6] "AcCa.18.0."
 rm_data <- RemoveMissing(qc_data)
 ```
 
