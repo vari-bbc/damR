@@ -87,7 +87,6 @@ FitTheData <- function(
 ) {
   mat <- fselect(cleanData, c("Sample", "Group", "Metabolite", "value")) |>
     pivot(ids = c("Sample", "Group"), names = "Metabolite", how = "wider")
-  colnames(cleanData) <- make.names(colnames(cleanData))
 
   design <- model.matrix(as.formula(paste("~ 0 +", contrastLevel)), data = mat) # ERW Make model
   num_data <- t(num_vars(mat))

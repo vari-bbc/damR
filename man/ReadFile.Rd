@@ -4,10 +4,13 @@
 \alias{ReadFile}
 \title{Read and process input data file}
 \usage{
-ReadFile(filePath)
+ReadFile(filePath, cleanNames = TRUE)
 }
 \arguments{
 \item{filePath}{Input file path}
+
+\item{cleanNames}{Clean up Metabolite names, replacing single or multiple spaces and special
+characters with a single \code{'.'}.}
 }
 \value{
 Processed data.frame
@@ -30,5 +33,6 @@ must be met for this function to work correctly:
 \item Metabolite column data in the form "MetaboliteName_ExtractionMethod"
 All numeric batch numbers have padding zeroes stripped and the Batch column
 is converted to a factor.
+\item Metabolite names cleaned up to remove special characters.
 }
 }

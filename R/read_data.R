@@ -14,18 +14,29 @@
 #' - Metabolite column data in the form "MetaboliteName_ExtractionMethod"
 #' All numeric batch numbers have padding zeroes stripped and the Batch column
 #' is converted to a factor.
+#' - Metabolite names cleaned up to remove special characters.
 #'
 #' @param filePath Input file path
+#' @param cleanNames Clean up Metabolite names, replacing single or multiple spaces and special
+#' characters with a single `'.'`.
+#'
 #' @returns Processed data.frame
 #'
 #' @importFrom data.table fcase fread %like% melt setcolorder tstrsplit :=
 #'
 #' @export
-ReadFile <- function(filePath) {
+ReadFile <- function(filePath, cleanNames = TRUE) {
   x <- value <- NULL
   df.wide <- fread(filePath, comment.char = "#", integer64 = "double")
   df.tidy <- suppressWarnings(melt(df.wide, id.vars = "Sample", variable.name = "Metabolite"))
   df.tidy[value == 0, value := NA] # drop 0 so no log2(0)
+
+  if (cleanNames) {
+    df.tidy[,
+      "Metabolite" := stringi::stri_replace_all_regex(make.names(x), "\\.+", "."),
+      env = list(x = "Metabolite")
+    ]
+  }
 
   CheckData(df.tidy)
 
