@@ -23,6 +23,7 @@
 #' @returns Processed data.frame
 #'
 #' @importFrom data.table fcase fread %like% melt setcolorder tstrsplit :=
+#' @importFrom utils hasName
 #'
 #' @export
 ReadFile <- function(filePath, cleanNames = TRUE) {

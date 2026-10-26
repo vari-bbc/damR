@@ -98,4 +98,7 @@ importFrom(stats,
   sd,
   setNames
 )
-importFrom(utils,combn)
+importFrom(utils,
+  combn,
+  hasName
+)
