@@ -52,7 +52,7 @@ QCData <- function(
   zeroVarDropped <- dropMetabolites(zeroVarMetabolites, inputData)
 
   Sample <- NULL
-  fsubset(inputData, !(Sample %like% controlPattern))
+  fsubset(zeroVarDropped, !(Sample %like% controlPattern))
 }
 
 #' Identify metabolites with zero variance, including any that are all NA
