@@ -28,6 +28,7 @@
 ReadFile <- function(filePath, cleanNames = TRUE) {
   x <- value <- NULL
   df.wide <- fread(filePath, comment.char = "#", integer64 = "double")
+  stopifnot("Data must contain a `Sample` column" = hasName(df.wide, "Sample"))
   df.tidy <- suppressWarnings(melt(df.wide, id.vars = "Sample", variable.name = "Metabolite"))
   df.tidy[value == 0, value := NA] # drop 0 so no log2(0)
 

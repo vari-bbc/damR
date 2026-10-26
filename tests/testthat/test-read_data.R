@@ -17,6 +17,13 @@ test_that("ReadFile", {
   comment_file <- file.path(extdata, "comment_data.csv")
   comment_filtered <- ReadFile(comment_file)
   expect_all_false(grepl("^#", comment_filtered$Sample))
+
+  tmpfile <- tempfile(fileext = ".csv")
+  write.csv(read_in_data[, -1], tmpfile)
+  expect_error(
+    ReadFile(tmpfile),
+    regex = "Data must contain a `Sample` column"
+  )
 })
 
 test_that("CheckData", {
