@@ -76,8 +76,7 @@ GetBlankDropTable <- function(inputData, blankFoldThreshold = 5, blankPattern = 
   Sample <- NULL
   blanks <- funique(fsubset(inputData, Sample %ilike% "blank")[["Sample"]])
   if (length(blanks) == 0) {
-    message(sprintf("No blanks were found in this dataset using the pattern: '%s'", blankPattern))
-    return(list(dropTable = NULL, blanks = NULL))
+    stop(sprintf("No blanks were found in this dataset using the pattern: '%s'", blankPattern))
   }
   list(
     # split by Batch and blank filter on each batch data.table, referenced by .SD
