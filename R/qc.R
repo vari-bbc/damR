@@ -25,6 +25,8 @@
 #' @param blankPattern String pattern to denote blank samples
 #' @param controlPattern String pattern to denote control samples like QC
 #'
+#' @returns QC'd `data.table`
+#'
 #' @importFrom collapse fgroup_by fsubset fsummarise
 #' @importFrom stats sd
 #'
@@ -56,6 +58,8 @@ QCData <- function(
 #' Identify metabolites with zero variance, including any that are all NA
 #'
 #' @param inputData Input metabolite data
+#'
+#' @returns Vector of metabolites with zero variance
 #'
 #' @importFrom collapse fgroup_by fsubset fsummarise
 #' @importFrom stats sd

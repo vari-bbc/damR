@@ -9,6 +9,9 @@ getZeroVar(inputData)
 \arguments{
 \item{inputData}{Input metabolite data}
 }
+\value{
+Vector of metabolites with zero variance
+}
 \description{
 Identify metabolites with zero variance, including any that are all NA
 }

@@ -35,6 +35,9 @@ based on their coefficient of variance. See \code{FilterExtraction()}.}
 
 \item{controlPattern}{String pattern to denote control samples like QC}
 }
+\value{
+QC'd \code{data.table}
+}
 \description{
 Run QC on input data
 }
