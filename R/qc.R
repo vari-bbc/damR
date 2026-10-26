@@ -70,6 +70,6 @@ getZeroVar <- function(inputData) {
   value <- zv <- NULL
   fgroup_by(inputData, "Metabolite") |>
     fsummarise(zv = sd(value, na.rm = TRUE) < 0.01) |>
-    fsubset(zv == TRUE | is.na(zv)) |>
+    fsubset(zv | is.na(zv)) |>
     _[["Metabolite"]]
 }
