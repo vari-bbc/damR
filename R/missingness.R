@@ -83,7 +83,7 @@ PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2"), showRownames =
       names(pal) <- unique(anno.df[[x]])
       pal[seq(counts)]
     },
-    simplify = F
+    simplify = FALSE
   )
 }
 
