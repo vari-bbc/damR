@@ -32,7 +32,7 @@ test_that("CheckData", {
   tidy <- input_data[, 1:2]
   colnames(tidy) <- c("Sample", "value")
   more_dashes <- tidy
-  more_dashes[1, 1] <- sub("_", "-", more_dashes[1, 1])
+  more_dashes[1, 1] <- sub("_", "-", more_dashes[1, 1], fixed = TRUE)
 
   # character in data column
   not_numeric <- tidy
