@@ -54,6 +54,10 @@ QCData(
 
   String pattern to denote control samples like QC
 
+## Value
+
+QC'd `data.table`
+
 ## Details
 
 For each metabolite's separation method, it selects the one with the

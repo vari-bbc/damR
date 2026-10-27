@@ -13,3 +13,7 @@ getZeroVar(inputData)
 - inputData:
 
   Input metabolite data
+
+## Value
+
+Vector of metabolites with zero variance
