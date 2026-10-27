@@ -3,6 +3,7 @@
 .envrc
 ^_.*
 air.toml
+jarl.toml
 .Rprofile
 .direnv
 flake.*
