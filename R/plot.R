@@ -54,7 +54,7 @@ VolcanoData <- function(resultTable, contrastGroups, contrastTitle, alphaLevel =
   if (is.null(cap)) {
     return(vd)
   }
-  vd <- fmutate(vd, logFC = pmax(pmin(logFC, cap), -cap))
+  fmutate(vd, logFC = pmax(pmin(logFC, cap), -cap))
 }
 
 #' Volcano plot
