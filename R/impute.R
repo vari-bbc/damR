@@ -27,20 +27,20 @@ impute.QRILC <- function(filteredData, tune.sigma = 1) {
   if (pNAs == 0) {
     return(metabolite)
   }
-  upper.q = 0.99
-  q.normal = qnorm(
+  upper.q <- 0.99
+  q.normal <- qnorm(
     seq((pNAs + 0.001), (upper.q + 0.001), (upper.q - pNAs) / (upper.q * 100)),
     mean = 0,
     sd = 1
   )
-  q.curr.sample = quantile(
+  q.curr.sample <- quantile(
     metabolite,
     probs = seq(0.001, (upper.q + 0.001), 0.01),
     na.rm = TRUE
   )
-  lm.qr = lm(q.curr.sample ~ q.normal)
-  mean.CDD = lm.qr$coefficients[1]
-  sd.CDD = as.numeric(lm.qr$coefficients[2])
+  lm.qr <- lm(q.curr.sample ~ q.normal)
+  mean.CDD <- lm.qr$coefficients[1]
+  sd.CDD <- as.numeric(lm.qr$coefficients[2])
   tmvtnorm::rtmvnorm(
     n = nFeatures,
     mean = mean.CDD,
