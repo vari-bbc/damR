@@ -1,0 +1,17 @@
+on:
+  pull_request:
+
+name: jarl-check
+
+permissions: read-all
+
+jobs:
+  jarl-check:
+    name: jarl-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: etiennebacher/setup-jarl@v0.1.1
+        with:
+          version: "latest"
+          args: "check --select ALL --ignore DPLYR"
