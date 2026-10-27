@@ -102,5 +102,5 @@ PlotPCA <- function(
       y = sprintf("%s (%.2f%%)", y, pca$varex[y]),
       shape = "Sample type"
     ) +
-    guides(shape = ifelse(all(!is_pool_blank), "none", "legend"))
+    guides(shape = ifelse(!any(is_pool_blank), "none", "legend"))
 }

@@ -19,7 +19,7 @@
 MakeTheContrasts <- function(labels, title = "", prefix = "") {
   res <- combn(paste0(prefix, labels), 2) |>
     apply(2, paste, collapse = " - ")
-  names(res) <- paste0(title, seq(length(res)))
+  names(res) <- paste0(title, seq_along(res))
   res
 }
 
