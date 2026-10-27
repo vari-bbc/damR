@@ -44,47 +44,11 @@ IdentifyMissing <- function(qcData, presence_threshold = 0.75) {
 #'
 #' @export
 PlotMissingness <- function(qcData, anno.pal = c("Set1", "Set2"), showRownames = TRUE) {
-  value <- NULL
+  value <- pmat <- anno <- anno.colors <- NULL
 
-  cols <- c("Sample", paste0("Subgroup", 1:2), "Metabolite", "value")
-  data.bin.wide <- fselect(qcData, cols) |>
-    fmutate(value = ifelse(is.na(value), 0, 1)) |>
-    pivot(how = "wider", names = "Metabolite")
-  metab.cols <- num_vars(data.bin.wide, return = "names")
-  pmat <- fselect(data.bin.wide, c("Sample", metab.cols)) |>
-    as.matrix(rownames = "Sample") |>
-    t()
-
-  anno <- get_vars(data.bin.wide, "Subgroup", regex = TRUE)
-  anno.colors <- .getAnnoColors(anno, anno.pal)
+  data.bin <- fmutate(qcData, value = ifelse(is.na(value), 0, 1))
+  .c(pmat, anno, anno.colors) %=% getHeatmapInputs(data.bin, anno.pal)
   .plotMissingHeatmap(pmat, anno, anno.colors, showRownames)
-}
-
-#' Helper to set up annotation colors for Sample groups in heatmap
-#'
-#' @param anno.df Annotation `data.frame` containing Subgroups as columns
-#' @param anno.pal RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors
-#' @returns Named list of named vectors of colors. List names are `anno.df`
-#' column names and vector names are of the unique elements in `anno.df`.
-#'
-#' @examples
-#' (anno.df <- data.frame(Subgroup1 = rep(letters[1:2], 3), Subgroup2 = letters[3:8]))
-#' .getAnnoColors(anno.df, c("Set1", "Set2"))
-#'
-#' @export
-#' @keywords internal
-.getAnnoColors <- function(anno.df, anno.pal) {
-  names(anno.pal) <- colnames(anno.df)
-  sapply(
-    names(anno.df),
-    function(x) {
-      counts <- length(unique(anno.df[[x]]))
-      pal <- RColorBrewer::brewer.pal(counts, anno.pal[x])
-      names(pal) <- unique(anno.df[[x]])
-      pal[seq(counts)]
-    },
-    simplify = FALSE
-  )
 }
 
 #' Helper to plot missingness heatmap
