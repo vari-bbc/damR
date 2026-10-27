@@ -45,7 +45,7 @@ ReadFile <- function(filePath, cleanNames = TRUE) {
   # split up Sample column; `env` specifies columns to prevent R CMD check NOTES
   df.tidy[, c("SampleID", "Group", "Batch") := tstrsplit(x, "_"), env = list(x = "Sample")] |>
     _[, paste0("Subgroup", 1:2) := tstrsplit(x, "-"), env = list(x = "Group")] |>
-    _[, "Group" := gsub("-", "_", x), env = list(x = "Group")] |>
+    _[, "Group" := gsub("-", "_", x, fixed = TRUE), env = list(x = "Group")] |>
     _[, c("Metabolite", "Type") := tstrsplit(x, "_"), env = list(x = "Metabolite")]
 
   # strip all Batch padding zeros from numbers and convert to factor
