@@ -87,7 +87,7 @@ PlotPCA <- function(
   ) +
     point_aes(
       size = pointSize,
-      alpha = pointAlpha,
+      alpha = pointAlpha
     ) +
     point_aes(
       data = pd[is_pool_blank],
