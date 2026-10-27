@@ -1,7 +1,3 @@
-exdata <- ReadFile(exdata_path)
-qc_data <- exdata
-# qc_data <- QCData(exdata)$TheData
-
 n <- 100
 dummy.df <- data.table("Metabolite" = rep(c("HighMissing", "LowMissing"), 1, each = n))
 dummy.df$value <- seq_len(nrow(dummy.df))

@@ -29,6 +29,6 @@ test_that("FitTheData", {
   complete_data <- RemoveMissing(qc_data)
   imputed_data <- impute.QRILC(complete_data)
   expect_no_error(
-    ebayes.fit <- DiffMetabolites(complete_data)
+    ebayes.fit <- DiffMetabolites(imputed_data)
   )
 })
