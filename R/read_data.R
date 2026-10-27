@@ -75,10 +75,9 @@ ReadFile <- function(filePath, cleanNames = TRUE) {
 #' @export
 #' @keywords internal
 CheckData <- function(input_data) {
+  dash_count <- stringi::stri_count_fixed(input_data$Sample, "-")
   stopifnot(
-    "Each 'Sample' column entry may contain only one dash (max of two conditions)" = all(
-      stringi::stri_count_fixed(input_data$Sample, "-") == 1
-    )
+    "Each 'Sample' column entry may contain only one dash (max of two conditions)" = (dash_count == 1)
   )
   stopifnot("The data columns must all be numeric" = is.numeric(input_data$value))
   stopifnot("The data columns must all be positive" = all(input_data$value >= 0, na.rm = TRUE))
