@@ -83,3 +83,5 @@
   : Plot volcano for a single contrast
 - [`PlotAllVolcanoes()`](https://vari-bbc.github.io/damR/reference/PlotAllVolcanoes.md)
   : Plot volcanoes for all input contrasts
+- [`PlotSigMetabolites()`](https://vari-bbc.github.io/damR/reference/PlotSigMetabolites.md)
+  : Plot heatmap of significantly differentially abundant metabolites

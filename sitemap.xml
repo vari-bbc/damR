@@ -17,6 +17,7 @@
 <url><loc>https://vari-bbc.github.io/damR/reference/PlotAllVolcanoes.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/PlotMissingness.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/PlotPCA.html</loc></url>
+<url><loc>https://vari-bbc.github.io/damR/reference/PlotSigMetabolites.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/PlotVolcano.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/QCData.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/ReadFile.html</loc></url>
@@ -25,11 +26,13 @@
 <url><loc>https://vari-bbc.github.io/damR/reference/VolcanoPlotter.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/dot-getAnnoColors.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/dot-plotMissingHeatmap.html</loc></url>
+<url><loc>https://vari-bbc.github.io/damR/reference/dot-plotSigHeatmap.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/dropBlankFiltered.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/dropMetabolites.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/filterPresenceCV.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/getBatchDropTable.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/getGeomPoint.html</loc></url>
+<url><loc>https://vari-bbc.github.io/damR/reference/getHeatmapInputs.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/getZeroVar.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/impute.QRILC.html</loc></url>
 <url><loc>https://vari-bbc.github.io/damR/reference/index.html</loc></url>

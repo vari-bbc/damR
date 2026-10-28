@@ -231,6 +231,22 @@ all_volcanoes <- lapply(all_volcanoes.list, \(p) p + labs(title = NULL, caption 
 if (ggiraph_available) ggiraph::girafe(all_volcanoes) else all_volcanoes
 ```
 
+## Heatmap of significantly differentially abundant metabolites
+
+``` r
+
+PlotSigMetabolites(
+  results,
+  imputed_data,
+  color = RColorBrewer::brewer.pal(7, "Greys"),
+  cluster_cols = FALSE,
+  show_rownames = FALSE
+)
+#> Warning in RColorBrewer::brewer.pal(counts, anno.pal[x]): minimal value for n is 3, returning requested palette with 3 different levels
+```
+
+![](damR_files/figure-html/unnamed-chunk-10-1.png)
+
 ## Pipeline
 
 ``` r
