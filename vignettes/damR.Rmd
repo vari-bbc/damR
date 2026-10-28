@@ -155,6 +155,20 @@ all_volcanoes <- lapply(all_volcanoes.list, \(p) p + labs(title = NULL, caption 
 if (ggiraph_available) ggiraph::girafe(all_volcanoes) else all_volcanoes
 ```
 
+## Heatmap of significantly differentially abundant metabolites
+
+```{r fig.height=8, fig.width=8}
+PlotSigMetabolites(
+  results,
+  imputed_data,
+  color = RColorBrewer::brewer.pal(7, "Greys"),
+  cluster_cols = FALSE,
+  show_rownames = FALSE
+)
+```
+
+
+
 ## Pipeline
 
 ```r
