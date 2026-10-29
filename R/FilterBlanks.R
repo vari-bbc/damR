@@ -74,7 +74,7 @@ dropBlankFiltered <- function(inputData, dropTable, blanks) {
 #' @export
 GetBlankDropTable <- function(inputData, blankFoldThreshold = 5, blankPattern = "PB|blank") {
   Sample <- NULL
-  blanks <- funique(fsubset(inputData, Sample %ilike% "blank")[["Sample"]])
+  blanks <- funique(fsubset(inputData, Sample %ilike% blankPattern)[["Sample"]])
   if (length(blanks) == 0) {
     stop(sprintf("No blanks were found in this dataset using the pattern: '%s'", blankPattern), call. = FALSE)
   }
