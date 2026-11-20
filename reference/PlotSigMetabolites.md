@@ -32,7 +32,8 @@ PlotSigMetabolites(
 
 - fcThreshold:
 
-  The fold change to filter metabolites as 'significant'
+  The absolute fold change to filter metabolites as 'significant'. This
+  value is converted to log2 in the function.
 
 - alpha:
 
