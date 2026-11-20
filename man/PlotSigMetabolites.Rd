@@ -21,7 +21,7 @@ PlotSigMetabolites(
 \item{imputedData}{Imputed metabolite data from \code{impute.QRILC()} used to
 produce the heatmap}
 
-\item{fcThreshold}{The fold change to filter metabolites as 'significant'}
+\item{fcThreshold}{The absolute fold change to filter metabolites as 'significant'. This value is converted to log2 in the function.}
 
 \item{alpha}{Significance level to filter the differential abundance p-value}
 

@@ -10,7 +10,7 @@
 #' `DiffMetabolites()` used to select metabolites for the heatmap
 #' @param imputedData Imputed metabolite data from `impute.QRILC()` used to
 #' produce the heatmap
-#' @param fcThreshold The fold change to filter metabolites as 'significant'
+#' @param fcThreshold The absolute fold change to filter metabolites as 'significant'. This value is converted to log2 in the function.
 #' @param alpha Significance level to filter the differential abundance p-value
 #' @param scale Whether to scale the imputed data matrix to mean 0 and standard
 #' deviation of 1
@@ -33,7 +33,7 @@ PlotSigMetabolites <- function(
 ) {
   logFC <- adj.P.Val <- Metabolite <- pmat <- anno <- anno.colors <- NULL
 
-  sigMetabolites <- fsubset(diffMetabolites, logFC >= fcThreshold & adj.P.Val < alpha) |>
+  sigMetabolites <- fsubset(diffMetabolites, logFC >= log2(fcThreshold) & adj.P.Val < alpha) |>
     _[["Compound"]] |>
     funique()
   sigImputed <- fsubset(imputedData, Metabolite %in% sigMetabolites)
