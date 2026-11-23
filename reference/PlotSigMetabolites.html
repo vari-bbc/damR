@@ -53,9 +53,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PlotSigMetabolites</span><span class="op">(</span></span>
 <span>  <span class="va">diffMetabolites</span>,</span>
 <span>  <span class="va">imputedData</span>,</span>
-<span>  fcThreshold <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  fcThreshold <span class="op">=</span> <span class="fl">1.1</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  anno.pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Set1"</span>, <span class="st">"Set2"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -83,11 +82,6 @@ produce the heatmap</p></dd>
 <dd><p>Significance level to filter the differential abundance p-value</p></dd>
 
 
-<dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
-<dd><p>Whether to scale the imputed data matrix to mean 0 and standard
-deviation of 1</p></dd>
-
-
 <dt id="arg-anno-pal">anno.pal<a class="anchor" aria-label="anchor" href="#arg-anno-pal"></a></dt>
 <dd><p>RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors</p></dd>
 
@@ -109,6 +103,9 @@ deviation of 1</p></dd>
 <dd><p>The same as in <code>pheatmap</code>.</p></dd>
 
     <dt><code>cellheight</code></dt>
+<dd><p>The same as in <code>pheatmap</code>.</p></dd>
+
+    <dt><code>scale</code></dt>
 <dd><p>The same as in <code>pheatmap</code>.</p></dd>
 
     <dt><code>cluster_rows</code></dt>

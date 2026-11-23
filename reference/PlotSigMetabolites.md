@@ -8,9 +8,8 @@ Plot heatmap of significantly differentially abundant metabolites
 PlotSigMetabolites(
   diffMetabolites,
   imputedData,
-  fcThreshold = 2,
+  fcThreshold = 1.1,
   alpha = 0.05,
-  scale = FALSE,
   anno.pal = c("Set1", "Set2"),
   ...
 )
@@ -38,11 +37,6 @@ PlotSigMetabolites(
 - alpha:
 
   Significance level to filter the differential abundance p-value
-
-- scale:
-
-  Whether to scale the imputed data matrix to mean 0 and standard
-  deviation of 1
 
 - anno.pal:
 
@@ -81,6 +75,10 @@ PlotSigMetabolites(
   :   The same as in `pheatmap`.
 
   `cellheight`
+
+  :   The same as in `pheatmap`.
+
+  `scale`
 
   :   The same as in `pheatmap`.
 

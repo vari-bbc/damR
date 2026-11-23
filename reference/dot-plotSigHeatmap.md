@@ -5,7 +5,7 @@ Helper to plot missingness heatmap
 ## Usage
 
 ``` r
-.plotSigHeatmap(mat, scaled, anno.df, anno.pal, ...)
+.plotSigHeatmap(mat, anno.df, anno.pal, ...)
 ```
 
 ## Arguments
@@ -13,10 +13,6 @@ Helper to plot missingness heatmap
 - mat:
 
   Matrix of imputed data subset to differentially abundant metabolites
-
-- scaled:
-
-  Whether the input matrix was scaled
 
 - anno.df:
 
