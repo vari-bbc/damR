@@ -4,12 +4,10 @@
 \alias{.plotSigHeatmap}
 \title{Helper to plot missingness heatmap}
 \usage{
-.plotSigHeatmap(mat, scaled, anno.df, anno.pal, ...)
+.plotSigHeatmap(mat, anno.df, anno.pal, ...)
 }
 \arguments{
 \item{mat}{Matrix of imputed data subset to differentially abundant metabolites}
-
-\item{scaled}{Whether the input matrix was scaled}
 
 \item{anno.df}{Annotation data.frame with the sample groups}
 

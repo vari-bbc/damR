@@ -9,7 +9,6 @@ PlotSigMetabolites(
   imputedData,
   fcThreshold = 1.1,
   alpha = 0.05,
-  scale = FALSE,
   anno.pal = c("Set1", "Set2"),
   ...
 )
@@ -25,9 +24,6 @@ produce the heatmap}
 
 \item{alpha}{Significance level to filter the differential abundance p-value}
 
-\item{scale}{Whether to scale the imputed data matrix to mean 0 and standard
-deviation of 1}
-
 \item{anno.pal}{RColorBrewer palette to use for Subgroup1 and Subgroup2 annotation colors}
 
 \item{...}{
@@ -39,6 +35,7 @@ deviation of 1}
     \item{\code{border_color}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
     \item{\code{cellwidth}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
     \item{\code{cellheight}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
+    \item{\code{scale}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
     \item{\code{cluster_rows}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
     \item{\code{cluster_cols}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
     \item{\code{clustering_distance_rows}}{The same as in \code{\link[pheatmap]{pheatmap}}.}
