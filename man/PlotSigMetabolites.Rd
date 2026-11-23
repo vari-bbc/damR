@@ -7,7 +7,7 @@
 PlotSigMetabolites(
   diffMetabolites,
   imputedData,
-  fcThreshold = 2,
+  fcThreshold = 1.1,
   alpha = 0.05,
   scale = FALSE,
   anno.pal = c("Set1", "Set2"),
